@@ -13,12 +13,12 @@ import {
   Programme, 
   Module, 
   getGradeInfo, 
-  calculateSemesterGPA 
+  calculateSemesterGPA, 
+  gradingScale
 } from '@/data/academicData';
 
 interface ModuleGrade {
   module: Module;
-  mark: number;
   letterGrade: string;
   gradePoint: number;
 }
@@ -45,7 +45,6 @@ const GPACalculator = () => {
       if (semester) {
         const initialGrades: ModuleGrade[] = semester.modules.map(module => ({
           module,
-          mark: 0,
           letterGrade: 'F',
           gradePoint: 0.0
         }));
@@ -64,34 +63,23 @@ const GPACalculator = () => {
     }
   };
 
-  const handleMarkChange = (index: number, mark: string) => {
-    const numericMark = parseFloat(mark) || 0;
-    if (numericMark < 0 || numericMark > 100) {
-      toast({
-        title: "Invalid Mark",
-        description: "Please enter a mark between 0 and 100.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    const { letterGrade, gradePoint } = getGradeInfo(numericMark);
+  const handleGradeChange = (index: number, letterGrade: string) => {
+    const gradeInfo = gradingScale.find(g => g.letterGrade === letterGrade);
     
     const updatedGrades = [...moduleGrades];
     updatedGrades[index] = {
       ...updatedGrades[index],
-      mark: numericMark,
       letterGrade,
-      gradePoint
+      gradePoint: gradeInfo?.gradePoint || 0.0
     };
     setModuleGrades(updatedGrades);
   };
 
   const calculateGPA = () => {
-    if (moduleGrades.some(grade => grade.mark === 0)) {
+    if (moduleGrades.some(grade => !grade.letterGrade)) {
       toast({
         title: "Incomplete Data",
-        description: "Please enter marks for all modules.",
+        description: "Please select a grade for all modules.",
         variant: "destructive"
       });
       return;
@@ -234,10 +222,10 @@ const GPACalculator = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-primary" />
-                Module Marks Entry
+                Module Grades Entry
               </CardTitle>
               <CardDescription>
-                Enter your marks for each module (0-100). Grades will be calculated automatically.
+                Select your grades for each module. GPA will be calculated automatically.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -252,25 +240,28 @@ const GPACalculator = () => {
                       <Badge variant="secondary">{moduleGrade.module.creditHours} Credits</Badge>
                     </div>
                     <div>
-                      <Input
-                        type="number"
-                        min="0"
-                        max="100"
-                        placeholder="Enter mark"
-                        value={moduleGrade.mark || ''}
-                        onChange={(e) => handleMarkChange(index, e.target.value)}
-                        className="text-center"
-                      />
+                      <Select
+                        value={moduleGrade.letterGrade}
+                        onValueChange={(value) => handleGradeChange(index, value)}
+                      >
+                        <SelectTrigger className="w-[100px]">
+                          <SelectValue placeholder="Select grade" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {gradingScale.map((grade) => (
+                            <SelectItem key={grade.letterGrade} value={grade.letterGrade}>
+                              {grade.letterGrade} ({grade.gradePoint.toFixed(1)})
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                     <div className="text-center">
                       <Badge 
                         variant={moduleGrade.gradePoint >= 4.0 ? "default" : moduleGrade.gradePoint >= 3.0 ? "secondary" : "destructive"}
                       >
-                        {moduleGrade.letterGrade}
+                        {moduleGrade.gradePoint.toFixed(1)}
                       </Badge>
-                    </div>
-                    <div className="text-center font-medium">
-                      {moduleGrade.gradePoint.toFixed(1)}
                     </div>
                   </div>
                 ))}

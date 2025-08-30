@@ -23,16 +23,52 @@ export interface GradingScale {
   maxMark: number;
   letterGrade: string;
   gradePoint: number;
+  description: string;
 }
 
 export const gradingScale: GradingScale[] = [
-  { minMark: 80, maxMark: 100, letterGrade: 'A', gradePoint: 5.0 },
-  { minMark: 75, maxMark: 79, letterGrade: 'B+', gradePoint: 4.5 },
-  { minMark: 70, maxMark: 74, letterGrade: 'B', gradePoint: 4.0 },
-  { minMark: 65, maxMark: 69, letterGrade: 'C+', gradePoint: 3.5 },
-  { minMark: 60, maxMark: 64, letterGrade: 'C', gradePoint: 3.0 },
-  { minMark: 50, maxMark: 59, letterGrade: 'D', gradePoint: 2.0 },
-  { minMark: 0, maxMark: 49, letterGrade: 'F', gradePoint: 0.0 },
+  { 
+    minMark: 70, 
+    maxMark: 100, 
+    letterGrade: 'A', 
+    gradePoint: 5.0,
+    description: 'Excellent: Work of outstanding quality, rare talent for the module, an original or incisive mind.'
+  },
+  { 
+    minMark: 60, 
+    maxMark: 69, 
+    letterGrade: 'B+', 
+    gradePoint: 4.0,
+    description: 'Very Good (Well Above Average): Comprehensive, accurate work, flair for and comprehension of the module is clearly perceptible.'
+  },
+  { 
+    minMark: 50, 
+    maxMark: 59, 
+    letterGrade: 'B', 
+    gradePoint: 3.0,
+    description: 'Good (Above Average): Sound grasp of the most important goals of the module. Work described as careful, competent and good without being distinguished.'
+  },
+  { 
+    minMark: 40, 
+    maxMark: 49, 
+    letterGrade: 'C', 
+    gradePoint: 2.0,
+    description: 'Satisfactory (Average): Average competence which falls short of B grade. Work described as adequate.'
+  },
+  { 
+    minMark: 35, 
+    maxMark: 39, 
+    letterGrade: 'D', 
+    gradePoint: 1.0,
+    description: 'Poor (Below Average): Marginal, barely satisfy the minimum requirements.'
+  },
+  { 
+    minMark: 0, 
+    maxMark: 34, 
+    letterGrade: 'F', 
+    gradePoint: 0.0,
+    description: 'Failure: Did not meet the minimum requirements.'
+  },
 ];
 
 export const programmes: Programme[] = [
