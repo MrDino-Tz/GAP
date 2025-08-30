@@ -37,6 +37,277 @@ export const gradingScale: GradingScale[] = [
 
 export const programmes: Programme[] = [
   {
+    id: 10,
+    name: "Bachelor of Information Technology (BIT)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ITU 07101",
+            name: "Business Communication",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 07102",
+            name: "Business Computer Applications",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 07103",
+            name: "Computer Fundamentals",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITU 07105",
+            name: "Database Systems Development",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ITU 07106",
+            name: "Digital Logic and Computer Organization",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 07107",
+            name: "Foundation of Analysis",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ITU 07208",
+            name: "Computer Networking",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 07209",
+            name: "Development Perspectives",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 07211",
+            name: "Computer Graphic Design",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 07212",
+            name: "Principles of Programming",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ITU 07213",
+            name: "Probability and Statistics",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 07214",
+            name: "Database Implementation and Management",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "ITU 07315",
+            name: "Business Law",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 07316",
+            name: "Data Routing and Switching",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 07319",
+            name: "Management Information Systems",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 07321",
+            name: "Research Methodology",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "ITU 07322",
+            name: "Object Oriented Programming",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 07323",
+            name: "Web Design",
+            creditHours: 8,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "ITU 07425",
+            name: "Entrepreneurship",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 07426",
+            name: "Information Security",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 07427",
+            name: "Internet Programming and Applications",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITU 07428",
+            name: "System Analysis and Design",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITU 07429",
+            name: "Supporting Personal Computers",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 07430",
+            name: "Wireless Communication",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 07431",
+            name: "Industrial Practical Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "ITU 08101",
+            name: "IT Project Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 08102",
+            name: "Open Source Software Development",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 08103",
+            name: "Social and Ethical Issues in Computing",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 08104",
+            name: "Data Mining",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITU 08105",
+            name: "Network Management and Administration",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 08106",
+            name: "Information System Auditing",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "ITU 08208",
+            name: "Cybercrimes and Computer Law",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 08210",
+            name: "E-commerce and Technology",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 08212",
+            name: "Business Information System Re-engineering",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 08214",
+            name: "Information System Management",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITU 08216",
+            name: "Programming for Mobile Device",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ITU 08217",
+            name: "Individual Project",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: 9,
     name: "Bachelor of Economics and Project Management (BEPM)",
     ntaLevel: 7,
@@ -1873,110 +2144,6 @@ export const programmes: Programme[] = [
             name: "Treasury Management",
             creditHours: 11,
             class: "Core"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: "Diploma in Finance and Banking (ODFB)",
-    ntaLevel: 5,
-    semesters: [
-      {
-        semesterNumber: 1,
-        semesterName: "Semester I",
-        modules: [
-          {
-            code: "FBU 05101",
-            name: "Principles of Banking",
-            creditHours: 10,
-            class: "Core"
-          },
-          {
-            code: "FBU 05102",
-            name: "Financial Mathematics",
-            creditHours: 8,
-            class: "Fundamental"
-          },
-          {
-            code: "FBU 05103",
-            name: "Business Communication",
-            creditHours: 8,
-            class: "Fundamental"
-          },
-          {
-            code: "FBU 05104",
-            name: "Computer Applications",
-            creditHours: 6,
-            class: "Fundamental"
-          }
-        ]
-      },
-      {
-        semesterNumber: 2,
-        semesterName: "Semester II",
-        modules: [
-          {
-            code: "FBU 05201",
-            name: "Financial Accounting",
-            creditHours: 10,
-            class: "Core"
-          },
-          {
-            code: "FBU 05202",
-            name: "Commercial Banking",
-            creditHours: 8,
-            class: "Core"
-          },
-          {
-            code: "FBU 05203",
-            name: "Business Law",
-            creditHours: 8,
-            class: "Core"
-          },
-          {
-            code: "FBU 05204",
-            name: "Economics",
-            creditHours: 6,
-            class: "Core"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 3,
-    name: "Certificate in Bookkeeping and Accounts (CBA)",
-    ntaLevel: 4,
-    semesters: [
-      {
-        semesterNumber: 1,
-        semesterName: "Semester I",
-        modules: [
-          {
-            code: "BKU 04101",
-            name: "Introduction to Bookkeeping",
-            creditHours: 8,
-            class: "Core"
-          },
-          {
-            code: "BKU 04102",
-            name: "Business Mathematics",
-            creditHours: 6,
-            class: "Fundamental"
-          },
-          {
-            code: "BKU 04103",
-            name: "Business Communication",
-            creditHours: 6,
-            class: "Fundamental"
-          },
-          {
-            code: "BKU 04104",
-            name: "Computer Skills",
-            creditHours: 4,
-            class: "Fundamental"
           }
         ]
       }
