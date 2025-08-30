@@ -37,6 +37,265 @@ export const gradingScale: GradingScale[] = [
 
 export const programmes: Programme[] = [
   {
+    id: 9,
+    name: "Bachelor of Economics and Project Management (BEPM)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "EPU 07104",
+            name: "Information and Communication Technology for Project Management",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "EPU 07105",
+            name: "Development Studies",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "EPU 07102",
+            name: "Mathematics for Economists",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07106",
+            name: "Communication Skills for Managers",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "EPU 07101",
+            name: "Microeconomics Principles",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EPU 07103",
+            name: "Project Management Principles",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "EPU 07205",
+            name: "Project Statistical Methods",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "EPU 07201",
+            name: "Macroeconomics Principles",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EPU 07202",
+            name: "Development Economics",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07203",
+            name: "Project Identification",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07206",
+            name: "Accounting Principles",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07204",
+            name: "Law for Project Management",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "EPU 07306",
+            name: "Project Research Methodology",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "EPU 07301",
+            name: "Intermediate Microeconomics",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07305",
+            name: "Public Finance",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07303",
+            name: "Project Financial Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07304",
+            name: "Business Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EPU 07302",
+            name: "Project Feasibility Management",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "EPU 07406",
+            name: "Entrepreneurship and Innovation",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "EPU 07403",
+            name: "Economic Planning and Policy",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07402",
+            name: "Econometrics Principles",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07404",
+            name: "Project Implementation",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07405",
+            name: "Project Procurement",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EPU 07401",
+            name: "Intermediate Macroeconomics",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EPU 07407",
+            name: "Industrial Practical Training",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "EPU 08101",
+            name: "Industrial Economics",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "EPU 08102",
+            name: "Project Risk Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EPU 08103",
+            name: "Project Tax Planning",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EPU 08104",
+            name: "Management Skills",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EPU 08105",
+            name: "Principles of Human Resource Management",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "EPU 08201",
+            name: "Economics of Natural Resources",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "EPU 08202",
+            name: "Intermediate Econometrics",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "EPU 08203",
+            name: "International Economics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EPU 08204",
+            name: "Monitoring and Evaluation Principles",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "EPU 08205",
+            name: "Project Auditing",
+            creditHours: 12,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: 8,
     name: "Bachelor of Computer Science (BCS)",
     ntaLevel: 7,
