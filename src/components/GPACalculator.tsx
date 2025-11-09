@@ -17,6 +17,7 @@ import {
   gradingScale
 } from '@/data/academicData';
 import { exportToPDF } from '@/lib/pdfExport';
+import AcademicChatbot from '@/components/AcademicChatbot';
 
 interface ModuleGrade {
   module: Module;
@@ -174,6 +175,11 @@ const GPACalculator = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
+      <AcademicChatbot 
+        userGPA={showResults ? currentGPA : undefined}
+        programmeName={selectedProgramme?.name}
+        semesterNumber={selectedSemester}
+      />
       <div className="container mx-auto py-8 px-4 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
