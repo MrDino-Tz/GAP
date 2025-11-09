@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { GraduationCap, Calculator, Trophy, BookOpen } from 'lucide-react';
+import { GraduationCap, Calculator, Trophy, BookOpen, Download } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { 
   programmes, 
@@ -16,6 +16,7 @@ import {
   calculateSemesterGPA, 
   gradingScale
 } from '@/data/academicData';
+import { exportToPDF } from '@/lib/pdfExport';
 
 interface ModuleGrade {
   module: Module;
@@ -149,6 +150,28 @@ const GPACalculator = () => {
     return 'Below Average - Need Significant Improvement';
   };
 
+  const handleExportPDF = () => {
+    if (!selectedProgramme) return;
+    
+    const semesterName = selectedProgramme.semesters.find(s => s.semesterNumber === selectedSemester)?.semesterName || '';
+    
+    exportToPDF({
+      programmeName: selectedProgramme.name,
+      semesterName,
+      moduleGrades,
+      gpa: currentGPA,
+      totalCreditHours: moduleGrades.reduce((sum, g) => sum + g.module.creditHours, 0),
+      passedModules: moduleGrades.filter(g => g.gradePoint >= 2.0).length,
+      qualityPoints: moduleGrades.reduce((sum, g) => sum + (g.gradePoint * g.module.creditHours), 0)
+    });
+
+    toast({
+      title: "PDF Exported",
+      description: "Your GPA results have been downloaded as PDF.",
+      variant: "default"
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-subtle">
       <div className="container mx-auto py-8 px-4 max-w-6xl">
@@ -279,13 +302,24 @@ const GPACalculator = () => {
                   Calculate GPA
                 </Button>
                 {showResults && (
-                  <Button 
-                    onClick={saveToLocalStorage}
-                    variant="outline"
-                    size="lg"
-                  >
-                    Save Results
-                  </Button>
+                  <>
+                    <Button 
+                      onClick={saveToLocalStorage}
+                      variant="outline"
+                      size="lg"
+                    >
+                      Save Results
+                    </Button>
+                    <Button 
+                      onClick={handleExportPDF}
+                      variant="default"
+                      size="lg"
+                      className="bg-success hover:bg-success/90"
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Export PDF
+                    </Button>
+                  </>
                 )}
               </div>
             </CardContent>
