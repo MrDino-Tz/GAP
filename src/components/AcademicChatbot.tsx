@@ -119,127 +119,137 @@ const AcademicChatbot: React.FC<AcademicChatbotProps> = ({
   };
 
   return (
-    <>
-      {!isOpen && (
-        <Button
-          onClick={toggleChat}
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-glow bg-primary hover:bg-primary/90 z-50"
-          size="icon"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </Button>
-      )}
+    <div className="fixed bottom-0 right-0 z-50">
+      {/* Chat Button */}
+      <Button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`fixed bottom-4 right-4 sm:bottom-8 sm:right-8 h-12 w-12 sm:h-14 sm:w-14 rounded-full p-0 shadow-lg transition-all duration-300 ${
+          isOpen ? 'scale-0' : 'scale-100'
+        }`}
+        variant="default"
+        size="icon"
+      >
+        {isOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />}
+        <span className="sr-only">{isOpen ? 'Close chat' : 'Open chat'}</span>
+      </Button>
 
-      {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-96 h-[600px] shadow-glow border-2 border-primary/20 z-50 flex flex-col">
-          <CardHeader className="bg-gradient-primary text-primary-foreground rounded-t-lg pb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Bot className="h-5 w-5" />
-                <div>
-                  <CardTitle className="text-lg">Manto AI</CardTitle>
-                  <CardDescription className="text-primary-foreground/80 text-xs">
-                    DTC Group AI-powered guidance for Academic Performance
-                  </CardDescription>
-                </div>
+      {/* Chat Window */}
+      <div
+        className={`fixed bottom-0 right-0 sm:bottom-24 sm:right-8 w-full sm:w-96 h-[80vh] sm:h-[600px] flex flex-col rounded-t-lg sm:rounded-lg border bg-background shadow-xl transition-all duration-300 ${
+          isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground rounded-t-lg p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Bot className="h-5 w-5" />
+              <div>
+                <h3 className="text-lg font-semibold">Manto AI</h3>
+                <p className="text-xs opacity-80">
+                  DTC Group AI-powered guidance for Academic Performance
+                </p>
               </div>
-              <Button
-                onClick={toggleChat}
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-primary-foreground hover:bg-primary-foreground/20"
-              >
-                <X className="h-4 w-4" />
-              </Button>
             </div>
-          </CardHeader>
+            <Button
+              onClick={toggleChat}
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 text-primary-foreground hover:bg-primary-foreground/20"
+            >
+              <X className="h-4 w-4" />
+              <span className="sr-only">Close chat</span>
+            </Button>
+          </div>
+        </div>
 
-          <CardContent className="flex-1 p-0 flex flex-col overflow-hidden">
-            <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
-              <div className="space-y-4">
-                {messages.map((message, index) => (
-                  <div
-                    key={index}
-                    className={`flex gap-3 ${
-                      message.role === 'user' ? 'justify-end' : 'justify-start'
-                    }`}
-                  >
-                    {message.role === 'assistant' && (
-                      <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Bot className="h-4 w-4 text-primary" />
-                      </div>
-                    )}
-                    
-                    <div
-                      className={`max-w-[75%] rounded-lg p-3 ${
-                        message.role === 'user'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-foreground'
-                      }`}
-                    >
-                      <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                      <span className="text-xs opacity-70 mt-1 block">
-                        {message.timestamp.toLocaleTimeString([], { 
-                          hour: '2-digit', 
-                          minute: '2-digit' 
-                        })}
-                      </span>
-                    </div>
-
-                    {message.role === 'user' && (
-                      <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary flex items-center justify-center">
-                        <User className="h-4 w-4 text-primary-foreground" />
-                      </div>
-                    )}
-                  </div>
-                ))}
-                
-                {isLoading && (
-                  <div className="flex gap-3 justify-start">
+        <div className="flex-1 overflow-hidden flex flex-col">
+          <ScrollArea
+            ref={scrollAreaRef}
+            className="flex-1 p-4"
+          >
+            <div className="space-y-4">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex gap-3 ${
+                    message.role === 'user' ? 'justify-end' : 'justify-start'
+                  }`}
+                >
+                  {message.role === 'assistant' && (
                     <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                       <Bot className="h-4 w-4 text-primary" />
                     </div>
-                    <div className="bg-muted rounded-lg p-3">
-                      <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                    </div>
-                  </div>
-                )}
-                
-                <div ref={messagesEndRef} />
-              </div>
-            </ScrollArea>
-
-            <div className="border-t p-4">
-              <div className="flex gap-2">
-                <Input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Ask me about your academics..."
-                  disabled={isLoading}
-                  className="flex-1"
-                />
-                <Button
-                  onClick={handleSendMessage}
-                  disabled={!input.trim() || isLoading}
-                  size="icon"
-                  className="bg-primary hover:bg-primary/90"
-                >
-                  {isLoading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <Send className="h-4 w-4" />
                   )}
-                </Button>
-              </div>
-              <p className="text-xs text-muted-foreground mt-2 text-center">
-                Powered by Google Gemini AI
-              </p>
+                  
+                  <div
+                    className={`max-w-[75%] rounded-lg p-3 ${
+                      message.role === 'user'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-muted text-foreground'
+                    }`}
+                  >
+                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                    <span className="text-xs opacity-70 mt-1 block">
+                      {message.timestamp.toLocaleTimeString([], { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                      })}
+                    </span>
+                  </div>
+
+                  {message.role === 'user' && (
+                    <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary flex items-center justify-center">
+                      <User className="h-4 w-4 text-primary-foreground" />
+                    </div>
+                  )}
+                </div>
+              ))}
+              
+              {isLoading && (
+                <div className="flex gap-3 justify-start">
+                  <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Bot className="h-4 w-4 text-primary" />
+                  </div>
+                  <div className="bg-muted rounded-lg p-3">
+                    <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                  </div>
+                </div>
+              )}
+              
+              <div ref={messagesEndRef} />
             </div>
-          </CardContent>
-        </Card>
-      )}
-    </>
+          </ScrollArea>
+
+          <div className="border-t p-3">
+            <div className="flex items-center gap-2">
+              <Input
+                type="text"
+                placeholder="Type your message..."
+                className="flex-1 text-sm sm:text-base h-11"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                disabled={isLoading}
+              />
+              <Button
+                type="button"
+                size="icon"
+                className="h-11 w-11"
+                onClick={handleSendMessage}
+                disabled={isLoading || !input.trim()}
+              >
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Send className="h-4 w-4" />
+                )}
+                <span className="sr-only">Send message</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
