@@ -14,6 +14,7 @@ import {
   Module, 
   getGradeInfo, 
   calculateSemesterGPA, 
+  calculateCGPA,
   gradingScale
 } from '@/data/academicData';
 import { exportToPDF } from '@/lib/pdfExport';
@@ -33,6 +34,17 @@ interface SemesterResult {
   totalCreditHours: number;
 }
 
+interface SavedSemesterData {
+  programmeId: number;
+  semesterNumber: number;
+  semesterName?: string;
+  modules: ModuleGrade[];
+  gpa: number;
+  totalCreditHours: number;
+  savedAt: string;
+  programmeName?: string;
+}
+
 const GPACalculator = () => {
   const [selectedNTALevel, setSelectedNTALevel] = useState<number | null>(null);
   const [selectedProgramme, setSelectedProgramme] = useState<Programme | null>(null);
@@ -41,6 +53,8 @@ const GPACalculator = () => {
   const [semesterResults, setSemesterResults] = useState<SemesterResult[]>([]);
   const [currentGPA, setCurrentGPA] = useState<number>(0);
   const [showResults, setShowResults] = useState(false);
+  const [savedSemesters, setSavedSemesters] = useState<SavedSemesterData[]>([]);
+  const [cgpa, setCgpa] = useState<number>(0);
 
   // Get unique NTA levels from programmes
   const ntaLevels = [...new Set(programmes.map(p => p.ntaLevel))].sort();
@@ -133,6 +147,63 @@ const GPACalculator = () => {
     });
   };
 
+  const calculateCumulativeGPA = () => {
+    if (savedSemesters.length === 0) {
+      toast({
+        title: "No Saved Data",
+        description: "Please save at least one semester's results to calculate CGPA.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const cgpaValue = calculateCGPA(savedSemesters.map(s => ({
+      gpa: s.gpa,
+      totalCreditHours: s.totalCreditHours
+    })));
+
+    setCgpa(cgpaValue);
+    
+    toast({
+      title: "CGPA Calculated Successfully!",
+      description: `Your Cumulative GPA is ${cgpaValue.toFixed(2)}`,
+      variant: "default"
+    });
+  };
+
+  // Load saved semesters from localStorage
+  const loadSavedSemesters = () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('iaa-gpa-data') || '[]');
+      // Add programme names to saved data
+      const savedWithNames = saved.map((semester: any) => {
+        const programme = programmes.find(p => p.id === semester.programmeId);
+        return {
+          ...semester,
+          programmeName: programme ? programme.name : 'Unknown Programme'
+        };
+      });
+      setSavedSemesters(savedWithNames);
+      
+      // Calculate CGPA if we have saved data
+      if (savedWithNames.length > 0) {
+        const cgpaValue = calculateCGPA(savedWithNames.map((s: any) => ({
+          gpa: s.gpa,
+          totalCreditHours: s.totalCreditHours
+        })));
+        setCgpa(cgpaValue);
+      }
+    } catch (error) {
+      console.error('Error loading saved semesters:', error);
+      setSavedSemesters([]);
+    }
+  };
+
+  // Load saved semesters on component mount
+  useEffect(() => {
+    loadSavedSemesters();
+  }, []);
+
   const saveToLocalStorage = () => {
     if (!selectedProgramme) return;
     
@@ -158,6 +229,9 @@ const GPACalculator = () => {
     }
 
     localStorage.setItem('iaa-gpa-data', JSON.stringify(saved));
+    
+    // Reload saved semesters to update CGPA
+    loadSavedSemesters();
     
     toast({
       title: "Data Saved",
@@ -222,6 +296,70 @@ const GPACalculator = () => {
             Calculate your Semester GPA and CGPA with accuracy based on official IAA grading system
           </p>
         </div>
+
+        {/* CGPA Summary */}
+        {savedSemesters.length > 0 && (
+          <Card className="mb-6 shadow-academic border-2 border-success/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Trophy className="h-5 w-5 text-success" />
+                CGPA Summary
+              </CardTitle>
+              <CardDescription>
+                Cumulative Grade Point Average across all saved semesters
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center p-4 bg-success/10 rounded-lg">
+                  <div className="text-3xl font-bold text-success">{cgpa.toFixed(2)}</div>
+                  <div className="text-sm text-muted-foreground">Cumulative GPA</div>
+                </div>
+                <div className="text-center p-4 bg-primary/10 rounded-lg">
+                  <div className="text-3xl font-bold text-primary">{savedSemesters.length}</div>
+                  <div className="text-sm text-muted-foreground">Semesters Saved</div>
+                </div>
+                <div className="text-center p-4 bg-accent/10 rounded-lg">
+                  <div className="text-3xl font-bold text-accent">
+                    {savedSemesters.reduce((sum, sem) => sum + sem.totalCreditHours, 0)}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Total Credit Hours</div>
+                </div>
+              </div>
+              
+              <div className="mt-6">
+                <h3 className="font-semibold mb-3">Saved Semesters:</h3>
+                <div className="space-y-2 max-h-40 overflow-y-auto">
+                  {savedSemesters.map((semester, index) => (
+                    <div key={index} className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                      <div>
+                        <div className="font-medium">{semester.programmeName}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {semester.semesterName} • {semester.savedAt.split('T')[0]}
+                        </div>
+                      </div>
+                      <Badge variant="secondary" className="text-lg">
+                        {semester.gpa.toFixed(2)}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="mt-4 flex justify-center">
+                <Button 
+                  onClick={calculateCumulativeGPA}
+                  variant="default"
+                  size="sm"
+                  className="bg-success hover:bg-success/90"
+                >
+                  <Calculator className="mr-2 h-4 w-4" />
+                  Calculate CGPA
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Programme Selection */}
         <Card className="mb-6 shadow-academic">
@@ -356,7 +494,7 @@ const GPACalculator = () => {
                   size="lg"
                 >
                   <Calculator className="mr-2 h-4 w-4" />
-                  Calculate GPA
+                  Calculate Semester GPA
                 </Button>
                 {showResults && (
                   <>
@@ -382,7 +520,7 @@ const GPACalculator = () => {
             </CardContent>
           </Card>
         )}
-
+        
         {/* Results Display */}
         {showResults && (
           <Card className="shadow-glow border-2 border-primary/20">
