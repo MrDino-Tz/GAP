@@ -3065,6 +3065,256 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  // Add Diploma in Computer Networking (ODCN) for NTA Level 4
+  {
+    id: 24,
+    name: "Diploma in Computer Networking (ODCN) - NTA Level 4",
+    ntaLevel: 4,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "CNT 04101",
+            name: "Fundamentals of Computer Systems",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "CNT 04102",
+            name: "Basic Computer Applications",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "CNT 04103",
+            name: "Elements of Business Mathematics and Statistics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CNT 04104",
+            name: "Basic Communication Skills",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "CNT 04105",
+            name: "Essential of office Practice",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "CNT04206",
+            name: "Basic Internet Applications",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "CNT04207",
+            name: "Fundamentals of Computer Networking",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "CNT04208",
+            name: "Fundamentals of Programming",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CNT04209",
+            name: "Fundamentals of Database",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CNT04210",
+            name: "Customer Care",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
+  },
+  // Add Diploma in Multimedia (ODMM) for NTA Level 5 & 6
+  {
+    id: 25,
+    name: "Diploma in Multimedia (ODMM) - NTA Level 5 & 6",
+    ntaLevel: 5, // Using 5 as the primary level, since the programme covers both 5 and 6
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "MMT 05101",
+            name: "Principles of Multimedia",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "MMT05102",
+            name: "Basic principles of Computer Applications",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "MMT 05103",
+            name: "Principles of Digital Imaging",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "MMT 05104",
+            name: "Basic Principles of Management",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "MMT 05105",
+            name: "Communication Skills and Office Practice",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "MMT 05201",
+            name: "Basic Principles of Financial Planning and Budgeting",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "MMT 05202",
+            name: "Graphic Design",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "MMT 05203",
+            name: "Operating Systems Concepts",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "MMT 05204",
+            name: "2D Animation",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "MMT 05205",
+            name: "Typography",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "MMT05206",
+            name: "Industrial Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "MMD 06101",
+            name: "Principles of 3D Animation",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "MMD06102",
+            name: "Web Design",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "MMD06103",
+            name: "Principles of Photography",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "MMD06104",
+            name: "Database Concepts",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "MMD06105",
+            name: "Audio Visual Production",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "MMT05206",
+            name: "Industrial Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "MMD06201",
+            name: "Desktop Publishing",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "MMD06202",
+            name: "Social Networking and Publishing",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "MMD 06203",
+            name: "Computer Networks",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "MMD 06204",
+            name: "Mobile Application Development",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "MMD06205",
+            name: "Project Work",
+            creditHours: 15,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
   }
 ];
 
