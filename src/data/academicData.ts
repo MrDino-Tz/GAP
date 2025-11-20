@@ -3641,6 +3641,168 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  // Add Diploma in Human Resource Management (ODHRM) for NTA Level 5 & 6
+  {
+    id: 32,
+    name: "Diploma in Human Resource Management (ODHRM) - NTA Level 5 & 6",
+    ntaLevel: 5, // Using 5 as the primary level, since the programme covers both 5 and 6
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "HRT 05101",
+            name: "Human Resource Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "HRT 05102",
+            name: "Recruitment and Selection",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRT 05103",
+            name: "Workplace Health and Safety",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "HRT 05104",
+            name: "Information Communication Technology",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRT 05105",
+            name: "Elements and Functions of Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRT 05106",
+            name: "Administrative Law",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "HRT 05207",
+            name: "Employee Reward Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "HRT 05208",
+            name: "Cost accounting Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRT 05209",
+            name: "Element of Organizational Behaviour",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRT 05210",
+            name: "Communication Skills and office Practice",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRT 05211",
+            name: "Field Practical",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "HRT 06101",
+            name: "Human Resource Planning and Appraisal",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "HRT06102",
+            name: "Sales Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRT 06103",
+            name: "Job design and Analysis",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "HRT 06104",
+            name: "Leadership Theories and Practice",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "HRT 06105",
+            name: "Training and Development",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "HRT 06206",
+            name: "International Human Resource Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "HRT 06207",
+            name: "Business Ethics and Governance",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRT 06208",
+            name: "Labor Law and Industrial Relations",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRT 06209",
+            name: "Entrepreneurship",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRT 06210",
+            name: "Presentation Skills",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      }
+    ]
   }
 ];
 
