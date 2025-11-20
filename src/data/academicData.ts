@@ -3559,6 +3559,88 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  // Add Diploma in Human Resource Management (ODHRM) for NTA Level 4
+  {
+    id: 31,
+    name: "Diploma in Human Resource Management (ODHRM) - NTA Level 4",
+    ntaLevel: 4,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "HRT 04102",
+            name: "Basic of Computer Application in Business",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "HRT 04103",
+            name: "Basic of Communication Skills",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRT 04104",
+            name: "Elements of  Employement Law",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "HRT 04105",
+            name: "Essentials of office practice",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRT 04101",
+            name: "Basic of Human Resource Management",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "HRT 04206",
+            name: "Elements of Entrepreneurship",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "HRT 04207",
+            name: "Basic of Industrial Relation",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "HRT 04208",
+            name: "Basic of Training and Development",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "HRT 04209",
+            name: "Basic of Management Practice",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRT 04210",
+            name: "Element of Book-keeping",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      }
+    ]
   }
 ];
 
