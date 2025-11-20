@@ -2547,6 +2547,280 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  // Add Diploma in Insurance and Risk Management (BIRM Appr) for NTA Level 4
+  {
+    id: 19,
+    name: "Diploma in Insurance and Risk Management (BIRM Appr) - NTA Level 4",
+    ntaLevel: 4,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "IRT 04101",
+            name: "Basic Insurance Practice",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "IRT 04102",
+            name: "Basic Short Term Insurance",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "IRT 04103",
+            name: "Essentials of Risk Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "IRT 04104",
+            name: "Basic Insuarance Agency Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "IRT 04106",
+            name: "Elementary Business Communication",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "IRT 04207",
+            name: "Elements of Micro-Insurance",
+            creditHours: 9,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "IRT 04208",
+            name: "Basic Bancassurance Practice",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "IRT 04209",
+            name: "Basic Health Insurance",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "IRT 04211",
+            name: "Basic Computer Application",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "IRT 04212",
+            name: "Elements of Commerce",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "IRT 04213",
+            name: "Practical Training",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "IRT04105",
+            name: "Elements of Business Mathematics and Statistics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "IRT04210",
+            name: "Basic Insuarance Regulation",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  // Add Diploma in Economics and Finance (ODEF) for NTA Level 5 & 6
+  {
+    id: 20,
+    name: "Diploma in Economics and Finance (ODEF) - NTA Level 5 & 6",
+    ntaLevel: 5, // Using 5 as the primary level, since the programme covers both 5 and 6
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "EFT 05101",
+            name: "Principles of Accounting",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "EFT 05102",
+            name: "Communication Skills and Office Practice",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "EFT 05103",
+            name: "Fundamentals of Information and Communication Technology",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "EFT 05104",
+            name: "Principles of Microeconomics",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFT05105",
+            name: "Fundamentals of Business Mathematics and Statistics",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "EFT05201",
+            name: "Fundamentals of Financial Planning and Budgeting",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "EFT05202",
+            name: "Principles of Micro-Finance",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EFT05203",
+            name: "Principles of Taxation",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "EFT05204",
+            name: "Basics of Business Finance",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EFT05205",
+            name: "Principles of Macroeconomics",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "EFT05206",
+            name: "Industrial Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "EFD 06101",
+            name: "Fundamentals of Financial Accounting",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "EFD06102",
+            name: "Principles of Banking Operations",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFD06103",
+            name: "Marketing of Financial Services",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "EFD 06104",
+            name: "Principles of Public Economics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EFD 06105",
+            name: "Basics Monetary and Financial Economics",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "EFT05206",
+            name: "Industrial Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "EFD06201",
+            name: "Fundamentals of Project Planning and Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "EFD 06202",
+            name: "Basic Econometrics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EFD 06203",
+            name: "Principles of Cost Accounting",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "EFD 06204",
+            name: "Fundamentals of Development Economics",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "EFD06205",
+            name: "Principles of Entrepreneurship and Small Business Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "EFT05206",
+            name: "Industrial Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      }
+    ]
   }
 ];
 
