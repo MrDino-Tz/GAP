@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { GraduationCap, Calculator, Trophy, BookOpen, Download } from 'lucide-react';
+import { GraduationCap, Calculator, Trophy, BookOpen, Download, Trash } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { 
   programmes, 
@@ -240,6 +240,63 @@ const GPACalculator = () => {
     });
   };
 
+  const resetCalculations = () => {
+    // Reset semester GPA calculations
+    setCurrentGPA(0);
+    setShowResults(false);
+    setSemesterResults([]);
+    
+    // Reset module grades to default values
+    if (selectedProgramme) {
+      const semester = selectedProgramme.semesters.find(s => s.semesterNumber === selectedSemester);
+      if (semester) {
+        const initialGrades: ModuleGrade[] = semester.modules.map(module => ({
+          module,
+          letterGrade: 'F',
+          gradePoint: 0.0
+        }));
+        setModuleGrades(initialGrades);
+      }
+    }
+    
+    toast({
+      title: "Calculations Reset",
+      description: "Previous GPA calculations have been cleared.",
+      variant: "default"
+    });
+  };
+
+  const resetAllData = () => {
+    // Reset everything including saved semesters
+    setCurrentGPA(0);
+    setShowResults(false);
+    setSemesterResults([]);
+    setSavedSemesters([]);
+    setCgpa(0);
+    
+    // Clear localStorage
+    localStorage.removeItem('iaa-gpa-data');
+    
+    // Reset module grades to default values
+    if (selectedProgramme) {
+      const semester = selectedProgramme.semesters.find(s => s.semesterNumber === selectedSemester);
+      if (semester) {
+        const initialGrades: ModuleGrade[] = semester.modules.map(module => ({
+          module,
+          letterGrade: 'F',
+          gradePoint: 0.0
+        }));
+        setModuleGrades(initialGrades);
+      }
+    }
+    
+    toast({
+      title: "All Data Reset",
+      description: "All calculations and saved data have been cleared.",
+      variant: "default"
+    });
+  };
+
   const getGPAColor = (gpa: number) => {
     if (gpa >= 4.5) return 'text-success';
     if (gpa >= 4.0) return 'text-primary';
@@ -346,7 +403,7 @@ const GPACalculator = () => {
                 </div>
               </div>
               
-              <div className="mt-4 flex justify-center">
+              <div className="mt-4 flex flex-wrap justify-center gap-2">
                 <Button 
                   onClick={calculateCumulativeGPA}
                   variant="default"
@@ -355,6 +412,14 @@ const GPACalculator = () => {
                 >
                   <Calculator className="mr-2 h-4 w-4" />
                   Calculate CGPA
+                </Button>
+                <Button 
+                  onClick={resetAllData}
+                  variant="destructive"
+                  size="sm"
+                >
+                  <Trash className="mr-2 h-4 w-4" />
+                  Reset All Data
                 </Button>
               </div>
             </CardContent>
@@ -516,6 +581,14 @@ const GPACalculator = () => {
                     </Button>
                   </>
                 )}
+                <Button 
+                  onClick={resetCalculations}
+                  variant="destructive"
+                  size="lg"
+                >
+                  <Trash className="mr-2 h-4 w-4" />
+                  Reset
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -559,6 +632,17 @@ const GPACalculator = () => {
                   </div>
                   <div className="text-sm text-muted-foreground">Quality Points</div>
                 </div>
+              </div>
+              
+              <div className="flex justify-center mt-4">
+                <Button 
+                  onClick={resetCalculations}
+                  variant="destructive"
+                  size="sm"
+                >
+                  <Trash className="mr-2 h-4 w-4" />
+                  Reset Calculation
+                </Button>
               </div>
             </CardContent>
           </Card>
