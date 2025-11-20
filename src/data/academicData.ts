@@ -2821,6 +2821,250 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  // Add Diploma in Economics and Finance (ODEF) for NTA Level 4
+  {
+    id: 21,
+    name: "Diploma in Economics and Finance (ODEF) - NTA Level 4",
+    ntaLevel: 4,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "EFT 04101",
+            name: "Elementary Microeconomics",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "EFT 04102",
+            name: "Basic Book keeping and Accounts",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFT04103",
+            name: "Elements of Business Mathematics and Statistics",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFT04104",
+            name: "Basic Computer Applications in Business",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFT 04105",
+            name: "Basic Communication Skills",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "EFT 04201",
+            name: "Basic Macroeconomics",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "EFT 04202",
+            name: "Elements of Banking",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "EFT 04203",
+            name: "Elementary Microfinance",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "EFT 04204",
+            name: "Basics of Development Economics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EFT 04205",
+            name: "Elements of Business",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  // Add Diploma in Computer Science (ODCS) for NTA Level 5 & 6
+  {
+    id: 22,
+    name: "Diploma in Computer Science (ODCS) - NTA Level 5 & 6",
+    ntaLevel: 5, // Using 5 as the primary level, since the programme covers both 5 and 6
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ITT05101",
+            name: "Computing Mathematics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT05102",
+            name: "Introduction to Computer Applications",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT05103",
+            name: "Introduction to Electrical and Electronics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ITT05104",
+            name: "Introduction to Management Principles",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITT05105",
+            name: "Communication Skills and Office Practice",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ITT05206",
+            name: "Introduction to Financial Planning and Budgeting",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT05207",
+            name: "Computer Maintenance",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT05208",
+            name: "Operating Systems Concepts",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT05209",
+            name: "Introduction to Computer Programming",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ITT05210",
+            name: "Computer Networks",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT 05211",
+            name: "Industrial Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "ITT06101",
+            name: "Linear Algebra",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT06102",
+            name: "Web Programming",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITT06106",
+            name: "Principles of Software Development",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT06103",
+            name: "Database Concepts",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITT06107",
+            name: "Principles of Network Design",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "ITT06209",
+            name: "Server Operating System Administration",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT06213",
+            name: "Introduction to Data Structure and Algorithm",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT06214",
+            name: "Introduction to Object Oriented Programming",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT06215",
+            name: "Mobile Application Development",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT06208",
+            name: "Project Work",
+            creditHours: 15,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
   }
 ];
 
