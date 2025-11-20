@@ -3315,6 +3315,168 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  // Add Ordinary Diploma in Information Technology (ODIT) for NTA Level 5 & 6
+  {
+    id: 27,
+    name: "Ordinary Diploma in Information Technology (ODIT) - NTA Level 5 & 6",
+    ntaLevel: 5, // Using 5 as the primary level, since the programme covers both 5 and 6
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ITT05101",
+            name: "Computing Mathematics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT05102",
+            name: "Introduction to Computer Applications",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT05103",
+            name: "Introduction to Electrical and Electronics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ITT05104",
+            name: "Introduction to Management Principles",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITT05105",
+            name: "Communication Skills and Office Practice",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ITT05206",
+            name: "Introduction to Financial Planning and Budgeting",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT05207",
+            name: "Computer Maintenance",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT05208",
+            name: "Operating Systems Concepts",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT05209",
+            name: "Introduction to Computer Programming",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ITT05210",
+            name: "Computer Networks",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT 05211",
+            name: "Industrial Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "ITT06101",
+            name: "Linear Algebra",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT06102",
+            name: "Web Progeamming",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITT06103",
+            name: "Database Concepts",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITT06104",
+            name: "Information System Analysis",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ITT06105",
+            name: "Desktop Publishing",
+            creditHours: 12,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "ITT06208",
+            name: "Project Work",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT06209",
+            name: "Server Operating System Administration",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITT06210",
+            name: "Principles of IS Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT06211",
+            name: "ICT for Development",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITT06212",
+            name: "Entrepreneurship and Innovation",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
   }
 ];
 
