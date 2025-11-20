@@ -34,12 +34,34 @@ interface SemesterResult {
 }
 
 const GPACalculator = () => {
+  const [selectedNTALevel, setSelectedNTALevel] = useState<number | null>(null);
   const [selectedProgramme, setSelectedProgramme] = useState<Programme | null>(null);
   const [selectedSemester, setSelectedSemester] = useState<number>(1);
   const [moduleGrades, setModuleGrades] = useState<ModuleGrade[]>([]);
   const [semesterResults, setSemesterResults] = useState<SemesterResult[]>([]);
   const [currentGPA, setCurrentGPA] = useState<number>(0);
   const [showResults, setShowResults] = useState(false);
+
+  // Get unique NTA levels from programmes
+  const ntaLevels = [...new Set(programmes.map(p => p.ntaLevel))].sort();
+
+  // Map NTA levels to their academic names
+  const getNTALevelName = (level: number) => {
+    switch (level) {
+      case 4: return "Certificate";
+      case 5: return "Diploma";
+      case 6: return "Advanced Diploma";
+      case 7: return "Bachelor's Degree";
+      case 8: return "Master's Degree";
+      case 9: return "Doctorate Degree";
+      default: return `NTA Level ${level}`;
+    }
+  };
+
+  // Get programmes for the selected NTA level
+  const programmesForLevel = selectedNTALevel 
+    ? programmes.filter(p => p.ntaLevel === selectedNTALevel)
+    : [];
 
   useEffect(() => {
     if (selectedProgramme) {
@@ -54,6 +76,15 @@ const GPACalculator = () => {
       }
     }
   }, [selectedProgramme, selectedSemester]);
+
+  const handleNTALevelChange = (level: string) => {
+    const levelNum = parseInt(level);
+    setSelectedNTALevel(levelNum);
+    setSelectedProgramme(null);
+    setSelectedSemester(1);
+    setShowResults(false);
+    setCurrentGPA(0);
+  };
 
   const handleProgrammeChange = (programmeId: string) => {
     const programme = programmes.find(p => p.id === parseInt(programmeId));
@@ -200,21 +231,41 @@ const GPACalculator = () => {
               Programme & Semester Selection
             </CardTitle>
             <CardDescription>
-              Select your programme and semester to load the correct modules
+              Select your NTA level, programme and semester to load the correct modules
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="ntaLevel">NTA Level</Label>
+                <Select onValueChange={handleNTALevelChange} value={selectedNTALevel?.toString() || ""}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your NTA level" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-popover border border-border shadow-lg z-50 max-h-60 overflow-y-auto">
+                    {ntaLevels.map((level) => (
+                      <SelectItem key={level} value={level.toString()}>
+                        {getNTALevelName(level)} (NTA Level {level})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
               <div className="space-y-2">
                 <Label htmlFor="programme">Programme</Label>
-                <Select onValueChange={handleProgrammeChange}>
+                <Select 
+                  onValueChange={handleProgrammeChange} 
+                  value={selectedProgramme?.id.toString() || ""}
+                  disabled={!selectedNTALevel}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select your programme" />
                   </SelectTrigger>
                   <SelectContent className="bg-popover border border-border shadow-lg z-50 max-h-60 overflow-y-auto">
-                    {programmes.map((programme) => (
+                    {programmesForLevel.map((programme) => (
                       <SelectItem key={programme.id} value={programme.id.toString()}>
-                        {programme.name} - NTA Level {programme.ntaLevel}
+                        {programme.name}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -2184,6 +2184,369 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  // Add Diploma in Accountancy (DA) for NTA Level 4
+  {
+    id: 11,
+    name: "Diploma in Accountancy (DA) - NTA Level 4",
+    ntaLevel: 4,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ACT 04101",
+            name: "Basic Bookkeeping",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ACT 04102",
+            name: "Basic Business Mathematics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 04103",
+            name: "Basic Storekeeping",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 04104",
+            name: "Commercial Knowledge",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ACT 04105",
+            name: "Basic Communication Skills",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ACT 04206",
+            name: "Basic Computer Application in Business",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ACT 04207",
+            name: "Bookkeeping and Accounts",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 04208",
+            name: "Office Practice and Records Managements",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ACT 04209",
+            name: "Basic Business Finance",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ACT 04210",
+            name: "Basics of Costing",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  // Add Diploma in Accountancy (DA) for NTA Level 5 & 6
+  {
+    id: 12,
+    name: "Diploma in Accountancy (DA) - NTA Level 5 & 6",
+    ntaLevel: 5, // Using 5 as the primary level, since the programme covers both 5 and 6
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ACT 05101",
+            name: "Principles of Accounting",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "ACT 05102",
+            name: "Computer Applications",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 05103",
+            name: "Store and Stock Control",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 05104",
+            name: "Business Mathematics and Statistics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 05105",
+            name: "Business Management",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 05106",
+            name: "Communication Skills and Office Practice",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ACT 05207",
+            name: "Principles of Accounts and Auditing",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "ACT 05208",
+            name: "Finance Principles",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "ACT 05209",
+            name: "Economics",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "ACT 05210",
+            name: "Customer Service",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 05211",
+            name: "Practical Training",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "ACT 06101",
+            name: "Financial of Accounting",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "ACT 06102",
+            name: "Marketing",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 06103",
+            name: "Business Finance",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "ACT 06104",
+            name: "Banking Operations",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "ACT 06105",
+            name: "Principles of Auditing",
+            creditHours: 13,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "ACT 06206",
+            name: "Taxation",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "ACT 06207",
+            name: "Cost Accounting",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "ACT 06208",
+            name: "Principles of Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 06209",
+            name: "Business Law",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ACT 06210",
+            name: "Principles of Entrepreneurship",
+            creditHours: 12,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
+  },
+  // Add Master Degree in Accounting and Finance (MAF)
+  {
+    id: 13,
+    name: "Master Degree in Accounting and Finance (MAF)",
+    ntaLevel: 8,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "AFG09101",
+            name: "Quantitative Techniques for Business",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "AFG09102",
+            name: "Financial Reporting",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09103",
+            name: "Financial Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09104",
+            name: "Management Accounting and Control",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09105",
+            name: "Investments and Portfolio Management",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "AFG09206",
+            name: "Research Methods for Business",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "AFG09207",
+            name: "Investment and Portfolio Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09208",
+            name: "Multinational Finance Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09209",
+            name: "Advanced Corporate Reporting",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09315",
+            name: "MAF-Dissertation",
+            creditHours: 40,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II: Electives
+      {
+        semesterNumber: 3,
+        semesterName: "Semester II: Electives",
+        modules: [
+          {
+            code: "AFG09210",
+            name: "Management, Government & Ethics",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09211",
+            name: "Behavioral Finance",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09212",
+            name: "Institutional Investments",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09213",
+            name: "Public Finance and Taxation",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "AFG09214",
+            name: "Advanced Taxation",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      }
+    ]
   }
 ];
 
