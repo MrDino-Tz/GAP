@@ -19,6 +19,13 @@ interface ExportData {
   totalCreditHours: number;
   passedModules: number;
   qualityPoints: number;
+  cgpa?: number;
+}
+
+interface ComparativeExportData {
+  semester1: ExportData;
+  semester2: ExportData;
+  cgpa?: number;
 }
 
 export const exportToPDF = (data: ExportData) => {
@@ -114,6 +121,17 @@ export const exportToPDF = (data: ExportData) => {
   doc.text(`Modules Passed: ${data.passedModules}`, 20, finalY + 32);
   doc.text(`Total Quality Points: ${data.qualityPoints.toFixed(1)}`, 20, finalY + 39);
   
+  // Add CGPA section if available
+  if (data.cgpa !== undefined) {
+    doc.setFontSize(16);
+    doc.setTextColor(40, 167, 69); // Success green color
+    doc.text('Cumulative GPA:', pageWidth - 120, finalY + 12);
+    
+    doc.setFontSize(28);
+    doc.setFont('helvetica', 'bold');
+    doc.text(data.cgpa.toFixed(2), pageWidth - 70, finalY + 12);
+  }
+  
   let performance = '';
   let performanceColor: [number, number, number] = [0, 0, 0];
   
@@ -161,5 +179,226 @@ export const exportToPDF = (data: ExportData) => {
   );
   
   const fileName = `GPA_Report_${data.semesterName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+  doc.save(fileName);
+};
+
+export const exportComparativePDF = (data: ComparativeExportData) => {
+  const doc = new jsPDF();
+  
+  const pageWidth = doc.internal.pageSize.width;
+  const pageHeight = doc.internal.pageSize.height;
+  
+  // Header
+  doc.setFillColor(13, 110, 253);
+  doc.rect(0, 0, pageWidth, 40, 'F');
+  
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(24);
+  doc.setFont('helvetica', 'bold');
+  doc.text('GAP - GPA Calculator', pageWidth / 2, 20, { align: 'center' });
+  
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Comparative Academic Performance Report', pageWidth / 2, 30, { align: 'center' });
+  
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Programme:', 15, 55);
+  doc.setFont('helvetica', 'normal');
+  doc.text(data.semester1.programmeName, 45, 55);
+  
+  doc.setFont('helvetica', 'bold');
+  doc.text('Date:', 15, 62);
+  doc.setFont('helvetica', 'normal');
+  doc.text(new Date().toLocaleDateString('en-GB'), 45, 62);
+  
+  // Semester 1 Section
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(13, 110, 253);
+  doc.text(data.semester1.semesterName, 15, 75);
+  
+  const tableData1 = data.semester1.moduleGrades.map(mg => [
+    mg.module.code,
+    mg.module.name,
+    mg.module.creditHours.toString(),
+    mg.letterGrade,
+    mg.gradePoint.toFixed(1),
+    (mg.gradePoint * mg.module.creditHours).toFixed(1)
+  ]);
+  
+  autoTable(doc, {
+    startY: 80,
+    head: [['Module Code', 'Module Name', 'Credits', 'Grade', 'Grade Point', 'Quality Points']],
+    body: tableData1,
+    theme: 'striped',
+    headStyles: {
+      fillColor: [13, 110, 253],
+      textColor: [255, 255, 255],
+      fontStyle: 'bold',
+      fontSize: 10
+    },
+    bodyStyles: {
+      fontSize: 9
+    },
+    alternateRowStyles: {
+      fillColor: [245, 245, 245]
+    },
+    columnStyles: {
+      0: { cellWidth: 25 },
+      1: { cellWidth: 50 },
+      2: { cellWidth: 15, halign: 'center' },
+      3: { cellWidth: 15, halign: 'center' },
+      4: { cellWidth: 20, halign: 'center' },
+      5: { cellWidth: 25, halign: 'center' }
+    },
+    margin: { left: 15, right: 15 }
+  });
+  
+  let finalY = (doc as any).lastAutoTable.finalY + 10;
+  
+  doc.setFillColor(240, 240, 240);
+  doc.roundedRect(15, finalY, (pageWidth / 2) - 20, 40, 3, 3, 'F');
+  
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(13, 110, 253);
+  doc.text('Semester GPA:', 20, finalY + 10);
+  
+  doc.setFontSize(22);
+  doc.setFont('helvetica', 'bold');
+  doc.text(data.semester1.gpa.toFixed(2), 65, finalY + 10);
+  
+  doc.setFontSize(9);
+  doc.setTextColor(0, 0, 0);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Credits: ${data.semester1.totalCreditHours}`, 20, finalY + 20);
+  doc.text(`Passed: ${data.semester1.passedModules}`, 20, finalY + 27);
+  doc.text(`Points: ${data.semester1.qualityPoints.toFixed(1)}`, 20, finalY + 34);
+  
+  // Semester 2 Section
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(13, 110, 253);
+  doc.text(data.semester2.semesterName, (pageWidth / 2) + 5, 75);
+  
+  const tableData2 = data.semester2.moduleGrades.map(mg => [
+    mg.module.code,
+    mg.module.name,
+    mg.module.creditHours.toString(),
+    mg.letterGrade,
+    mg.gradePoint.toFixed(1),
+    (mg.gradePoint * mg.module.creditHours).toFixed(1)
+  ]);
+  
+  autoTable(doc, {
+    startY: 80,
+    head: [['Module Code', 'Module Name', 'Credits', 'Grade', 'Grade Point', 'Quality Points']],
+    body: tableData2,
+    theme: 'striped',
+    headStyles: {
+      fillColor: [13, 110, 253],
+      textColor: [255, 255, 255],
+      fontStyle: 'bold',
+      fontSize: 10
+    },
+    bodyStyles: {
+      fontSize: 9
+    },
+    alternateRowStyles: {
+      fillColor: [245, 245, 245]
+    },
+    columnStyles: {
+      0: { cellWidth: 25 },
+      1: { cellWidth: 50 },
+      2: { cellWidth: 15, halign: 'center' },
+      3: { cellWidth: 15, halign: 'center' },
+      4: { cellWidth: 20, halign: 'center' },
+      5: { cellWidth: 25, halign: 'center' }
+    },
+    margin: { left: (pageWidth / 2) + 5, right: 15 }
+  });
+  
+  finalY = (doc as any).lastAutoTable.finalY + 10;
+  
+  doc.setFillColor(240, 240, 240);
+  doc.roundedRect((pageWidth / 2) + 5, finalY, (pageWidth / 2) - 20, 40, 3, 3, 'F');
+  
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(13, 110, 253);
+  doc.text('Semester GPA:', (pageWidth / 2) + 10, finalY + 10);
+  
+  doc.setFontSize(22);
+  doc.setFont('helvetica', 'bold');
+  doc.text(data.semester2.gpa.toFixed(2), (pageWidth / 2) + 55, finalY + 10);
+  
+  doc.setFontSize(9);
+  doc.setTextColor(0, 0, 0);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Credits: ${data.semester2.totalCreditHours}`, (pageWidth / 2) + 10, finalY + 20);
+  doc.text(`Passed: ${data.semester2.passedModules}`, (pageWidth / 2) + 10, finalY + 27);
+  doc.text(`Points: ${data.semester2.qualityPoints.toFixed(1)}`, (pageWidth / 2) + 10, finalY + 34);
+  
+  // Comparative Summary
+  finalY = Math.max(finalY, (doc as any).lastAutoTable.finalY) + 15;
+  
+  doc.setFillColor(13, 110, 253);
+  doc.roundedRect(15, finalY, pageWidth - 30, 35, 3, 3, 'F');
+  
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('Comparative Summary', pageWidth / 2, finalY + 12, { align: 'center' });
+  
+  doc.setFontSize(12);
+  doc.text(`${data.semester1.semesterName}:`, 25, finalY + 22);
+  doc.text(data.semester1.gpa.toFixed(2), 70, finalY + 22);
+  
+  doc.text(`${data.semester2.semesterName}:`, 25, finalY + 30);
+  doc.text(data.semester2.gpa.toFixed(2), 70, finalY + 30);
+  
+  if (data.cgpa !== undefined) {
+    doc.setFontSize(14);
+    doc.text('CGPA:', pageWidth - 70, finalY + 22);
+    doc.text(data.cgpa.toFixed(2), pageWidth - 30, finalY + 22);
+  }
+  
+  // Performance Comparison
+  let comparisonText = '';
+  if (data.semester1.gpa > data.semester2.gpa) {
+    comparisonText = `${data.semester1.semesterName} performed better`;
+  } else if (data.semester2.gpa > data.semester1.gpa) {
+    comparisonText = `${data.semester2.semesterName} performed better`;
+  } else {
+    comparisonText = 'Both semesters performed equally';
+  }
+  
+  doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0);
+  doc.setFont('helvetica', 'italic');
+  doc.text(comparisonText, pageWidth / 2, finalY + 45, { align: 'center' });
+  
+  // Footer
+  doc.setFontSize(8);
+  doc.setTextColor(100, 100, 100);
+  doc.setFont('helvetica', 'italic');
+  doc.text(
+    'Generated by GAP - Official GPA Calculator for IAA',
+    pageWidth / 2,
+    pageHeight - 15,
+    { align: 'center' }
+  );
+  
+  doc.setFontSize(7);
+  doc.text(
+    'Developed by DTC Group',
+    pageWidth / 2,
+    pageHeight - 10,
+    { align: 'center' }
+  );
+  
+  const fileName = `Comparative_GPA_Report_${new Date().toISOString().split('T')[0]}.pdf`;
   doc.save(fileName);
 };

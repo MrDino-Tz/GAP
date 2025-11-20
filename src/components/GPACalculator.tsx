@@ -17,7 +17,7 @@ import {
   calculateCGPA,
   gradingScale
 } from '@/data/academicData';
-import { exportToPDF } from '@/lib/pdfExport';
+import { exportToPDF, exportComparativePDF } from '@/lib/pdfExport';
 import AcademicChatbot from '@/components/AcademicChatbot';
 
 interface ModuleGrade {
@@ -325,12 +325,34 @@ const GPACalculator = () => {
       gpa: currentGPA,
       totalCreditHours: moduleGrades.reduce((sum, g) => sum + g.module.creditHours, 0),
       passedModules: moduleGrades.filter(g => g.gradePoint >= 2.0).length,
-      qualityPoints: moduleGrades.reduce((sum, g) => sum + (g.gradePoint * g.module.creditHours), 0)
+      qualityPoints: moduleGrades.reduce((sum, g) => sum + (g.gradePoint * g.module.creditHours), 0),
+      cgpa: cgpa > 0 ? cgpa : undefined
     });
 
     toast({
       title: "PDF Exported",
       description: "Your GPA results have been downloaded as PDF.",
+      variant: "default"
+    });
+  };
+
+  const handleExportSavedSemesterPDF = (semesterData: SavedSemesterData) => {
+    // Find the programme for this saved semester
+    const programme = programmes.find(p => p.id === semesterData.programmeId);
+    
+    exportToPDF({
+      programmeName: semesterData.programmeName || (programme ? programme.name : 'Unknown Programme'),
+      semesterName: semesterData.semesterName || `Semester ${semesterData.semesterNumber}`,
+      moduleGrades: semesterData.modules,
+      gpa: semesterData.gpa,
+      totalCreditHours: semesterData.totalCreditHours,
+      passedModules: semesterData.modules.filter(m => m.gradePoint >= 2.0).length,
+      qualityPoints: semesterData.modules.reduce((sum, m) => sum + (m.gradePoint * m.module.creditHours), 0)
+    });
+
+    toast({
+      title: "PDF Exported",
+      description: `GPA results for ${semesterData.semesterName || `Semester ${semesterData.semesterNumber}`} have been downloaded as PDF.`,
       variant: "default"
     });
   };
@@ -342,6 +364,8 @@ const GPACalculator = () => {
         programmeName={selectedProgramme?.name}
         semesterNumber={selectedSemester}
       />
+
+      {/* 0694256900 */}
       <div className="container mx-auto py-8 px-4 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
@@ -384,20 +408,36 @@ const GPACalculator = () => {
                 </div>
               </div>
               
-              <div className="mt-6">
+              <div className="mt-4">
                 <h3 className="font-semibold mb-3">Saved Semesters:</h3>
                 <div className="space-y-2 max-h-40 overflow-y-auto">
                   {savedSemesters.map((semester, index) => (
-                    <div key={index} className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                    <div 
+                      key={index} 
+                      className="flex justify-between items-center p-3 bg-muted rounded-lg"
+                    >
                       <div>
                         <div className="font-medium">{semester.programmeName}</div>
                         <div className="text-sm text-muted-foreground">
                           {semester.semesterName} • {semester.savedAt.split('T')[0]}
                         </div>
                       </div>
-                      <Badge variant="secondary" className="text-lg">
-                        {semester.gpa.toFixed(2)}
-                      </Badge>
+                      <div className="flex gap-2 items-center">
+                        <Badge variant="secondary" className="text-lg">
+                          {semester.gpa.toFixed(2)}
+                        </Badge>
+                        <Button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleExportSavedSemesterPDF(semester);
+                          }}
+                          variant="outline"
+                          size="sm"
+                          className="h-8 px-2"
+                        >
+                          <Download className="h-3 w-3" />
+                        </Button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -579,16 +619,16 @@ const GPACalculator = () => {
                       <Download className="mr-2 h-4 w-4" />
                       Export PDF
                     </Button>
+                    <Button 
+                      onClick={resetCalculations}
+                      variant="destructive"
+                      size="lg"
+                    >
+                      <Trash className="mr-2 h-4 w-4" />
+                      Reset
+                    </Button>
                   </>
                 )}
-                <Button 
-                  onClick={resetCalculations}
-                  variant="destructive"
-                  size="lg"
-                >
-                  <Trash className="mr-2 h-4 w-4" />
-                  Reset
-                </Button>
               </div>
             </CardContent>
           </Card>
@@ -633,6 +673,14 @@ const GPACalculator = () => {
                   <div className="text-sm text-muted-foreground">Quality Points</div>
                 </div>
               </div>
+              
+              {/* CGPA Display */}
+              {cgpa > 0 && (
+                <div className="mt-6 p-4 bg-success/10 rounded-lg">
+                  <h3 className="text-lg font-semibold text-success">Cumulative GPA</h3>
+                  <div className="text-3xl font-bold text-success">{cgpa.toFixed(2)}</div>
+                </div>
+              )}
               
               <div className="flex justify-center mt-4">
                 <Button 
