@@ -3477,6 +3477,88 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  // Add Ordinary Diploma in Information Technology (ODIT) for NTA Level 4
+  {
+    id: 28,
+    name: "Ordinary Diploma in Information Technology (ODIT) - NTA Level 4",
+    ntaLevel: 4,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ITT04103",
+            name: "Elements of Business Mathematics and Statistics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT04105",
+            name: "Basic Communication Skills",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ITT 04102",
+            name: "Basic Computer Applications",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ITT 04101",
+            name: "Elements of Computer Systems",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITT 04104",
+            name: "Basics Theories of computer electronics",
+            creditHours: 12,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ITT04206",
+            name: "Elementary Computer Networking",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "ITT04207",
+            name: "Basic Computer Troubleshooting",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITT04208",
+            name: "Essentials of Office Practice",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "ITT04209",
+            name: "Basic Internet Applications",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ITT04210",
+            name: "Customer Care",
+            creditHours: 11,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
   }
 ];
 
