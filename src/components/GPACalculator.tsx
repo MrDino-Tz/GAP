@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { GraduationCap, Calculator, Trophy, BookOpen, Download, Trash, Menu, X, Sun, Moon } from 'lucide-react';
+import { GraduationCap, Calculator, Trophy, BookOpen, Download, Trash, Menu, X, Sun, Moon, Star, Github } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { 
   programmes, 
@@ -18,6 +18,7 @@ import {
   gradingScale
 } from '@/data/academicData';
 import { ACADEMIC_LEVELS, AcademicProgram, getProgramById } from '@/types/academic';
+import { UNIVERSITIES, University, getUniversityById } from '@/types/university';
 import { exportToPDF, exportComparativePDF } from '@/lib/pdfExport';
 import AcademicChatbot from '@/components/AcademicChatbot';
 
@@ -47,6 +48,7 @@ interface SavedSemesterData {
 }
 
 const GPACalculator = () => {
+  const [selectedUniversity, setSelectedUniversity] = useState<University | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<AcademicProgram | null>(null);
   const [selectedProgramme, setSelectedProgramme] = useState<Programme | null>(null);
@@ -61,6 +63,7 @@ const GPACalculator = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
+  const [githubStars, setGithubStars] = useState<number | null>(null);
 
   // Toggle dark mode
   const toggleDarkMode = () => {
@@ -75,6 +78,22 @@ const GPACalculator = () => {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  // Fetch GitHub stars
+  useEffect(() => {
+    const fetchGithubStars = async () => {
+      try {
+        const response = await fetch('https://api.github.com/repos/mrdino-tz/GAP');
+        const data = await response.json();
+        setGithubStars(data.stargazers_count);
+      } catch (error) {
+        console.error('Error fetching GitHub stars:', error);
+        setGithubStars(0);
+      }
+    };
+
+    fetchGithubStars();
+  }, []);
 
   // Get programmes for the selected level
   const programmesForLevel = selectedLevel 
@@ -94,6 +113,18 @@ const GPACalculator = () => {
       }
     }
   }, [selectedProgramme, selectedSemester]);
+
+  const handleUniversityChange = (universityId: string) => {
+    const university = getUniversityById(parseInt(universityId));
+    setSelectedUniversity(university || null);
+    // Reset other selections when university changes
+    setSelectedLevel(null);
+    setSelectedProgram(null);
+    setSelectedProgramme(null);
+    setSelectedSemester(1);
+    setShowResults(false);
+    setCurrentGPA(0);
+  };
 
   const handleLevelChange = (level: string) => {
     const levelNum = parseInt(level);
@@ -388,6 +419,16 @@ const GPACalculator = () => {
               >
                 About
               </button>
+              <a
+                href="https://github.com/mrdino-tz/GAP"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 text-sm font-medium text-foreground transition-colors hover:text-primary"
+              >
+                <Github className="h-4 w-4" />
+                <Star className="h-3 w-3 fill-current" />
+                {githubStars !== null ? githubStars : '...'}
+              </a>
             </nav>
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm" className="hidden sm:flex" onClick={() => setShowHelp(true)}>
@@ -442,6 +483,17 @@ const GPACalculator = () => {
             >
               About
             </button>
+            <a
+              href="https://github.com/mrdino-tz/GAP"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-lg font-medium text-foreground transition-colors hover:text-primary py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <Github className="h-5 w-5" />
+              <Star className="h-4 w-4 fill-current" />
+              {githubStars !== null ? githubStars : '...'}
+            </a>
           </nav>
         </div>
       </div>
@@ -609,8 +661,20 @@ const GPACalculator = () => {
             <h1 className="text-4xl font-bold text-foreground">GAP a GPA Calculator</h1>
           </div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Calculate your Semester GPA and CGPA with accuracy based on official IAA grading system
+            Calculate your Semester GPA and CGPA with accuracy 
+            {selectedUniversity ? (
+              <span> based on {selectedUniversity.shortName} grading system</span>
+            ) : (
+              <span> - Select your university to begin</span>
+            )}
           </p>
+          {selectedUniversity && (
+            <div className="mt-2">
+              <Badge variant="secondary" className="text-sm">
+                {selectedUniversity.name} - {selectedUniversity.location}
+              </Badge>
+            </div>
+          )}
         </div>
 
         {/* CGPA Summary */}
@@ -706,17 +770,36 @@ const GPACalculator = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-primary" />
-              Programme & Semester Selection
+              University, Programme & Semester Selection
             </CardTitle>
             <CardDescription>
-              Select your academic level, programme and semester to load the correct modules
+              Select your university, academic level, programme and semester to load the correct modules
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="university">University</Label>
+                <Select onValueChange={handleUniversityChange} value={selectedUniversity?.id.toString() || ""}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your university" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-popover border border-border shadow-lg z-50 max-h-60 overflow-y-auto">
+                    {UNIVERSITIES.map((university) => (
+                      <SelectItem key={university.id} value={university.id.toString()}>
+                        <div className="flex items-center gap-2">
+                          <span>{university.name}</span>
+                          <span className="text-xs text-muted-foreground">({university.shortName})</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
               <div className="space-y-2">
                 <Label htmlFor="academicLevel">Academic Level</Label>
-                <Select onValueChange={handleLevelChange} value={selectedLevel?.toString() || ""}>
+                <Select onValueChange={handleLevelChange} value={selectedLevel?.toString() || ""} disabled={!selectedUniversity}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select your academic level" />
                   </SelectTrigger>
