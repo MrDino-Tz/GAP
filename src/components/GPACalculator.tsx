@@ -777,7 +777,85 @@ const GPACalculator = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Mobile: Stacked layout */}
+            <div className="space-y-4 md:hidden">
+              <div className="space-y-2">
+                <Label htmlFor="university">University</Label>
+                <Select onValueChange={handleUniversityChange} value={selectedUniversity?.id.toString() || ""}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your university" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-popover border border-border shadow-lg z-50 max-h-60 overflow-y-auto">
+                    {UNIVERSITIES.map((university) => (
+                      <SelectItem key={university.id} value={university.id.toString()}>
+                        <div className="flex items-center gap-2">
+                          <span>{university.name}</span>
+                          <span className="text-xs text-muted-foreground">({university.shortName})</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <Label htmlFor="academicLevel">Academic Level</Label>
+                  <Select onValueChange={handleLevelChange} value={selectedLevel?.toString() || ""} disabled={!selectedUniversity}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Level" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-popover border border-border shadow-lg z-50 max-h-60 overflow-y-auto">
+                      {ACADEMIC_LEVELS.map((level) => (
+                        <SelectItem key={level.id} value={level.id.toString()}>
+                          {level.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="programme">Programme</Label>
+                  <Select onValueChange={handleProgramChange} value={selectedProgram?.id.toString() || ""} disabled={!selectedLevel}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Programme" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-popover border border-border shadow-lg z-50 max-h-60 overflow-y-auto">
+                      {programmesForLevel.map((program) => (
+                        <SelectItem key={program.id} value={program.id.toString()}>
+                          {program.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              {selectedProgramme && (
+                <div className="space-y-2">
+                  <Label htmlFor="semester">Semester</Label>
+                  <Select 
+                    value={selectedSemester.toString()} 
+                    onValueChange={(value) => setSelectedSemester(parseInt(value))}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-popover border border-border shadow-lg z-50">
+                      {selectedProgramme.semesters.map((semester) => (
+                        <SelectItem key={semester.semesterNumber} value={semester.semesterNumber.toString()}>
+                          {semester.semesterName}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+            </div>
+
+            {/* Desktop: Horizontal layout */}
+            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="university">University</Label>
                 <Select onValueChange={handleUniversityChange} value={selectedUniversity?.id.toString() || ""}>
