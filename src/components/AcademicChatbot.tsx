@@ -123,129 +123,129 @@ const AcademicChatbot: React.FC<AcademicChatbotProps> = ({
       {/* Chat Button */}
       <Button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-4 right-4 sm:bottom-8 sm:right-8 h-12 w-12 sm:h-14 sm:w-14 rounded-full p-0 shadow-lg transition-all duration-300 ${
-          isOpen ? 'scale-0' : 'scale-100'
+        className={`fixed bottom-8 right-4 lg:bottom-10 lg:right-6 h-12 w-12 lg:h-14 lg:w-14 rounded-full p-0 shadow-lg hover:shadow-xl transition-all duration-300 ${
+          isOpen ? 'scale-0 rotate-180' : 'scale-100 hover:scale-110'
         }`}
         variant="default"
         size="icon"
       >
-        {isOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />}
+        <MessageCircle className="h-5 w-5 lg:h-6 lg:w-6" />
         <span className="sr-only">{isOpen ? 'Close chat' : 'Open chat'}</span>
       </Button>
 
       {/* Chat Window */}
       <div
-        className={`fixed bottom-0 right-0 sm:bottom-24 sm:right-8 w-full sm:w-96 h-[80vh] sm:h-[600px] flex flex-col rounded-t-lg sm:rounded-lg border bg-background shadow-xl transition-all duration-300 ${
-          isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 pointer-events-none'
+        className={`fixed bottom-0 right-0 lg:bottom-24 lg:right-6 w-full lg:w-[420px] h-[70vh] lg:h-[500px] max-h-[700px] flex flex-col rounded-t-2xl lg:rounded-2xl border bg-background shadow-2xl transition-all duration-300 ease-out ${
+          isOpen ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-4 opacity-0 pointer-events-none scale-95'
         }`}
       >
-        <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground rounded-t-lg p-4">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground rounded-t-2xl lg:rounded-2xl p-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Bot className="h-5 w-5" />
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 lg:h-10 lg:w-10 rounded-full bg-white/20 flex items-center justify-center">
+                <Bot className="h-4 w-4 lg:h-5 lg:w-5" />
+              </div>
               <div>
-                <h3 className="text-lg font-semibold">Manto AI</h3>
-                <p className="text-xs opacity-80">
-                  DTC Group AI-powered guidance for Academic Performance
+                <h3 className="text-lg lg:text-xl font-bold">Manto AI</h3>
+                <p className="text-xs lg:text-sm opacity-90">
+                  DTC Group AI-powered Academic Guidance
                 </p>
               </div>
             </div>
             <Button
-              onClick={toggleChat}
+              onClick={() => setIsOpen(false)}
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-primary-foreground hover:bg-primary-foreground/20"
+              className="h-8 w-8 lg:h-10 lg:w-10 text-white hover:bg-white/20"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4 lg:h-5 lg:w-5" />
               <span className="sr-only">Close chat</span>
             </Button>
           </div>
         </div>
 
-        <div className="flex-1 overflow-hidden flex flex-col">
-          <ScrollArea
-            ref={scrollAreaRef}
-            className="flex-1 p-4"
-          >
-            <div className="space-y-4">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex gap-3 ${
-                    message.role === 'user' ? 'justify-end' : 'justify-start'
-                  }`}
-                >
-                  {message.role === 'assistant' && (
-                    <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Bot className="h-4 w-4 text-primary" />
-                    </div>
-                  )}
-                  
-                  <div
-                    className={`max-w-[75%] rounded-lg p-3 ${
-                      message.role === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-foreground'
-                    }`}
-                  >
-                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                    <span className="text-xs opacity-70 mt-1 block">
-                      {message.timestamp.toLocaleTimeString([], { 
-                        hour: '2-digit', 
-                        minute: '2-digit' 
-                      })}
-                    </span>
-                  </div>
-
-                  {message.role === 'user' && (
-                    <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary flex items-center justify-center">
-                      <User className="h-4 w-4 text-primary-foreground" />
-                    </div>
-                  )}
-                </div>
-              ))}
-              
-              {isLoading && (
-                <div className="flex gap-3 justify-start">
+        {/* Messages Area */}
+        <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
+          <div className="space-y-4">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`flex gap-3 ${
+                  message.role === 'user' ? 'justify-end' : 'justify-start'
+                }`}
+              >
+                {message.role === 'assistant' && (
                   <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Bot className="h-4 w-4 text-primary" />
                   </div>
-                  <div className="bg-muted rounded-lg p-3">
-                    <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                  </div>
-                </div>
-              )}
-              
-              <div ref={messagesEndRef} />
-            </div>
-          </ScrollArea>
-
-          <div className="border-t p-3">
-            <div className="flex items-center gap-2">
-              <Input
-                type="text"
-                placeholder="Type your message..."
-                className="flex-1 text-sm sm:text-base h-11"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                disabled={isLoading}
-              />
-              <Button
-                type="button"
-                size="icon"
-                className="h-11 w-11"
-                onClick={handleSendMessage}
-                disabled={isLoading || !input.trim()}
-              >
-                {isLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Send className="h-4 w-4" />
                 )}
-                <span className="sr-only">Send message</span>
-              </Button>
-            </div>
+                
+                <div
+                  className={`max-w-[75%] lg:max-w-[80%] rounded-lg p-3 ${
+                    message.role === 'user'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-foreground'
+                  }`}
+                >
+                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                  <span className="text-xs opacity-70 mt-1 block">
+                    {message.timestamp.toLocaleTimeString([], { 
+                      hour: '2-digit', 
+                      minute: '2-digit' 
+                    })}
+                  </span>
+                </div>
+
+                {message.role === 'user' && (
+                  <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary flex items-center justify-center">
+                    <User className="h-4 w-4 text-primary-foreground" />
+                  </div>
+                )}
+              </div>
+            ))}
+            
+            {isLoading && (
+              <div className="flex gap-3 justify-start">
+                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Bot className="h-4 w-4 text-primary" />
+                </div>
+                <div className="bg-muted rounded-lg p-3">
+                  <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                </div>
+              </div>
+            )}
+            
+            <div ref={messagesEndRef} />
+          </div>
+        </ScrollArea>
+
+        {/* Input Area */}
+        <div className="border-t p-3 lg:p-4">
+          <div className="flex items-center gap-2 lg:gap-3">
+            <Input
+              type="text"
+              placeholder="Ask about GPA, study tips, or academic advice..."
+              className="flex-1 text-sm lg:text-base h-11 lg:h-12"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+              disabled={isLoading}
+            />
+            <Button
+              type="button"
+              size="icon"
+              className="h-11 w-11 lg:h-12 lg:w-12 flex-shrink-0"
+              onClick={handleSendMessage}
+              disabled={isLoading || !input.trim()}
+            >
+              {isLoading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Send className="h-4 w-4" />
+              )}
+              <span className="sr-only">Send message</span>
+            </Button>
           </div>
         </div>
       </div>
