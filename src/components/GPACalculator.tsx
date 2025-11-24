@@ -689,40 +689,47 @@ const GPACalculator = () => {
                 Cumulative Grade Point Average across all saved semesters
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center p-4 bg-success/10 rounded-lg">
-                  <div className="text-3xl font-bold text-success">{cgpa.toFixed(2)}</div>
-                  <div className="text-sm text-muted-foreground">Cumulative GPA</div>
+            <CardContent className="space-y-4">
+              {/* Stats Grid */}
+              <div className="grid grid-cols-3 gap-3 md:gap-6">
+                <div className="text-center p-3 md:p-4 bg-success/10 rounded-lg">
+                  <div className="text-2xl md:text-3xl font-bold text-success">{cgpa.toFixed(2)}</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">CGPA</div>
                 </div>
-                <div className="text-center p-4 bg-primary/10 rounded-lg">
-                  <div className="text-3xl font-bold text-primary">{savedSemesters.length}</div>
-                  <div className="text-sm text-muted-foreground">Semesters Saved</div>
+                <div className="text-center p-3 md:p-4 bg-primary/10 rounded-lg">
+                  <div className="text-2xl md:text-3xl font-bold text-primary">{savedSemesters.length}</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">Semesters</div>
                 </div>
-                <div className="text-center p-4 bg-accent/10 rounded-lg">
-                  <div className="text-3xl font-bold text-accent">
+                <div className="text-center p-3 md:p-4 bg-accent/10 rounded-lg">
+                  <div className="text-2xl md:text-3xl font-bold text-accent">
                     {savedSemesters.reduce((sum, sem) => sum + sem.totalCreditHours, 0)}
                   </div>
-                  <div className="text-sm text-muted-foreground">Total Credit Hours</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">Credits</div>
                 </div>
               </div>
               
-              <div className="mt-4">
-                <h3 className="font-semibold mb-3">Saved Semesters:</h3>
-                <div className="space-y-2 max-h-40 overflow-y-auto">
+              {/* Saved Semesters List */}
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-semibold text-sm md:text-base">Saved Semesters:</h3>
+                  <Badge variant="outline" className="text-xs">
+                    {savedSemesters.length} {savedSemesters.length === 1 ? 'semester' : 'semesters'}
+                  </Badge>
+                </div>
+                <div className="space-y-2 max-h-48 md:max-h-40 overflow-y-auto">
                   {savedSemesters.map((semester, index) => (
                     <div 
                       key={index} 
-                      className="flex justify-between items-center p-3 bg-muted rounded-lg"
+                      className="flex justify-between items-center p-2 md:p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
                     >
-                      <div>
-                        <div className="font-medium">{semester.programmeName}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {semester.semesterName} • {semester.savedAt.split('T')[0]}
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-sm md:text-base truncate">{semester.programmeName}</div>
+                        <div className="text-xs md:text-sm text-muted-foreground">
+                          {semester.semesterName} • {new Date(semester.savedAt).toLocaleDateString()}
                         </div>
                       </div>
-                      <div className="flex gap-2 items-center">
-                        <Badge variant="secondary" className="text-lg">
+                      <div className="flex gap-1 md:gap-2 items-center flex-shrink-0 ml-2">
+                        <Badge variant="secondary" className="text-sm md:text-base px-2 py-1">
                           {semester.gpa.toFixed(2)}
                         </Badge>
                         <Button 
@@ -732,7 +739,8 @@ const GPACalculator = () => {
                           }}
                           variant="outline"
                           size="sm"
-                          className="h-8 px-2"
+                          className="h-7 w-7 md:h-8 md:px-2 p-0"
+                          title="Export PDF"
                         >
                           <Download className="h-3 w-3" />
                         </Button>
@@ -742,23 +750,27 @@ const GPACalculator = () => {
                 </div>
               </div>
               
-              <div className="mt-4 flex flex-wrap justify-center gap-2">
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-2 justify-center">
                 <Button 
                   onClick={calculateCumulativeGPA}
                   variant="default"
                   size="sm"
-                  className="bg-success hover:bg-success/90"
+                  className="bg-success hover:bg-success/90 w-full sm:w-auto"
                 >
                   <Calculator className="mr-2 h-4 w-4" />
-                  Calculate CGPA
+                  <span className="hidden sm:inline">Calculate CGPA</span>
+                  <span className="sm:hidden">Calculate</span>
                 </Button>
                 <Button 
                   onClick={resetAllData}
                   variant="destructive"
                   size="sm"
+                  className="w-full sm:w-auto"
                 >
                   <Trash className="mr-2 h-4 w-4" />
-                  Reset All Data
+                  <span className="hidden sm:inline">Reset All Data</span>
+                  <span className="sm:hidden">Reset</span>
                 </Button>
               </div>
             </CardContent>
@@ -943,40 +955,89 @@ const GPACalculator = () => {
                 Select your grades for each module. GPA will be calculated automatically.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
                 {moduleGrades.map((moduleGrade, index) => (
-                  <div key={moduleGrade.module.code} className="grid grid-cols-1 md:grid-cols-6 gap-4 items-center p-4 border border-border rounded-lg">
-                    <div className="md:col-span-2">
-                      <div className="font-medium">{moduleGrade.module.code}</div>
-                      <div className="text-sm text-muted-foreground">{moduleGrade.module.name}</div>
+                  <div key={moduleGrade.module.code} className="p-3 md:p-4 border border-border rounded-lg hover:bg-muted/30 transition-colors">
+                    {/* Mobile Layout */}
+                    <div className="flex flex-col space-y-3 md:hidden">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-sm">{moduleGrade.module.code}</div>
+                          <div className="text-xs text-muted-foreground mt-1">{moduleGrade.module.name}</div>
+                        </div>
+                        <Badge variant="secondary" className="text-xs px-2 py-1 flex-shrink-0 ml-2">
+                          {moduleGrade.module.creditHours} Credits
+                        </Badge>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <Label className="text-xs text-muted-foreground mb-1 block">Grade</Label>
+                          <Select
+                            value={moduleGrade.letterGrade}
+                            onValueChange={(value) => handleGradeChange(index, value)}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Select grade" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {gradingScale.map((grade) => (
+                                <SelectItem key={grade.letterGrade} value={grade.letterGrade}>
+                                  {grade.letterGrade} ({grade.gradePoint.toFixed(1)})
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        
+                        <div>
+                          <Label className="text-xs text-muted-foreground mb-1 block">Points</Label>
+                          <div className="flex items-center justify-center h-10 border rounded-md bg-muted">
+                            <Badge 
+                              variant={moduleGrade.gradePoint >= 4.0 ? "default" : moduleGrade.gradePoint >= 3.0 ? "secondary" : "destructive"}
+                              className="text-sm"
+                            >
+                              {moduleGrade.gradePoint.toFixed(1)}
+                            </Badge>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-center">
-                      <Badge variant="secondary">{moduleGrade.module.creditHours} Credits</Badge>
-                    </div>
-                    <div>
-                      <Select
-                        value={moduleGrade.letterGrade}
-                        onValueChange={(value) => handleGradeChange(index, value)}
-                      >
-                        <SelectTrigger className="w-[100px]">
-                          <SelectValue placeholder="Select grade" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {gradingScale.map((grade) => (
-                            <SelectItem key={grade.letterGrade} value={grade.letterGrade}>
-                              {grade.letterGrade} ({grade.gradePoint.toFixed(1)})
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="text-center">
-                      <Badge 
-                        variant={moduleGrade.gradePoint >= 4.0 ? "default" : moduleGrade.gradePoint >= 3.0 ? "secondary" : "destructive"}
-                      >
-                        {moduleGrade.gradePoint.toFixed(1)}
-                      </Badge>
+                    
+                    {/* Desktop Layout */}
+                    <div className="hidden md:grid md:grid-cols-6 gap-4 items-center">
+                      <div className="md:col-span-2">
+                        <div className="font-medium">{moduleGrade.module.code}</div>
+                        <div className="text-sm text-muted-foreground">{moduleGrade.module.name}</div>
+                      </div>
+                      <div className="text-center">
+                        <Badge variant="secondary">{moduleGrade.module.creditHours} Credits</Badge>
+                      </div>
+                      <div>
+                        <Select
+                          value={moduleGrade.letterGrade}
+                          onValueChange={(value) => handleGradeChange(index, value)}
+                        >
+                          <SelectTrigger className="w-[100px]">
+                            <SelectValue placeholder="Select grade" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {gradingScale.map((grade) => (
+                              <SelectItem key={grade.letterGrade} value={grade.letterGrade}>
+                                {grade.letterGrade} ({grade.gradePoint.toFixed(1)})
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="text-center">
+                        <Badge 
+                          variant={moduleGrade.gradePoint >= 4.0 ? "default" : moduleGrade.gradePoint >= 3.0 ? "secondary" : "destructive"}
+                        >
+                          {moduleGrade.gradePoint.toFixed(1)}
+                        </Badge>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -984,21 +1045,23 @@ const GPACalculator = () => {
               
               <Separator className="my-6" />
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col gap-3">
                 <Button 
                   onClick={calculateGPA}
-                  className="bg-gradient-primary text-primary-foreground hover:shadow-glow transition-smooth"
+                  className="bg-gradient-primary text-primary-foreground hover:shadow-glow transition-smooth w-full"
                   size="lg"
                 >
                   <Calculator className="mr-2 h-4 w-4" />
                   Calculate Semester GPA
                 </Button>
+                
                 {showResults && (
-                  <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     <Button 
                       onClick={saveToLocalStorage}
                       variant="outline"
                       size="lg"
+                      className="w-full"
                     >
                       Save Results
                     </Button>
@@ -1006,20 +1069,23 @@ const GPACalculator = () => {
                       onClick={handleExportPDF}
                       variant="default"
                       size="lg"
-                      className="bg-success hover:bg-success/90"
+                      className="bg-success hover:bg-success/90 w-full"
                     >
                       <Download className="mr-2 h-4 w-4" />
-                      Export PDF
+                      <span className="hidden sm:inline">Export PDF</span>
+                      <span className="sm:hidden">Export</span>
                     </Button>
                     <Button 
                       onClick={resetCalculations}
                       variant="destructive"
                       size="lg"
+                      className="w-full"
                     >
                       <Trash className="mr-2 h-4 w-4" />
-                      Reset
+                      <span className="hidden sm:inline">Reset</span>
+                      <span className="sm:hidden">Reset</span>
                     </Button>
-                  </>
+                  </div>
                 )}
               </div>
             </CardContent>
@@ -1029,59 +1095,64 @@ const GPACalculator = () => {
         {/* Results Display */}
         {showResults && (
           <Card className="shadow-glow border-2 border-primary/20">
-            <CardHeader className="text-center">
-              <div className="flex items-center justify-center gap-3 mb-2">
-                <Trophy className="h-8 w-8 text-success" />
-                <CardTitle className="text-2xl">Your Semester Results</CardTitle>
+            <CardHeader className="text-center px-4 md:px-6">
+              <div className="flex items-center justify-center gap-2 md:gap-3 mb-2">
+                <Trophy className="h-6 w-6 md:h-8 md:w-8 text-success" />
+                <CardTitle className="text-xl md:text-2xl">Your Semester Results</CardTitle>
               </div>
             </CardHeader>
-            <CardContent className="text-center space-y-6">
-              <div className="space-y-2">
-                <div className="text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <CardContent className="text-center space-y-4 md:space-y-6 px-4 md:px-6">
+              {/* Main GPA Display */}
+              <div className="space-y-2 py-2">
+                <div className="text-4xl md:text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                   {currentGPA.toFixed(2)}
                 </div>
-                <div className={`text-xl font-semibold ${getGPAColor(currentGPA)}`}>
+                <div className={`text-lg md:text-xl font-semibold ${getGPAColor(currentGPA)}`}>
                   {getGPADescription(currentGPA)}
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">
+              {/* Stats Grid */}
+              <div className="grid grid-cols-3 gap-2 md:gap-4 pt-2 md:pt-4">
+                <div className="text-center p-2 md:p-0">
+                  <div className="text-xl md:text-2xl font-bold text-primary">
                     {moduleGrades.reduce((sum, g) => sum + g.module.creditHours, 0)}
                   </div>
-                  <div className="text-sm text-muted-foreground">Total Credit Hours</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">Credits</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-success">
+                <div className="text-center p-2 md:p-0">
+                  <div className="text-xl md:text-2xl font-bold text-success">
                     {moduleGrades.filter(g => g.gradePoint >= 2.0).length}
                   </div>
-                  <div className="text-sm text-muted-foreground">Modules Passed</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">Passed</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-accent">
+                <div className="text-center p-2 md:p-0">
+                  <div className="text-xl md:text-2xl font-bold text-accent">
                     {moduleGrades.reduce((sum, g) => sum + (g.gradePoint * g.module.creditHours), 0).toFixed(1)}
                   </div>
-                  <div className="text-sm text-muted-foreground">Quality Points</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">Points</div>
                 </div>
               </div>
               
               {/* CGPA Display */}
               {cgpa > 0 && (
-                <div className="mt-6 p-4 bg-success/10 rounded-lg">
-                  <h3 className="text-lg font-semibold text-success">Cumulative GPA</h3>
-                  <div className="text-3xl font-bold text-success">{cgpa.toFixed(2)}</div>
+                <div className="mt-4 md:mt-6 p-3 md:p-4 bg-success/10 rounded-lg">
+                  <h3 className="text-base md:text-lg font-semibold text-success">Cumulative GPA</h3>
+                  <div className="text-2xl md:text-3xl font-bold text-success">{cgpa.toFixed(2)}</div>
                 </div>
               )}
               
-              <div className="flex justify-center mt-4">
+              {/* Action Button */}
+              <div className="flex justify-center mt-2 md:mt-4">
                 <Button 
                   onClick={resetCalculations}
                   variant="destructive"
                   size="sm"
+                  className="w-full sm:w-auto"
                 >
                   <Trash className="mr-2 h-4 w-4" />
-                  Reset Calculation
+                  <span className="hidden sm:inline">Reset Calculation</span>
+                  <span className="sm:hidden">Reset</span>
                 </Button>
               </div>
             </CardContent>
