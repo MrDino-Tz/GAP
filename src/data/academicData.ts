@@ -2188,7 +2188,7 @@ export const programmes: Programme[] = [
   // Add Diploma in Accountancy (DA) for NTA Level 4
   {
     id: 11,
-    name: "Diploma in Accountancy (DA) - NTA Level 4",
+    name: "Certificate in Accountancy (CA) - NTA Level 4",
     ntaLevel: 4,
     semesters: [
       // Semester I
@@ -2551,7 +2551,7 @@ export const programmes: Programme[] = [
   // Add Diploma in Insurance and Risk Management (BIRM Appr) for NTA Level 4
   {
     id: 19,
-    name: "Diploma in Insurance and Risk Management (BIRM Appr) - NTA Level 4",
+    name: "Certificate in Insurance and Risk Management (CIRM) - NTA Level 4",
     ntaLevel: 4,
     semesters: [
       // Semester I
@@ -2825,7 +2825,7 @@ export const programmes: Programme[] = [
   // Add Diploma in Economics and Finance (ODEF) for NTA Level 4
   {
     id: 21,
-    name: "Diploma in Economics and Finance (ODEF) - NTA Level 4",
+    name: "Certificate in Economics and Finance (CEF) - NTA Level 4",
     ntaLevel: 4,
     semesters: [
       // Semester I
@@ -3069,7 +3069,7 @@ export const programmes: Programme[] = [
   // Add Diploma in Computer Networking (ODCN) for NTA Level 4
   {
     id: 24,
-    name: "Diploma in Computer Networking (ODCN) - NTA Level 4",
+    name: "Certificate in Computer Networking (CCN) - NTA Level 4",
     ntaLevel: 4,
     semesters: [
       // Semester I
@@ -3481,7 +3481,7 @@ export const programmes: Programme[] = [
   // Add Ordinary Diploma in Information Technology (ODIT) for NTA Level 4
   {
     id: 28,
-    name: "Ordinary Diploma in Information Technology (ODIT) - NTA Level 4",
+    name: "Certificate in Information Technology (CIT) - NTA Level 4",
     ntaLevel: 4,
     semesters: [
       // Semester I
@@ -3563,7 +3563,7 @@ export const programmes: Programme[] = [
   // Add Diploma in Human Resource Management (ODHRM) for NTA Level 4
   {
     id: 31,
-    name: "Diploma in Human Resource Management (ODHRM) - NTA Level 4",
+    name: "Certificate in Human Resource Management (CHRM) - NTA Level 4",
     ntaLevel: 4,
     semesters: [
       // Semester I

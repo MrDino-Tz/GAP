@@ -17,6 +17,7 @@ import {
   calculateCGPA,
   gradingScale
 } from '@/data/academicData';
+import { ACADEMIC_LEVELS, AcademicProgram, getProgramById } from '@/types/academic';
 import { exportToPDF, exportComparativePDF } from '@/lib/pdfExport';
 import AcademicChatbot from '@/components/AcademicChatbot';
 
@@ -46,7 +47,8 @@ interface SavedSemesterData {
 }
 
 const GPACalculator = () => {
-  const [selectedNTALevel, setSelectedNTALevel] = useState<number | null>(null);
+  const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState<AcademicProgram | null>(null);
   const [selectedProgramme, setSelectedProgramme] = useState<Programme | null>(null);
   const [selectedSemester, setSelectedSemester] = useState<number>(1);
   const [moduleGrades, setModuleGrades] = useState<ModuleGrade[]>([]);
@@ -74,25 +76,9 @@ const GPACalculator = () => {
     }
   }, [darkMode]);
 
-  // Get unique NTA levels from programmes
-  const ntaLevels = [...new Set(programmes.map(p => p.ntaLevel))].sort();
-
-  // Map NTA levels to their academic names
-  const getNTALevelName = (level: number) => {
-    switch (level) {
-      case 4: return "Certificate";
-      case 5: return "Diploma";
-      case 6: return "Advanced Diploma";
-      case 7: return "Bachelor's Degree";
-      case 8: return "Master's Degree";
-      case 9: return "Doctorate Degree";
-      default: return `NTA Level ${level}`;
-    }
-  };
-
-  // Get programmes for the selected NTA level
-  const programmesForLevel = selectedNTALevel 
-    ? programmes.filter(p => p.ntaLevel === selectedNTALevel)
+  // Get programmes for the selected level
+  const programmesForLevel = selectedLevel 
+    ? ACADEMIC_LEVELS.find(l => l.id === selectedLevel)?.programs || []
     : [];
 
   useEffect(() => {
@@ -109,19 +95,23 @@ const GPACalculator = () => {
     }
   }, [selectedProgramme, selectedSemester]);
 
-  const handleNTALevelChange = (level: string) => {
+  const handleLevelChange = (level: string) => {
     const levelNum = parseInt(level);
-    setSelectedNTALevel(levelNum);
+    setSelectedLevel(levelNum);
+    setSelectedProgram(null);
     setSelectedProgramme(null);
     setSelectedSemester(1);
     setShowResults(false);
     setCurrentGPA(0);
   };
 
-  const handleProgrammeChange = (programmeId: string) => {
-    const programme = programmes.find(p => p.id === parseInt(programmeId));
-    if (programme) {
-      setSelectedProgramme(programme);
+  const handleProgramChange = (programId: string) => {
+    const program = getProgramById(parseInt(programId));
+    if (program) {
+      setSelectedProgram(program);
+      // Find the corresponding programme in academicData
+      const programme = programmes.find(p => p.id === program.id);
+      setSelectedProgramme(programme || null);
       setSelectedSemester(1);
       setShowResults(false);
       setCurrentGPA(0);
@@ -497,7 +487,7 @@ const GPACalculator = () => {
                 <div>
                   <h3 className="text-lg font-semibold mb-2">How It Works</h3>
                   <p className="text-muted-foreground">
-                    Simply select your NTA level, programme, and semester, then enter your grades for each module. 
+                    Simply select your academic level (Certificate, Diploma, Bachelor, Masters), programme, and semester, then enter your grades for each module. 
                     The calculator will automatically compute your GPA based on the official IAA grading scale. 
                     You can save your results to track your cumulative GPA over time.
                   </p>
@@ -512,10 +502,19 @@ const GPACalculator = () => {
                 </div>
                 
                 <div>
+                  <h3 className="text-lg font-semibold mb-2">About DTC Group</h3>
+                  <p className="text-muted-foreground">
+                    GAP Calculator is developed and maintained by <strong>DTC Group</strong>, a team dedicated to creating innovative 
+                    digital solutions for educational institutions. We specialize in developing tools that enhance the academic 
+                    experience for students and educators alike.
+                  </p>
+                </div>
+                
+                <div>
                   <h3 className="text-lg font-semibold mb-2">Disclaimer</h3>
                   <p className="text-muted-foreground">
                     This tool is designed to assist students in calculating their GPAs and is not an official IAA application. 
-                    Always verify your results with official IAA records. The developers are not responsible for any discrepancies 
+                    Always verify your results with official IAA records. The developers (DTC Group) are not responsible for any discrepancies 
                     or academic decisions based on this calculator.
                   </p>
                 </div>
@@ -710,21 +709,21 @@ const GPACalculator = () => {
               Programme & Semester Selection
             </CardTitle>
             <CardDescription>
-              Select your NTA level, programme and semester to load the correct modules
+              Select your academic level, programme and semester to load the correct modules
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="ntaLevel">NTA Level</Label>
-                <Select onValueChange={handleNTALevelChange} value={selectedNTALevel?.toString() || ""}>
+                <Label htmlFor="academicLevel">Academic Level</Label>
+                <Select onValueChange={handleLevelChange} value={selectedLevel?.toString() || ""}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select your NTA level" />
+                    <SelectValue placeholder="Select your academic level" />
                   </SelectTrigger>
                   <SelectContent className="bg-popover border border-border shadow-lg z-50 max-h-60 overflow-y-auto">
-                    {ntaLevels.map((level) => (
-                      <SelectItem key={level} value={level.toString()}>
-                        {getNTALevelName(level)} (NTA Level {level})
+                    {ACADEMIC_LEVELS.map((level) => (
+                      <SelectItem key={level.id} value={level.id.toString()}>
+                        {level.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -733,18 +732,14 @@ const GPACalculator = () => {
               
               <div className="space-y-2">
                 <Label htmlFor="programme">Programme</Label>
-                <Select 
-                  onValueChange={handleProgrammeChange} 
-                  value={selectedProgramme?.id.toString() || ""}
-                  disabled={!selectedNTALevel}
-                >
+                <Select onValueChange={handleProgramChange} value={selectedProgram?.id.toString() || ""} disabled={!selectedLevel}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select your programme" />
                   </SelectTrigger>
                   <SelectContent className="bg-popover border border-border shadow-lg z-50 max-h-60 overflow-y-auto">
-                    {programmesForLevel.map((programme) => (
-                      <SelectItem key={programme.id} value={programme.id.toString()}>
-                        {programme.name}
+                    {programmesForLevel.map((program) => (
+                      <SelectItem key={program.id} value={program.id.toString()}>
+                        {program.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
