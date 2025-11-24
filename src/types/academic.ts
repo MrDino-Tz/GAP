@@ -55,6 +55,7 @@ export const ACADEMIC_LEVELS: AcademicLevel[] = [
       { id: 8, name: 'Bachelor of Computer Science (BCS)', ntaLevel: 7, duration: '3 Years' },
       { id: 9, name: 'Bachelor of Economics and Project Management (BEPM)', ntaLevel: 7, duration: '3 Years' },
       { id: 10, name: 'Bachelor of Information Technology (BIT)', ntaLevel: 7, duration: '3 Years' },
+      { id: 14, name: 'Bachelor Degree in Business Management (BBM)', ntaLevel: 7, duration: '3 Years' },
     ]
   },
   {

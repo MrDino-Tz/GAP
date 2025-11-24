@@ -143,7 +143,19 @@ const GPACalculator = () => {
       // Find the corresponding programme in academicData
       const programme = programmes.find(p => p.id === program.id);
       setSelectedProgramme(programme || null);
+      
+      // Debug: Log what's being selected
+      console.log('=== PROGRAM SELECTION DEBUG ===');
+      console.log('Selected Program:', program);
+      console.log('Found Programme:', programme);
+      console.log('Programme Name:', programme?.name);
+      console.log('Number of Semesters:', programme?.semesters?.length);
+      console.log('Semesters:', programme?.semesters?.map(s => s.semesterName));
+      console.log('================================');
+      
+      // Reset dependent selections
       setSelectedSemester(1);
+      setModuleGrades([]);
       setShowResults(false);
       setCurrentGPA(0);
     }
@@ -512,7 +524,10 @@ const GPACalculator = () => {
           <div className="bg-background rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">About GAP Calculator</h2>
+                <div>
+                  <h2 className="text-2xl font-bold">About GAP Calculator</h2>
+                  <p className="text-sm text-muted-foreground mt-1">Version 2.1 (November 24, 2025)</p>
+                </div>
                 <Button variant="ghost" size="icon" onClick={() => setShowAbout(false)}>
                   <X className="h-5 w-5" />
                 </Button>

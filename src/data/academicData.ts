@@ -3803,6 +3803,241 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  {
+    id: 14,
+    name: "Bachelor Degree in Business Management (BBM)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "BMU 07105",
+            name: "Management Theory and Practice",
+            creditHours: 14,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07104",
+            name: "Introduction to Accounting",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BMU 07101",
+            name: "Business Computer Applications",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07102",
+            name: "Business mathematics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BMU 07103",
+            name: "Business Communication",
+            creditHours: 8,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "BMU 07213",
+            name: "Marketing Management",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07208",
+            name: "Business Statistics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BMU 07211",
+            name: "Business Law",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07212",
+            name: "Financial Management",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BMU 07210",
+            name: "Economics",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "BMU 07209",
+            name: "Development Perspectives",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "BMU 07319",
+            name: "Consumer Behaviour",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07320",
+            name: "Marketing Research",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 07316",
+            name: "Research Methodology",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07317",
+            name: "Supply Chain Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 07318",
+            name: "Management Information System",
+            creditHours: 8,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "BMU 07428",
+            name: "Taxation Theory and practice",
+            creditHours: 14,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07407",
+            name: "Operations Research",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 07425",
+            name: "Entrepreneurship",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07427",
+            name: "Accounting for managers",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "BMU 07426",
+            name: "Practical Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "BMU 08105",
+            name: "Consultancy and Report writing skills",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 08102",
+            name: "Human Resources Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 08103",
+            name: "Change management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 08101",
+            name: "Organizational Behavior",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "BMU 08104",
+            name: "Business Ethics",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "BMU 08213",
+            name: "International marketing",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 08209",
+            name: "Production and Operations Management",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "BMU 08210",
+            name: "International procurement",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 08211",
+            name: "Leadership and Governance",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 08212",
+            name: "Strategic Management",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      }
+    ]
   }
 ];
 
