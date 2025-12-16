@@ -8,7 +8,7 @@ A comprehensive GPA calculation platform designed for IAA students to accurately
 **GAP (GPA Calculator)** is a modern, responsive web application that helps students calculate their Semester GPA and Cumulative GPA (CGPA) with precision based on official IAA grading systems. The platform supports multiple academic programmes and provides detailed performance analytics.
 
 **Developed by:** DTC Group  
-**Location:** Arusha, Tanzania  
+**Location:** Tanzania  
 **Target Institution:** Institute of Accountancy Arusha (IAA)
 
 ## 🚀 Features
