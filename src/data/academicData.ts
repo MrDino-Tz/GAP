@@ -7928,27 +7928,879 @@ export const programmes: Programme[] = [
           },
           {
             code: "RIU08203",
-            code: "Personnel Records Management",
+            name: "Personnel Records Management",
             creditHours: 8,
             class: "Fundamental"
           },
           {
             code: "RIU08204",
-            code: "Medical Records Management",
+            name: "Medical Records Management",
             creditHours: 8,
             class: "Fundamental"
           },
           {
             code: "RIU08205",
-            code: "Legal Records Management",
+            name: "Legal Records Management",
             creditHours: 8,
             class: "Fundamental"
           },
           {
             code: "RIU08206",
-            code: "Land Records Management",
+            name: "Land Records Management",
             creditHours: 8,
             class: "Fundamental"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 401,
+    name: "Master of Business Administration (MBA)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "BAG 09101",
+            name: "Marketing Management",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "BAG 09102",
+            name: "Operation Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "BAG 09103",
+            name: "Organization Behaviour and Human Resources and Management",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "BAG 09104",
+            name: "Managarial Finance",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BAG 09105",
+            name: "Strategic Management",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "BAG 09201",
+            name: "Business research methods",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "BAG 09202",
+            name: "Entreprenuership and Innovation",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BAG 09203",
+            name: "Managerial Economics",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "BAG 09204",
+            name: "Corporate Law and Governance",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BAG 09205",
+            name: "Project Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "BAG 09301",
+            name: "MBA Dissertation",
+            creditHours: 9,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 402,
+    name: "Master of Business Administration in Information Technology Management (MBA-ITM)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ITG 09101",
+            name: "Operations Management",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "ITG 09102",
+            name: "Organization Behaviour and Human Resource Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "ITG 09103",
+            name: "Managerial Finance",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "ITG 09104",
+            name: "Strategic Business Information Systems",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITG 09105",
+            name: "Enterprise Resource Planning",
+            creditHours: 15,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ITG 09206",
+            name: "Business Research",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "ITG 09207",
+            name: "Entrepreneurship and Innovation",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "ITG 09208",
+            name: "Cybercrimes and Computer Law",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITG 09209",
+            name: "Information Systems Auditing",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ITG 09210",
+            name: "Information Systems Development",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "ITG 09211",
+            name: "Dissertation",
+            creditHours: 60,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 403,
+    name: "Master of Business Administration in Leadership and Governance (MBA-LG)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "LGG09101",
+            name: "Managing Innovation and Entrepreneurship",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "LGG09102",
+            name: "Communication Skills for Leaders",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "LGG090103",
+            name: "Human resource and Organisational Behaviour",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "LGG090104",
+            name: "Finance for Leaders",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "LGG090105",
+            name: "Strategic Management",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "LGG090201",
+            name: "Business research methods",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "LGG090202",
+            name: "Leadership theories and good governance",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "LGG090203",
+            name: "Negotiation and Decision making",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "LGG090204",
+            name: "Corporate Laws",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "LGG09301",
+            name: "MBA Dissertation",
+            creditHours: 60,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 404,
+    name: "Master of Business Administration in Procurement and Supplies Management (MBA-PSM)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "PSG09101",
+            name: "Strategic Public Procument Management",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "PSG09102",
+            name: "Operations Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "PSG09103",
+            name: "Organizational Behaviour & Human Resource Management",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "PSG09104",
+            name: "Managerial Finance",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "PSG09105",
+            name: "Marketing Management",
+            creditHours: 9,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "PSG09206",
+            name: "Business Research Methods",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "PSG09207",
+            name: "Entreprenuership and Innovation",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "PSG09208",
+            name: "Procurement Contract Management",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "PSG09209",
+            name: "Supply Chain Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "PSG09210",
+            name: "Procurement and Supplies Audit",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "PSG09211",
+            name: "MBA-PSM Dissertation",
+            creditHours: 60,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 405,
+    name: "Master of Business Administration in Policy Development and Execution (MBA-PDE)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "PEG09101",
+            name: "Policy Formulation and Evaluation",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "PEG09102",
+            name: "Trade Policy and Marketing Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "PEG09103",
+            name: "Human Resource and Change Management",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "PEG09104",
+            name: "Public Finance and Finacial Analysis",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "PEG09105",
+            name: "Business Policy and Strategic Management",
+            creditHours: 15,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "PEG09201",
+            name: "Research methodology",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "PEG09203",
+            name: "Discipline and policy execution",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "PEG09204",
+            name: "Policy negotiation and conflict management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "PEG09205",
+            name: "Economics for development",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "PEG09301",
+            name: "MBA-Dissertation",
+            creditHours: 60,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 406,
+    name: "Master Degree in Accountancy (MAF)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ACG09101",
+            name: "Quantitative Techniques for Business",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "ACG09102",
+            name: "Financial Reporting",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ACG09103",
+            name: "Financial Management",
+            creditHours: 16,
+            class: "Core"
+          },
+          {
+            code: "ACG09104",
+            name: "Performance Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ACG09105",
+            name: "Advanced Taxation",
+            creditHours: 16,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ACG09206",
+            name: "Research Methods for Business",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "ACG09207",
+            name: "Advanced Financial Reporting",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ACG09208",
+            name: "Multinational Finance Management",
+            creditHours: 16,
+            class: "Core"
+          },
+          {
+            code: "ACG09209",
+            name: "Auditing And Assurance Services",
+            creditHours: 16,
+            class: "Core"
+          },
+          {
+            code: "ACG09210",
+            name: "Corporate Governance",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ACG09311",
+            name: "MA - Dissertation",
+            creditHours: 40,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 407,
+    name: "Master of Science in Finance and Investment (MSc.FI)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "FIG09101",
+            name: "Quantitative Techniques for Finance",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "FIG09102",
+            name: "Financial Management",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "FIG09103",
+            name: "Business Analysis and Valuation",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "FIG09104",
+            name: "Financial Markets and Institutions",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "FIG09105",
+            name: "Financial Risk Management",
+            creditHours: 13,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "FIG09206",
+            name: "Research Methods for Finance",
+            creditHours: 2,
+            class: "Fundamental"
+          },
+          {
+            code: "FIG09207",
+            name: "Institutional Investment",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "FIG09208",
+            name: "Investment and Portfolio Management",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "FIG09209",
+            name: "Behavioural Finance",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "FIG09210",
+            name: "Emerging Financial markets",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "FIG09211",
+            name: "MSc-FI Dissertation",
+            creditHours: 11,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 409,
+    name: "Master of Science in Human Resource Management (MSc-HRM)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "HRG09101",
+            name: "Organizational Behaviour and Human Resource Management",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "HRG09102",
+            name: "Statistics and Decision Making",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "HRG09103",
+            name: "Human Resource Information System",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "HRG09104",
+            name: "Performance and Compensation Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "HRG09105",
+            name: "Strategic Management",
+            creditHours: 9,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "HRG09206",
+            name: "Human Resource Planning",
+            creditHours: 2,
+            class: "Fundamental"
+          },
+          {
+            code: "HRG09207",
+            name: "Labour Laws and Industrial Relations",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "HRG09208",
+            name: "Human Resources Analytics",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "HRG09209",
+            name: "Social Science Research Methods",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "HRG09210",
+            name: "Accounting for Managers",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "HRG09211",
+            name: "MSc.HRM Dissertation",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 410,
+    name: "Master Degree in Information Security (MIS)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ISG09101",
+            name: "Software Engineering",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "ISG09102",
+            name: "Advanced Computer Networks",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ISG09103",
+            name: "Information and Coding Theory",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "ISG09104",
+            name: "Information Security and Cryptography",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ISG09105",
+            name: "Research Methods",
+            creditHours: 9,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ISG09202",
+            name: "Ethical Hacking",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "ISG09203",
+            name: "Biometrics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "ISG09204",
+            name: "Computer Forensics",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ISG09205",
+            name: "Operation Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ISG09206",
+            name: "Dissertation",
+            creditHours: 60,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 411,
+    name: "Masters in Education Management (MEM)",
+    ntaLevel: 9,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "EMG09101",
+            name: "Educational Leadership",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "EMG09102",
+            name: "Teaching and Learning Management",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "EMG09103",
+            name: "E-Learning in Education Management",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "EMG09104",
+            name: "Research Methodology in Education",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "EMG09105",
+            name: "Curriculum Development",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "EMG09201",
+            name: "Management of Educational Organization",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "EMG09202",
+            name: "Education Planning and Management",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "EMG09203",
+            name: "Resource Management in Education",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "EMG09204",
+            name: "Educational Policy and Practice",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "EMG09205",
+            name: "Legal Issues in Education",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "EMG09206",
+            name: "Dissertation",
+            creditHours: 60,
+            class: "Core"
           }
         ]
       }
