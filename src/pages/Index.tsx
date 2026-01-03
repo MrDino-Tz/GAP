@@ -24,7 +24,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="bg-muted border-t border-border py-8">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p className="mb-2">© 2025 GAP - GPA Calculator</p>
+          <p className="mb-2">© {new Date().getFullYear()} GAP - GPA Calculator</p>
           <p className="text-sm">Developed For academic Purposes. By DTC Group</p>
         </div>
       </footer>
