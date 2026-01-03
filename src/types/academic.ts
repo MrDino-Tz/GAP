@@ -85,12 +85,12 @@ export const ACADEMIC_LEVELS: AcademicLevel[] = [
       { id: 404, name: 'Master of Business Administration in Procurement and Supplies Management (MBA-PSM)', ntaLevel: 9, duration: '2 Years' },
       { id: 405, name: 'Master of Business Administration in Policy Development and Execution (MBA-PDE)', ntaLevel: 9, duration: '2 Years' },
       { id: 406, name: 'Master Degree in Accountancy (MAF)', ntaLevel: 9, duration: '2 Years' },
-      { id: 407, name: 'Master of Science in Accounting and Finance (MSc A&F)', ntaLevel: 9, duration: '2 Years' },
-      { id: 408, name: 'Master of Science in Finance and Investment (MSc.FI)', ntaLevel: 9, duration: '2 Years' },
+      { id: 407, name: 'Master of Science in Finance and Investment (MSc.FI)', ntaLevel: 9, duration: '2 Years' },
+      { id: 408, name: 'Master of Science in Accounting and Finance (MSc A&F)', ntaLevel: 9, duration: '2 Years' },
       { id: 409, name: 'Master of Science in Human Resource Management (MSc-HRM)', ntaLevel: 9, duration: '2 Years' },
       { id: 410, name: 'Master Degree in Information Security (MIS)', ntaLevel: 9, duration: '2 Years' },
-      { id: 411, name: 'Master of Science in Economics (MSc Economics)', ntaLevel: 9, duration: '2 Years' },
-      { id: 412, name: 'Masters in Education Management (MEM)', ntaLevel: 9, duration: '2 Years' },
+      { id: 411, name: 'Masters in Education Management (MEM)', ntaLevel: 9, duration: '2 Years' },
+      { id: 412, name: 'Master of Science in Economics (MSc Economics)', ntaLevel: 9, duration: '2 Years' },
     ]
   }
 ];
