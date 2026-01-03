@@ -4038,6 +4038,3921 @@ export const programmes: Programme[] = [
         ]
       }
     ]
+  },
+  {
+    id: 11,
+    name: "Bachelor Degree in Procurement and Logistics Management (BPLM)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "BMU 07101",
+            name: "Business Computer Application",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07102",
+            name: "Business Mathematics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BMU 07103",
+            name: "Business Communication",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07104",
+            name: "Introductory Accounting",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 07106",
+            name: "Physical Distribution Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 07107",
+            name: "Procurement Management",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "BMU 07208",
+            name: "Business Statistics",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07209",
+            name: "Development perspectives",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "BMU 07210",
+            name: "Economics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07211",
+            name: "Business Laws",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "BMU 07212",
+            name: "Financial Management",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BMU 07214",
+            name: "Inventory management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 07215",
+            name: "Warehouse Management",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "BMU 07316",
+            name: "Research methodology",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07317",
+            name: "Supply Chain Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 07318",
+            name: "Management Information system",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07321",
+            name: "Cost Accounting",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BMU 07322",
+            name: "Fundamentals of Marketing",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "BMU 07323",
+            name: "Public Procurement",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "BMU 07424",
+            name: "Operations Research",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07425",
+            name: "Entrepreneurship",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 07426",
+            name: "Industrial practical Training",
+            creditHours: 20,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 07429",
+            name: "Public Procurement II",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 07430",
+            name: "Business Ethics and Governance",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "BMU 08107",
+            name: "Procurement Contracts Management",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 08108",
+            name: "International Logistics and Transport",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "BMU 08106",
+            name: "Negotiation Skills",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 08102",
+            name: "Human Resource Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "BMU 08101",
+            name: "Organizational Behavior",
+            creditHours: 13,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "BMU 08217",
+            name: "Procurement and Supplies Audit",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 08216",
+            name: "International Procurement",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BMU 08214",
+            name: "Strategic Procurement and Supply Chain Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "BMU 08215",
+            name: "Fundamentals of e-procurement",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 12,
+    name: "Bachelor Degree in Economics and Finance (BEF)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "EFU 07101",
+            name: "Microeconomics Principles",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 07102",
+            name: "Business Mathematics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "EFU 07103",
+            name: "Accounting for Finance",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFU 07104",
+            name: "Information and Communication Technology for Business",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "EFU 07105",
+            name: "Development Perspectives",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 07106",
+            name: "Communication Skills for Managers",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "EFU 07207",
+            name: "Macroeconomics Principles",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 07208",
+            name: "Mathematical Techniques for Economists",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EFU 07209",
+            name: "Principles of Banking",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFU 07210",
+            name: "Business Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "EFU 07211",
+            name: "Business Statistical Methods",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 07212",
+            name: "Financial and Monetary Economics",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "EFU 07313",
+            name: "Intermediate Microeconomics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 07314",
+            name: "Financial Statement Analysis",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFU 07315",
+            name: "Financial Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "EFU 07316",
+            name: "Management Information System",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "EFU 07317",
+            name: "Portfolio and Investment Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 07318",
+            name: "Research Methodology",
+            creditHours: 9,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "EFU 07419",
+            name: "Intermediate Macroeconomics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 07420",
+            name: "Econometrics Principles",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFU 07421",
+            name: "Development Economics",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFU 07422",
+            name: "Financial Markets and Institutions",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "EFU 07423",
+            name: "Operations Research",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 07424",
+            name: "Entrepreneurship and Innovation in Projects",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 07425",
+            name: "Industrial Practical Training",
+            creditHours: 20,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "EFU 08101",
+            name: "Industrial Economics",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 08102",
+            name: "International Finance",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "EFU 08103",
+            name: "Financial Programming and Forecasting",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "EFU 08104",
+            name: "Finance and Security Analysis",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "EFU 08105",
+            name: "Public Economics",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 08106",
+            name: "Business Law and Ethics",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "EFU 08207",
+            name: "Natural Resources Economics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 08208",
+            name: "Project Management",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "EFU 08209",
+            name: "Intermediate Econometrics",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "EFU 08210",
+            name: "International Economics",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "EFU 08211",
+            name: "Economic Policy and Planning",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "EFU 08212",
+            name: "Strategic Management",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 13,
+    name: "Bachelor of Library and Information Studies (BLIS)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "LIU 07101",
+            name: "Business Communication",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "LIU 07102",
+            name: "Business Computer Application",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "LIU 07103",
+            name: "Information Literacy",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "LIU 07104",
+            name: "Database Systems",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "LIU 07105",
+            name: "Fundamentals of Library and Information Studies",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "LIU 07106",
+            name: "Information and Society",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "LIU 07207",
+            name: "Computer Networking",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "LIU 07208",
+            name: "Development Perspectives",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "LIU 07209",
+            name: "Graphics Design",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "LIU 07210",
+            name: "Information Resources and Services",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "LIU 07211",
+            name: "Principles of Knowledge Organization",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "LIU 07212",
+            name: "Library Operations",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "LIU 07213",
+            name: "Library Automation",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "LIU07314",
+            name: "Information and Communication Theory",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "LIU07315",
+            name: "Collection and Development Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "LIU07316",
+            name: "Management Information Systems",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "LIU07317",
+            name: "Research Methodology",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "LIU07318",
+            name: "Cataloguing",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "LIU07319",
+            name: "Web Design",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "LIU07420",
+            name: "Entrepreneurship",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "LIU07421",
+            name: "Records Security and Disaster Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "LIU07422",
+            name: "Classification",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "LIU07423",
+            name: "Systems Analysis and Design",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "LIU07424",
+            name: "Electronic Records Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "LIU07425",
+            name: "Marketing of Library and Information Services",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "LIU07426",
+            name: "Industrial Practical Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "LIU08101",
+            name: "Library Project Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "LIU08102",
+            name: "Management of Libraries and Information Centres",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "LIU08103",
+            name: "Legal and Professional Ethics",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "LIU08104",
+            name: "Data Mining",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "LIU08105",
+            name: "Network Management and Administration",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "LIU08106",
+            name: "Multimedia Librarianship",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "LIU 08201",
+            name: "Information User Studies",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "LIU 08202",
+            name: "Mobile Computing",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "LIU 08203",
+            name: "Computer Security",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "LIU 08204",
+            name: "Knowledge Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "LIU 08205",
+            name: "Library Individual Project",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 15,
+    name: "Bachelor Degree in Cyber Security (BCYSE)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "CYU 07101",
+            name: "Communication and Technical Writing",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 07102",
+            name: "Discrete Mathematics",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "CYU 07103",
+            name: "Computer System Architecture",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "CYU 07104",
+            name: "Introduction to Cyber security",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "CYU 07105",
+            name: "Database system",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 07106",
+            name: "Foundations of Intelligence",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "CYU 07207",
+            name: "Probability and Statistics",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 07208",
+            name: "Cyber laws",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "CYU 07209",
+            name: "Development Studies",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "CYU 07210",
+            name: "Programming Fundamentals",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CYU 07211",
+            name: "Operating systems concepts",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 07212",
+            name: "Software design",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "CYU 07313",
+            name: "Foundations of mathematical analysis",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 07314",
+            name: "Routing and switching",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "CYU 07315",
+            name: "Communication networks",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "CYU 07316",
+            name: "Web Technologies",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "CYU 07317",
+            name: "Security strategies in windows platform",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 07318",
+            name: "Research skills for IT professionals",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "CYU 07419",
+            name: "Security strategies in UNIX platform",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 07420",
+            name: "Programming in C++",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CYU 07421",
+            name: "Network security",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "CYU 07422",
+            name: "Java Programming",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CYU 07423",
+            name: "Ethical Hacking",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 07424",
+            name: "Cyberwarfare",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 07425",
+            name: "Industrial Practical Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "CYU 08101",
+            name: "IT Project Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 08102",
+            name: "Vulnerability Analysis",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "CYU 08103",
+            name: "Network Management and Administration",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "CYU 08104",
+            name: "Data Structure and Algorithms",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CYU 08105",
+            name: "Wireless Networking",
+            creditHours: 7,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 08106",
+            name: "Introduction to Social Psychology",
+            creditHours: 6,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "CYU 08207",
+            name: "Social and Ethical Issues in Computing",
+            creditHours: 7,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 08208",
+            name: "Individual project",
+            creditHours: 20,
+            class: "Core"
+          },
+          {
+            code: "CYU 08209",
+            name: "Information Systems Security and Auditing",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "CYU 08210",
+            name: "Digital Forensics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CYU 08211",
+            name: "Cryptology and Coding Theory",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "CYU 08212",
+            name: "Database Security",
+            creditHours: 9,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 16,
+    name: "Bachelor of Credit Management (BCM)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "CMU07101",
+            name: "Principles of Accounting",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU07102",
+            name: "Fundamentals of Credit Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU07103",
+            name: "Entrepreneurship Finance",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU07104",
+            name: "Business Statistics",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU07105",
+            name: "Business Communication",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU07106",
+            name: "Computer Applications",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "CMU07207",
+            name: "Commercial Credit Law",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU07208",
+            name: "Principles of Credit Control",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU07209",
+            name: "Credit Risk Assessment",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU07210",
+            name: "Customer Care Services",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU07211",
+            name: "Principles of Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU07212",
+            name: "Money and Banking",
+            creditHours: 12,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "CMU07313",
+            name: "Human Resource Management",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU07314",
+            name: "Credit Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU07315",
+            name: "Export Credit Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "CMU07316",
+            name: "Financial Management",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "CMU07317",
+            name: "Research Methodology",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU07318",
+            name: "Management Information Systems",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "CMU07419",
+            name: "Sales Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU07420",
+            name: "Credit Portfolio Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU07421",
+            name: "Field Practical Training",
+            creditHours: 20,
+            class: "Core"
+          },
+          {
+            code: "CMU07422",
+            name: "Financial Analysis and Credit Scoring",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "CMU07423",
+            name: "Operations Research",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU07424",
+            name: "Economics",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "CMU08125",
+            name: "Trade Credit Insurance",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU08126",
+            name: "Business & Company Law",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU08127",
+            name: "International Trade & Finance",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "CMU08128",
+            name: "Credit Risk Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU08129",
+            name: "Consumer Credit Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU08130",
+            name: "Risk Management",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "CMU08231",
+            name: "Banking Law & Practice",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU08232",
+            name: "Credit Management in the Financial Sector",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU08233",
+            name: "Credit Services",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU08234",
+            name: "Corporate Lending",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "CMU08235",
+            name: "Strategic Management",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "CMU08236",
+            name: "Practice of Credit Management",
+            creditHours: 14,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 17,
+    name: "Bachelor Degree in Marketing and Public Relations (BMPR)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "MPU 07101",
+            name: "Public relations writing",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "MPU 07102",
+            name: "Business Mathematics",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 07103",
+            name: "Business Communication",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 07104",
+            name: "Management Theory and Practice",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "MPU 07105",
+            name: "Business Computer Application",
+            creditHours: 8,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "MPU 07206",
+            name: "Event and Campaign Management",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "MPU 07207",
+            name: "Financial Management",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 07208",
+            name: "Development Perspective",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 07209",
+            name: "Marketing Management",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "MPU 07210",
+            name: "Business and Media Law",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 07211",
+            name: "Customer Relationship Management",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "MPU 07312",
+            name: "Research Methodology",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 07313",
+            name: "Management Information System",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 07314",
+            name: "Marketing Research",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "MPU 07315",
+            name: "Consumer Behavior",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "MPU 07316",
+            name: "Public Relations Management",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "MPU 07417",
+            name: "Public Relations and Media",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "MPU 07418",
+            name: "Marketing Distribution System",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "MPU 07419",
+            name: "Entrepreneurship",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "MPU 07420",
+            name: "Accounting for Managers",
+            creditHours: 14,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 07421",
+            name: "Practical Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "MPU 08101",
+            name: "Consultancy and Reporting skills",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 08102",
+            name: "Strategic Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "MPU 08103",
+            name: "Sales and Retail management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "MPU 08104",
+            name: "Marketing and Service",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "MPU 08105",
+            name: "Strategic Public Relation",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "MPU 08206",
+            name: "Corporate Public Relation",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "MPU 08207",
+            name: "Brand Management",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "MPU 08208",
+            name: "Strategic Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "MPU 08209",
+            name: "Business Planning and Development",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "MPU 08210",
+            name: "International Marketing",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 18,
+    name: "Bachelor Degree in Economics and Taxation (BET)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ETU 07104",
+            name: "Business Computer Application",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 07106",
+            name: "Development Perspectives",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ETU 07103",
+            name: "Business Mathematics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "ETU 07105",
+            name: "Business Communication",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ETU 07102",
+            name: "Fundamentals of Microeconomics",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 07101",
+            name: "Fundamentals of Accounting",
+            creditHours: 11,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ETU 07211",
+            name: "Business Statistics",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 07209",
+            name: "Fundamentals of Macroeconomics",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "ETU 07210",
+            name: "Development Economics",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "ETU 07207",
+            name: "Introduction to taxation theory",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "ETU 07212",
+            name: "Business Management",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 07208",
+            name: "Financial Accounting",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "ETU 07317",
+            name: "Research Methodology",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 07318",
+            name: "Management Information System",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ETU 07313",
+            name: "Public Finance",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "ETU 07314",
+            name: "Introduction to Income Taxation",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ETU 07315",
+            name: "Financial Planning and Policy",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 07316",
+            name: "Economic Planning and policy",
+            creditHours: 11,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "ETU 07423",
+            name: "Entrepreneurship",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 07424",
+            name: "Operations Research",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "ETU 07422",
+            name: "Principles of Econometrics",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "ETU 07419",
+            name: "Advanced Income Taxation",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ETU 07420",
+            name: "Economics of Taxation",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 07421",
+            name: "Indirect Taxation",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "ETU 07425",
+            name: "Industrial Practical Training",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "ETU 08100",
+            name: "International Taxation",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 08102",
+            name: "Taxation Policy and Theory",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ETU 08103",
+            name: "Mathematical techniques for Economists",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ETU 08104",
+            name: "Intermediate Microeconomics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ETU 08105",
+            name: "Business Law and Ethics",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 07421",
+            name: "Indirect Taxation",
+            creditHours: 11,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "ETU 08206",
+            name: "Advanced taxation",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "ETU 08207",
+            name: "Tax Administration Laws",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ETU 08208",
+            name: "Intermediate Econometrics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ETU 08209",
+            name: "International Economics",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ETU 08210",
+            name: "Intermediate Macroeconomics",
+            creditHours: 12,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 19,
+    name: "Bachelor Degree in Insurance and Risk Management with Apprenticeship (BIRM Appr)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "AFU 07101",
+            name: "Principles of Accounting",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "GSU 07101",
+            name: "Business Mathematics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "GSU 07102",
+            name: "Business Law",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "GSU 07103",
+            name: "Development Perspectives",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 07101",
+            name: "General insurance Business",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 07102",
+            name: "Principles of Risk Management",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "BMU 07210",
+            name: "Principles of Economics",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "GSU 07204",
+            name: "Business Computer Application",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "GSU 07205",
+            name: "Business Communication",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "IRU 07203",
+            name: "Enterprise Risk Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 07204",
+            name: "Principles of Bancassurance",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 07205",
+            name: "Customer Service and Marketing Insurance Product",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "IRU 07306",
+            name: "Insurance law and regulations",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "IRU 07307",
+            name: "Motor Insurance Practice",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "IRU 07308",
+            name: "Insurance Underwriting practice",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "IRU 07309",
+            name: "Healthcare Insurance Practice",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 07310",
+            name: "Insurance Intermediary Practice",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 07311",
+            name: "Bancassurance Practice",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "GSU 07405",
+            name: "Principles of Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "GSU 07406",
+            name: "Research Methodology",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "IRU 07412",
+            name: "Risk Financing",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "IRU 07413",
+            name: "Engineering Insurance",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "IRU 07414",
+            name: "Life Assurance and Critical Illness",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 07415",
+            name: "Liability Insurance",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "IRU 08501",
+            name: "Claims Management Practice",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "IRU 08502",
+            name: "Reinsurance Practice",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "IRU 08503",
+            name: "Fundamentals of Loss Assessment and Adjustment",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "IRU 08504",
+            name: "Agriculture Insurance Practice",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 08505",
+            name: "Microinsurance Practice",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "IRU 08606",
+            name: "Financial Planning and Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "BMU 08229",
+            name: "Strategic Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "IRU 08607",
+            name: "Oil and Gas Insurance",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "GSU 08101",
+            name: "Entrepreneurship",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 08608",
+            name: "Marine Insurance Business",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "IRU 08609",
+            name: "Project Risk Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "GSU 08102",
+            name: "Human Resource Management",
+            creditHours: 9,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 20,
+    name: "Bachelor Degree in Tourism and Hospitality Management with Apprenticeship (BTHA)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "THU 07101",
+            name: "Fundamentals Tourism",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "THU 07102",
+            name: "Fundamentals of Hospitality Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "THU 07103",
+            name: "Fundamentals of English Grammar and Structure",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "THU 07104",
+            name: "Information and Communication Technology",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "THU 07105",
+            name: "Sustainable Tourism",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "THU 07106",
+            name: "Tourism Geography",
+            creditHours: 6,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "THU 07207",
+            name: "Business Communication Skills",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "THU 07208",
+            name: "Food and beverage service management",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "THU 07209",
+            name: "Food Production",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "THU 07210",
+            name: "Tour Management",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "THU 07211",
+            name: "Tourism and Hospitality Safety and Security",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "THU 07212",
+            name: "Menu planning and Costing",
+            creditHours: 6,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "THU 07313",
+            name: "Entrepreneurship and product development",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "THU 07314",
+            name: "Contemporary Issues",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "THU 07315",
+            name: "Customer Care and Cross Cultural Issues",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "THU 07316",
+            name: "Business Mathematic",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "THU 07317",
+            name: "Tourism and Hospitality Economics",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "THU 07318",
+            name: "Behavioral Studies for Tourism and Hospitality Management",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "THU 07419",
+            name: "Computer Application for tourism and hospitality industry",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "THU 07420",
+            name: "Tourism and Hospitality Marketing",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "THU 07421",
+            name: "Accommodation Management",
+            creditHours: 14,
+            class: "Core"
+          },
+          {
+            code: "THU 07422",
+            name: "Managing Travel Business",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "THU 07423",
+            name: "Event Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "THU 07424",
+            name: "Tourism and Hospitality Operational Management",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "THU 08101",
+            name: "Tourism and Hospitality Revenue Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "THU 08102",
+            name: "Product and Service Quality Management",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "THU 08103",
+            name: "Applied Research",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "THU 08104",
+            name: "Tourism and Hospitality Policy and Planning",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "THU 08105",
+            name: "Tourism and Hospitality law",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "THU 08106",
+            name: "Fundamentals of wildlife tourism",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "THU 08207",
+            name: "Tourism and Hospitality Facility Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "THU 08208",
+            name: "Project and Business Management",
+            creditHours: 18,
+            class: "Core"
+          },
+          {
+            code: "THU 08209",
+            name: "Human Resources Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "THU 08210",
+            name: "Tourism and hospitality Strategic Leadership",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "THU 08211",
+            name: "Tourism Destination Management",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "THU 08212",
+            name: "Fundamentals of Recreation and Leisure",
+            creditHours: 6,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 21,
+    name: "Bachelor Degree in Banking with Apprenticeship (BB Appr)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "BBU 07101",
+            name: "Principles of Banking",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BBU 07102",
+            name: "Principles of Accounting",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BBU 07103",
+            name: "Principles of Micro-Economics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BBU 07104",
+            name: "Business Mathematics and Statistics",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 07105",
+            name: "Business Communication",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 07106",
+            name: "Computer and IT for Business Solution",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BBU 07107",
+            name: "Business Law",
+            creditHours: 9,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "BBU 07208",
+            name: "Financial Accounting",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BBU 07209",
+            name: "Banking Law",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "BBU 07210",
+            name: "Code of Ethics for Bankers",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BBU 07211",
+            name: "Banking Operations",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 07212",
+            name: "Digital Banking",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 07213",
+            name: "Frauds and Forgeries Control",
+            creditHours: 11,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "BBU 07314",
+            name: "Bank Records Management",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "BBU 07315",
+            name: "Assets and Liability Management in banks",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "BBU 07316",
+            name: "Customer Experience",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BBU 07317",
+            name: "Credit Analysis and Lending Practices",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 07318",
+            name: "International Banking and Trade Finance",
+            creditHours: 11,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "BBU 07419",
+            name: "Management Information System",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BBU 07420",
+            name: "Entrepreneurship",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BBU 07421",
+            name: "Corporate Finance",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BBU 07422",
+            name: "Taxation policy, structure and Administration",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 07423",
+            name: "Research and Marketing",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 07424",
+            name: "Islamic Banking",
+            creditHours: 9,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "BBU 08501",
+            name: "Risk Management in Banking",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "BBU 08502",
+            name: "Cyber Security in Banking",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "BBU 08503",
+            name: "Security Analysis and Portfolio Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "BBU 08504",
+            name: "Microfinance Practices",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 08505",
+            name: "Bancassurance",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 08506",
+            name: "Financial Markets and Instruments",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "BBU 08607",
+            name: "Financial Institutions Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BBU 08608",
+            name: "Strategic Management",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "BBU 08609",
+            name: "Information System Audit",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "BBU 08610",
+            name: "Central Banking and Monetary Policy",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 08611",
+            name: "Financial Modelling",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "BBU 08612",
+            name: "Corporate Governance Aspects in Banking",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 22,
+    name: "Bachelor Degree in Human Resource Management (BHRM)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "HRU 07102",
+            name: "Development studies",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 07101",
+            name: "Human Resource Management",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "HRU 07103",
+            name: "Communication Skills and Report writing",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 07104",
+            name: "Principles and Practice of Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRU 07105",
+            name: "Administrative Law",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRU07106",
+            name: "Business Information System",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "HRU 07207",
+            name: "Local Government Administration",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 07208",
+            name: "Public Administration",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRU 07209",
+            name: "Financial Accounting",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 07210",
+            name: "Principles of Economics",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRU 07211",
+            name: "Business Mathematics and Statistics",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "HRU 07312",
+            name: "Public Service Delivery",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 07313",
+            name: "Change and Organizational Development",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRU 07314",
+            name: "Strategic Human Resource Management",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 07315",
+            name: "Industrial Relation",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRU 07316",
+            name: "Financial Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRU 07317",
+            name: "Organization Behaviour",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "HRU 07418",
+            name: "Labour law",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 07419",
+            name: "Human Resource planning",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "HRU 07420",
+            name: "Office Practice and Records Management",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 07421",
+            name: "Recruitment and Selection",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRU 07422",
+            name: "Research Methodology",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRU 07423",
+            name: "Field Report",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "HRU 08101",
+            name: "Workforce Training and Development",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 08102",
+            name: "Human Resource Performance Management",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "HRU 08103",
+            name: "Human Resource Information System",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 08104",
+            name: "Business Entrepreneurship skills",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRU 08105",
+            name: "Human Resource Consultancy",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "HRU 08206",
+            name: "Project Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "HRU 08207",
+            name: "Public Policy",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "HRU 08208",
+            name: "Compensation and Benefits Management",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "HRU 08209",
+            name: "Human Resource Auditing",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "HRU 08210",
+            name: "Workplace Health and safety management",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "HRU 08211",
+            name: "International Human Resource Management",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 23,
+    name: "Bachelor Degree in Strategic and Security Studies (BSSS)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "SSU 07101",
+            name: "Applied Mathematics",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 07102",
+            name: "Environment and sustainable development",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "SSU 07103",
+            name: "Strategic Communication skills",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 07104",
+            name: "Computer Application",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "SSU 07105",
+            name: "National Security",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "SSU 07106",
+            name: "Development Perspectives",
+            creditHours: 9,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "SSU 07201",
+            name: "Statistics Approaches",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 07202",
+            name: "Intelligence and Security",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "SSU 07203",
+            name: "Introduction to peace and conflict studies",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 07204",
+            name: "Geo-informatics",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "SSU 07205",
+            name: "IT Strategy in security",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "SSU 07206",
+            name: "Patriotism and National Interest",
+            creditHours: 11,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "SSU 07301",
+            name: "International Humanitarian and Law of armed conflicts",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 07302",
+            name: "Research Methodology",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "SSU 07303",
+            name: "International relations and diplomacy",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 07304",
+            name: "Security ethics and leadership",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "SSU 07305",
+            name: "Counter Insurgency and Internal Security",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "SSU 07306",
+            name: "Cyber security",
+            creditHours: 11,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "SSU 07401",
+            name: "Global peace and political science",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 07402",
+            name: "Geo-Political Environment",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "SSU 07403",
+            name: "International Terrorism",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 07404",
+            name: "Operational Research",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "SSU 07405",
+            name: "Disaster Management and Emergency planning",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "SSU 07406",
+            name: "Practical Training",
+            creditHours: 15,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "SSU 08101",
+            name: "Public Administration",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 08102",
+            name: "Entrepreneurship",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "SSU 08103",
+            name: "Strategic Management",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 08104",
+            name: "Operations Planning and Project Management",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "SSU 08105",
+            name: "Gender, Peace and Security",
+            creditHours: 13,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "SSU 08206",
+            name: "International Relations and Diplomacy",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 08207",
+            name: "Conflict and media(Media and Military Operation)",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "SSU 08208",
+            name: "Civil Military Relations",
+            creditHours: 13,
+            class: "Fundamental"
+          },
+          {
+            code: "SSU 08209",
+            name: "Demobilization, Disarmament and Reintegration",
+            creditHours: 13,
+            class: "Core"
+          },
+          {
+            code: "SSU 08210",
+            name: "Emerging Security Issues",
+            creditHours: 13,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 24,
+    name: "Bachelor Degree in Education with Computer Science (BECS)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "ECU 07101",
+            name: "Business Communication",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ECU 07102",
+            name: "Business Computer Applications",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07103",
+            name: "Computer Fundamentals",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07105",
+            name: "Database systems",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ECU 07106",
+            name: "Blended Learning",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ECU 07107",
+            name: "Lifelong learning",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "ECU 07108",
+            name: "Foundation of education",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "ECU 07109",
+            name: "Psychology of education",
+            creditHours: 6,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "ECU 07210",
+            name: "Computer Networking",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ECU 07211",
+            name: "Development Studies",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07214",
+            name: "Early Childhood Education(ECE)",
+            creditHours: 6,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07212",
+            name: "Computer Graphics Design",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ECU 07213",
+            name: "Principles of programming",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07215",
+            name: "Technical methods in computer science",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "ECU 07216",
+            name: "Educational Media and Technology",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "ECU 07217",
+            name: "Teaching Practice",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "ECU 07318",
+            name: "Sociology of education",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "ECU 07319",
+            name: "Human growth and development",
+            creditHours: 6,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07320",
+            name: "Research methodology",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07321",
+            name: "Object oriented programme",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ECU 07322",
+            name: "Web design",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07323",
+            name: "Measurement and evaluation in education",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "ECU 07324",
+            name: "Curriculum development and Evaluation",
+            creditHours: 6,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "ECU 07425",
+            name: "Information Security",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ECU 07426",
+            name: "Internet Programming and applications",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07427",
+            name: "System analysis and design",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 07428",
+            name: "Special and inclusive education",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "ECU 07429",
+            name: "Educational guidance and counseling",
+            creditHours: 6,
+            class: "Core"
+          },
+          {
+            code: "ECU 07430",
+            name: "Teaching Practice 2",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "ECU 08101",
+            name: "Open source software Development",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ECU 08102",
+            name: "Network Management and Administration",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 08103",
+            name: "Interactive Multimedia",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "ECU 08104",
+            name: "Principles of Consultancy in Education",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 08105",
+            name: "Principles of Classroom management",
+            creditHours: 9,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "ECU 08206",
+            name: "Educational Software Individual Project",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "ECU 08207",
+            name: "Professionalism and Ethical Issues in Education",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 08208",
+            name: "Educational Policy Analysis and Implementation",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "ECU 08209",
+            name: "Adult Education and Learning",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ECU 08210",
+            name: "School Manangement",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ECU 08211",
+            name: "Community Education and Development",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "ECU 08212",
+            name: "Industrial Training in Computer Science",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 25,
+    name: "Bachelor Degree in Multimedia and Mass Communication (BMM)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "MCU 07101",
+            name: "Introduction to Communication Skills",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "MCU 07102",
+            name: "Foundations of Computer Applications",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07103",
+            name: "News Production",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07104",
+            name: "Introduction to Multimedia Writing",
+            creditHours: 11,
+            class: "Core"
+          },
+          {
+            code: "MCU 07105",
+            name: "Principles of Broadcasting",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "MCU 07106",
+            name: "Statistics",
+            creditHours: 8,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "MCU 07207",
+            name: "Communication Theory",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "MCU 07208",
+            name: "Development Perspectives",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07209",
+            name: "Digital Audio & Video Production",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07210",
+            name: "Newsroom Practice",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "MCU 07211",
+            name: "Introduction to Public Relations",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07212",
+            name: "Radio and TV Programming",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "MCU 07313",
+            name: "Media Law & Regulations",
+            creditHours: 2,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07314",
+            name: "Research Methodology",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07315",
+            name: "Digital Photography",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07316",
+            name: "Critical Thinking",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "MCU 07317",
+            name: "Social Media Publishing",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07318",
+            name: "Graphics and Web Design",
+            creditHours: 11,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "MCU 07419",
+            name: "Social and Ethical Issues in Media",
+            creditHours: 2,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07420",
+            name: "Media Management & Organization",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07421",
+            name: "Entrepreneurship",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07422",
+            name: "International Journalism",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07423",
+            name: "Data Journalism",
+            creditHours: 11,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 07424",
+            name: "Industrial Practical Training",
+            creditHours: 20,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "MCU 08101",
+            name: "Digital Media",
+            creditHours: 15,
+            class: "Core"
+          },
+          {
+            code: "MCU 08102",
+            name: "Principles of Copywriting",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 08103",
+            name: "E-Commerce and Technology",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 08104",
+            name: "Life Skills",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "MCU 08105",
+            name: "Computer Security",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "MCU 08201",
+            name: "International Mass Communication",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "MCU 08202",
+            name: "Social Communication Skills",
+            creditHours: 15,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 08203",
+            name: "Social Psychology",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "MCU 08204",
+            name: "Interactive Multimedia",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "MCU 08205",
+            name: "Individual Project",
+            creditHours: 20,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 26,
+    name: "Bachelor Degree in Records and Information Management (BRIM)",
+    ntaLevel: 7,
+    semesters: [
+      // Semester I
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          {
+            code: "RIU07101",
+            name: "Communication Skills",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "RIU07102",
+            name: "Computer Applications in Records Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU07103",
+            name: "Accounting Principles",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU07104",
+            name: "Database Management Systems",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "RIU07105",
+            name: "Records Management",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "RIU07106",
+            name: "Archives Administration",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester II
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          {
+            code: "RIU07201",
+            name: "Principles of Management",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "RIU07202",
+            name: "Development Perspectives",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU07203",
+            name: "Graphics Design",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU07204",
+            name: "Records Management Systems",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "RIU07205",
+            name: "Records Center Automation",
+            creditHours: 12,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester III
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          {
+            code: "RIU07301",
+            name: "Preservation and Conservation of Records",
+            creditHours: 2,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU07302",
+            name: "Information management systems",
+            creditHours: 9,
+            class: "Core"
+          },
+          {
+            code: "RIU07303",
+            name: "Research Methodology",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU07304",
+            name: "Cataloguing and Classification",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "RIU07305",
+            name: "Web Design",
+            creditHours: 10,
+            class: "Core"
+          }
+        ]
+      },
+      // Semester IV
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          {
+            code: "RIU07401",
+            name: "Entrepreneurship",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "RIU07402",
+            name: "Disaster Management",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU07403",
+            name: "Computer Networks",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU07404",
+            name: "System Analysis and Design",
+            creditHours: 9,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU07405",
+            name: "Web Technology Management",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester V
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          {
+            code: "RIU08101",
+            name: "Project Management",
+            creditHours: 8,
+            class: "Core"
+          },
+          {
+            code: "RIU08102",
+            name: "Computer Maintenance",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU08103",
+            name: "Computer Programming in mobile application",
+            creditHours: 12,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU08104",
+            name: "Records Retention and Disposal",
+            creditHours: 10,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU08105",
+            name: "Quality Assurance and Control",
+            creditHours: 10,
+            class: "Fundamental"
+          }
+        ]
+      },
+      // Semester VI
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          {
+            code: "RIU08201",
+            name: "Computer Maintenance",
+            creditHours: 12,
+            class: "Core"
+          },
+          {
+            code: "RIU08202",
+            name: "Human Resource Management",
+            creditHours: 10,
+            class: "Core"
+          },
+          {
+            code: "RIU08203",
+            code: "Personnel Records Management",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU08204",
+            code: "Medical Records Management",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU08205",
+            code: "Legal Records Management",
+            creditHours: 8,
+            class: "Fundamental"
+          },
+          {
+            code: "RIU08206",
+            code: "Land Records Management",
+            creditHours: 8,
+            class: "Fundamental"
+          }
+        ]
+      }
+    ]
   }
 ];
 
@@ -4061,4 +7976,12 @@ export const calculateCGPA = (semesters: Array<{ gpa: number; totalCreditHours: 
   const totalCreditHours = semesters.reduce((sum, sem) => sum + sem.totalCreditHours, 0);
   
   return totalCreditHours > 0 ? totalQualityPoints / totalCreditHours : 0;
+};
+
+export const getProgramById = (id: number): Programme | undefined => {
+  return programmes.find(programme => programme.id === id);
+};
+
+export const getProgrammesByLevel = (ntaLevel: number): Programme[] => {
+  return programmes.filter(programme => programme.ntaLevel === ntaLevel);
 };
