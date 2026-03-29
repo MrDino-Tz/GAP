@@ -202,7 +202,7 @@ For support, questions, or suggestions:
 
 ---
 
-**© 2024 DTC Group. All rights reserved.**
+**© 2026 DTC Group. All rights reserved.**
 
 
 
