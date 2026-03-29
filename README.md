@@ -144,17 +144,7 @@ npm run build
 npm run preview
 ```
 
-### Environment Variables
 
-Create a `.env` file in the root directory:
-
-```env
-# Google Gemini API (for chatbot functionality)
-VITE_GEMINI_API_KEY=your_gemini_api_key
-
-# Mock responses (set to 'true' for development without API)
-VITE_USE_MOCK_RESPONSES=false
-```
 
 ## 📖 Usage Guide
 
