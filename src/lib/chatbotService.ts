@@ -1,5 +1,3 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
-
 interface ChatContext {
   userGPA?: number;
   programmeName?: string;
@@ -7,22 +5,21 @@ interface ChatContext {
   conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }>;
 }
 
-const getGeminiClient = () => {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-  
-  console.log('Checking Gemini API key...');
-  console.log('API key exists:', !!apiKey);
-  console.log('API key starts with:', apiKey?.substring(0, 10));
-  
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
+
+const getApiKey = (): string => {
+  const apiKey = import.meta.env.VITE_GROQ_API_KEY;
+
   if (!apiKey) {
-    throw new Error('Gemini API key not configured. Please add VITE_GEMINI_API_KEY to your .env file.');
+    throw new Error('Groq API key not configured. Please add VITE_GROQ_API_KEY to your .env file.');
   }
 
-  return new GoogleGenerativeAI(apiKey);
+  return apiKey;
 };
 
 const buildSystemPrompt = (context: ChatContext): string => {
-  let prompt = `You are an AI academic advisor for IAA (Institute of Accountancy Arusha) students. Your role is to provide helpful, accurate, and supportive guidance on:
+  let prompt = `You are GAP, an AI academic advisor for IAA (Institute of Accountancy Arusha) students. Your name is GAP and you should introduce yourself as GAP when greeting users. Your role is to provide helpful, accurate, and supportive guidance on:
 
 1. GPA Improvement Tips: Provide specific, actionable advice based on student performance
 2. Study Strategies: Recommend effective study techniques, time management, and productivity tips
@@ -78,14 +75,15 @@ Important Guidelines:
 - Focus on practical solutions and study techniques
 - Encourage healthy study-life balance
 - Suggest resources and strategies specific to their situation
-- Be culturally sensitive and aware of IAA's academic environment`;
+- Be culturally sensitive and aware of IAA's academic environment
+- Always remember your name is GAP`;
 
   return prompt;
 };
 
 // Track the last request time to implement rate limiting
 let lastRequestTime = 0;
-const MIN_REQUEST_INTERVAL = 5000; // 5 seconds between requests
+const MIN_REQUEST_INTERVAL = 2000; // 2 seconds between requests (Groq is fast)
 
 // Simple retry mechanism
 const withRetry = async <T>(
@@ -104,7 +102,7 @@ const withRetry = async <T>(
        error.message.includes('429') ||
        error.message.includes('quota'));
     
-    const waitTime = isRateLimitError ? 10000 : delay; // 10s for rate limits, 1s for other errors
+    const waitTime = isRateLimitError ? 10000 : delay;
     
     console.log(`Retrying in ${waitTime}ms... (${maxRetries} attempts left)`);
     await new Promise(resolve => setTimeout(resolve, waitTime));
@@ -129,92 +127,87 @@ export const getChatbotResponse = async (
   
   if (timeSinceLastRequest < MIN_REQUEST_INTERVAL) {
     const waitTime = MIN_REQUEST_INTERVAL - timeSinceLastRequest;
-    console.log(`Rate limiting: Waiting ${waitTime}ms before next request`);
     await new Promise(resolve => setTimeout(resolve, waitTime));
   }
   
   lastRequestTime = Date.now();
   
   try {
-    console.log('Getting chatbot response from Gemini...');
-    const genAI = getGeminiClient();
-    console.log('Gemini client created successfully');
-    
-    const model = genAI.getGenerativeModel({ 
-      model: 'gemini-2.0-flash-exp',
-    });
-
-    // Build conversation history for Gemini
-    let history = context.conversationHistory.slice(-5).map(msg => ({
-      role: msg.role === 'user' ? 'user' : 'model',
-      parts: [{ text: msg.content }]
-    }));
-
-    // Create a clean user message with system prompt
+    const apiKey = getApiKey();
     const systemPrompt = buildSystemPrompt(context);
-    const userMessageWithContext = {
-      role: 'user' as const,
-      parts: [{ text: `${systemPrompt}\n\n${userMessage}` }]
-    };
 
-    // If we have history, add it after the system prompt
-    if (history.length > 0) {
-      history = [userMessageWithContext, ...history];
-    } else {
-      history = [userMessageWithContext];
+    // Build messages array for Groq (OpenAI-compatible format)
+    const messages: Array<{ role: string; content: string }> = [
+      { role: 'system', content: systemPrompt }
+    ];
+
+    // Add recent conversation history (last 6 messages)
+    const recentHistory = context.conversationHistory.slice(-6);
+    for (const msg of recentHistory) {
+      messages.push({
+        role: msg.role === 'user' ? 'user' : 'assistant',
+        content: msg.content
+      });
     }
 
-    const chat = model.startChat({
-      history: [],
-      generationConfig: {
-        maxOutputTokens: 500,
-        temperature: 0.7,
+    // Add the current user message
+    messages.push({ role: 'user', content: userMessage });
+
+    const response = await withRetry(async () => {
+      const res = await fetch(GROQ_API_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: GROQ_MODEL,
+          messages,
+          max_tokens: 600,
+          temperature: 0.7,
+          top_p: 0.9,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        const errorMessage = (errorData as any)?.error?.message || `HTTP ${res.status}`;
+        throw new Error(`Groq API error: ${errorMessage}`);
       }
+
+      return res.json();
     });
 
-    console.log('Sending request to Gemini with history:', JSON.stringify(history, null, 2));
-    
-    // Send the entire history as a single user message with context
-    const result = await withRetry(
-      () => chat.sendMessage(history[0].parts[0].text)
-    );
-    console.log('Received response from Gemini');
-    
-    const response = result.response.text();
+    const content = (response as any)?.choices?.[0]?.message?.content;
 
-    if (!response) {
-      throw new Error('No response received from Gemini AI');
+    if (!content) {
+      throw new Error('No response received from Groq AI');
     }
 
-    return response;
+    return content;
   } catch (error) {
     console.error('Chatbot service error:', error);
-    console.error('Error details:', {
-      name: error instanceof Error ? error.name : 'Unknown',
-      message: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined
-    });
     
     if (error instanceof Error) {
-      if (error.message.includes('API key') || error.message.includes('API_KEY')) {
-        throw new Error('Gemini API key not configured. Please add VITE_GEMINI_API_KEY to your .env file.');
+      if (error.message.includes('API key') || error.message.includes('API_KEY') || error.message.includes('Invalid API Key')) {
+        throw new Error('Groq API key is invalid or not configured. Please check VITE_GROQ_API_KEY in your .env file.');
       }
       if (error.message.includes('400')) {
-        throw new Error('Invalid request to Gemini API. Please check the configuration.');
+        throw new Error('Invalid request to Groq API. Please check the configuration.');
       }
       if (error.message.includes('401') || error.message.includes('403')) {
-        throw new Error('Invalid Gemini API key. Please check your API key.');
+        throw new Error('Invalid Groq API key. Please check your API key at console.groq.com.');
       }
       if (error.message.includes('429')) {
         throw new Error('Rate limit exceeded. Please try again in a moment.');
       }
       if (error.message.includes('quota')) {
-        throw new Error('Gemini API quota exceeded. Please check your usage at https://aistudio.google.com');
+        throw new Error('Groq API quota exceeded. Please check your usage at console.groq.com.');
       }
-      throw new Error(`Gemini Error: ${error.message}`);
+      throw new Error(`Groq Error: ${error.message}`);
     }
     
-    throw new Error('Failed to get response from Gemini AI service');
+    throw new Error('Failed to get response from GAP AI service');
   }
 };
 
@@ -340,7 +333,7 @@ Which specific module do you need help with?`;
   }
   
   // Default response
-  return `Thank you for your question! I'm here to help with:
+  return `Hello! I'm **GAP**, your AI academic advisor. I can help you with:
 
 - **GPA improvement strategies** - How to boost your academic performance
 - **Study techniques** - Effective methods for IAA modules
@@ -350,5 +343,5 @@ Which specific module do you need help with?`;
 
 ${context.userGPA ? `Based on your GPA of ${context.userGPA.toFixed(2)}, ` : ''}Feel free to ask about any academic concerns!
 
-*Note: Currently running in mock mode. Set VITE_USE_MOCK_RESPONSES=false to enable Gemini AI.*`;
+*Note: Currently running in mock mode. Set VITE_USE_MOCK_RESPONSES=false to enable Groq AI.*`;
 };

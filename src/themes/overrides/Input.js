@@ -2,6 +2,10 @@ const Input = {
   MuiOutlinedInput: {
     styleOverrides: {
       root: {
+        color: '#434343',
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: '#d9d9d9',
+        },
         '&:hover .MuiOutlinedInput-notchedOutline': {
           borderColor: '#69c0ff',
         },
@@ -30,7 +34,7 @@ const Input = {
   MuiInputLabel: {
     styleOverrides: {
       root: {
-        color: '#595959',
+        color: '#8c8c8c',
       },
       outlined: {
         lineHeight: '1rem',
@@ -41,6 +45,16 @@ const Input = {
           top: 2,
           lineHeight: '1rem',
         },
+      },
+    },
+  },
+  MuiSelect: {
+    styleOverrides: {
+      select: {
+        color: '#434343',
+      },
+      icon: {
+        color: '#8c8c8c',
       },
     },
   },

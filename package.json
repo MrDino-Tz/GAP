@@ -19,7 +19,6 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fontsource/public-sans": "^5.2.7",
-    "@google/generative-ai": "^0.24.1",
     "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.2.0",
     "@types/pdf-parse": "^1.1.5",

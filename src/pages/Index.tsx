@@ -25,9 +25,12 @@ const Index = () => {
         }}
       >
         <Box sx={{ position: 'relative', zIndex: 10, textAlign: 'center', color: 'primary.contrastText' }}>
-          <Typography variant="h1" sx={{ fontWeight: 700, mb: 1 }}>
-            GAP
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, mb: 1 }}>
+            <img src="/7803722.png" alt="GAP Logo" style={{ height: '80px', width: 'auto' }} />
+            <Typography variant="h1" sx={{ fontWeight: 700 }}>
+              GAP
+            </Typography>
+          </Box>
           <Typography variant="h4" sx={{ fontWeight: 300, opacity: 0.9 }}>
             Official GPA Calculator
           </Typography>

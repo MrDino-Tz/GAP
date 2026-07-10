@@ -1,7 +1,7 @@
-# Chatbot Setup Guide - Google Gemini AI
+# Chatbot Setup Guide - Groq AI
 
 ## Overview
-The GAP application now uses **Google Gemini AI** for the academic advisor chatbot. Gemini is Google's latest AI model offering free tier and excellent performance.
+The GAP application uses **Groq AI** (Llama 3.3 70B model) for the academic advisor chatbot. Groq provides incredibly fast inference and excellent reasoning capabilities.
 
 ## Features
 - **GPA Improvement Tips**: Context-aware advice based on current performance
@@ -13,16 +13,16 @@ The GAP application now uses **Google Gemini AI** for the academic advisor chatb
 
 ## Setup Instructions
 
-### 1. Get Google Gemini API Key (FREE)
-1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey)
-2. Sign in with your Google account
+### 1. Get Groq API Key
+1. Go to [Groq Console](https://console.groq.com/keys)
+2. Sign in with your account
 3. Click "Create API Key"
 4. Copy the generated key
 
 ### 2. Configure the Application
-Your `.env` file is already configured with:
+Create a `.env` file in the root directory (copy from `.env.example`):
 ```
-VITE_GEMINI_API_KEY=AIzaSyC7gPC9CbFsNgebzmQAvNJ_8evSAS2ogL0
+VITE_GROQ_API_KEY=gsk_your_api_key_here
 VITE_USE_MOCK_RESPONSES=false
 ```
 
@@ -31,19 +31,13 @@ VITE_USE_MOCK_RESPONSES=false
 npm run dev
 ```
 
-## Why Gemini AI?
+## Why Groq AI?
 
-### Advantages over OpenAI
-- ✅ **Free Tier**: Generous free quota (no credit card required)
-- ✅ **Fast**: Quick response times
-- ✅ **Powerful**: Uses Gemini 2.0 Flash (latest model)
-- ✅ **Reliable**: No quota errors for normal usage
-- ✅ **Easy Setup**: No billing required
-
-### Free Tier Limits
-- 15 requests per minute
-- 1 million tokens per day
-- More than enough for academic chatbot usage
+### Advantages
+- ✅ **Incredibly Fast**: Responses are generated in milliseconds
+- ✅ **Powerful**: Uses the state-of-the-art Llama 3.3 70B Versatile model
+- ✅ **Standard API**: Uses an OpenAI-compatible REST API, making integration simple
+- ✅ **Context Aware**: The bot maintains conversation history and understands the student's current situation
 
 ## Usage
 
@@ -70,25 +64,20 @@ The chatbot automatically knows:
 ## Technical Details
 
 ### API Configuration
-- **Model**: gemini-2.0-flash-exp
-- **Max Tokens**: 500 per response
+- **Model**: llama-3.3-70b-versatile
+- **Max Tokens**: 600 per response
 - **Temperature**: 0.7 (balanced creativity)
-- **System Instructions**: IAA-specific academic advisor prompt
-
-### Cost
-- **Free Tier**: Sufficient for typical usage
-- **No billing required**: Unlike OpenAI
-- **Rate Limits**: 15 requests/minute (more than enough)
+- **System Instructions**: IAA-specific academic advisor prompt with the persona "GAP"
 
 ## Troubleshooting
 
 ### "API key not configured" Error
 - Ensure `.env` file exists in the root directory
-- Check that the variable name is exactly `VITE_GEMINI_API_KEY`
+- Check that the variable name is exactly `VITE_GROQ_API_KEY`
 - Restart the development server
 
 ### "Invalid API key" Error
-- Go to https://aistudio.google.com/app/apikey
+- Go to https://console.groq.com/keys
 - Create a new API key
 - Replace the key in `.env`
 - Restart dev server
@@ -96,17 +85,15 @@ The chatbot automatically knows:
 ### Chatbot Not Responding
 - Check browser console for errors (F12)
 - Verify internet connection
-- Check Gemini API status
+- Check Groq API status
 - Ensure API key is valid
 
 ### Rate Limit Errors
-- Free tier: 15 requests per minute
-- Wait a minute if you hit the limit
-- Normal usage won't hit this limit
+- If you see a rate limit error, wait a few seconds and try again. The service automatically implements a short delay to help avoid hitting rate limits.
 
 ## Mock Mode (Optional)
 
-If you want to test without API calls:
+If you want to test without API calls or when offline:
 
 1. Edit `.env`:
 ```
@@ -117,17 +104,6 @@ VITE_USE_MOCK_RESPONSES=true
 
 The chatbot will use intelligent rule-based responses instead of AI.
 
-## Comparison: Gemini vs OpenAI
-
-| Feature | Gemini AI | OpenAI GPT |
-|---------|-----------|------------|
-| Free Tier | ✅ Yes | ❌ No |
-| Setup | Easy | Requires billing |
-| Performance | Excellent | Excellent |
-| Cost | Free | ~$0.002/request |
-| Rate Limits | 15/min | Varies by plan |
-| Best For | Students, Testing | Production at scale |
-
 ## API Key Security
 - ✅ Stored in `.env` (not committed to git)
 - ✅ Never shared publicly
@@ -135,8 +111,5 @@ The chatbot will use intelligent rule-based responses instead of AI.
 - ✅ Environment variable prefixed with `VITE_`
 
 ## Support
-- Gemini API Docs: https://ai.google.dev/docs
-- Get API Key: https://aistudio.google.com/app/apikey
-- Check Usage: https://aistudio.google.com/app/apikey (shows quota)
-
-**The chatbot is now powered by Google Gemini AI - fast, free, and powerful!** 🎉
+- Groq Console: https://console.groq.com
+- Get API Key: https://console.groq.com/keys

@@ -7,17 +7,16 @@ import {
 } from '@mui/material';
 import {
   School, Calculate as CalculateIcon, EmojiEvents, MenuBook,
-  Download, Delete, Close, LightMode, DarkMode, Star,
+  Download, Delete, Close, Star, GitHub,
 } from '@mui/icons-material';
 import { 
   programmes, Programme, Module, getGradeInfo, 
   calculateSemesterGPA, calculateCGPA, gradingScale
 } from '@/data/academicData';
-import { ACADEMIC_LEVELS, AcademicProgram, getProgramById } from '@/types/academic';
+import { ACADEMIC_LEVELS } from '@/types/academic';
 import { UNIVERSITIES, University, getUniversityById } from '@/types/university';
 import { exportToPDF } from '@/lib/pdfExport';
 import AcademicChatbot from '@/components/AcademicChatbot';
-import { useThemeMode } from '@/themes/ThemeProvider';
 
 interface ModuleGrade {
   module: Module;
@@ -136,7 +135,6 @@ const GPACalculator = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [githubStars, setGithubStars] = useState(null);
   const [toast, setToast] = useState({ open: false, title: '', description: '', severity: 'success' });
-  const { mode, toggleMode } = useThemeMode();
 
   const closeToast = () => setToast((prev) => ({ ...prev, open: false }));
 
@@ -159,7 +157,10 @@ const GPACalculator = () => {
   }, []);
 
   const programmesForLevel = selectedLevel
-    ? ACADEMIC_LEVELS.find((l) => l.id === selectedLevel)?.programs || []
+    ? programmes.filter(p => {
+        const level = ACADEMIC_LEVELS.find(l => l.id === selectedLevel);
+        return level ? level.ntaLevels.includes(p.ntaLevel) : false;
+      })
     : [];
 
   useEffect(() => {
@@ -218,11 +219,10 @@ const GPACalculator = () => {
   };
 
   const handleProgramChange = (programId) => {
-    const program = getProgramById(parseInt(programId));
-    if (program) {
-      setSelectedProgram(program);
-      const programme = programmes.find((p) => p.id === program.id);
-      setSelectedProgramme(programme || null);
+    const programme = programmes.find((p) => p.id === parseInt(programId));
+    if (programme) {
+      setSelectedProgram(programme);
+      setSelectedProgramme(programme);
       setSelectedSemester(1);
       setModuleGrades([]);
       setShowResults(false);
@@ -387,15 +387,13 @@ const GPACalculator = () => {
               rel="noopener noreferrer"
               sx={{ display: 'flex', alignItems: 'center', gap: 0.5, textDecoration: 'none', color: 'text.primary', '&:hover': { color: 'primary.main' } }}
             >
-              <Star sx={{ fontSize: 14 }} color="inherit" />
+              <GitHub sx={{ fontSize: 14 }} />
+              <Star sx={{ fontSize: 12 }} color="warning" />
               <Typography variant="body2">{githubStars !== null ? githubStars : '...'}</Typography>
             </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Button variant="outlined" size="small" sx={{ display: { xs: 'none', sm: 'inline-flex' } }} onClick={() => setShowHelp(true)}>Help</Button>
-            <IconButton size="small" onClick={toggleMode}>
-              {mode === 'dark' ? <LightMode /> : <DarkMode />}
-            </IconButton>
             <IconButton size="small" sx={{ display: { md: 'none' } }} onClick={() => setMobileMenuOpen(true)}>
               <Box sx={{ width: 20, height: 20, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <Box sx={{ height: 2, bgcolor: 'text.primary', borderRadius: 1 }} />
@@ -431,7 +429,10 @@ const GPACalculator = () => {
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <ListItemIcon sx={{ minWidth: 36 }}><Star sx={{ fontSize: 18 }} /></ListItemIcon>
+              <ListItemIcon sx={{ minWidth: 36, gap: 0.5 }}>
+                <GitHub sx={{ fontSize: 18 }} />
+                <Star sx={{ fontSize: 14, color: 'warning.main' }} />
+              </ListItemIcon>
               <ListItemText primary={githubStars !== null ? `${githubStars} stars` : '...'} />
             </ListItem>
           </List>

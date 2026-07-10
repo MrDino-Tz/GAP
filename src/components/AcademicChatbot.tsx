@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import {
-  Box, Card, CardContent, CardHeader, Typography, Button,
-  TextField, IconButton, CircularProgress, Avatar,
+  Box, Typography, Button, TextField, IconButton, CircularProgress, Avatar,
 } from '@mui/material';
 import {
   Close, Send, SmartToy, Person,
@@ -30,7 +29,7 @@ const AcademicChatbot = ({
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: `Hello! I'm your academic advisor chatbot powered by ${isMockMode ? 'intelligent algorithms' : 'Google Gemini AI'}. I can help you with GPA improvement tips, study strategies, module advice, career guidance, and IAA academic policies. How can I assist you today?${isMockMode ? '\n\n*Note: Running in mock mode. For AI-powered responses, set VITE_USE_MOCK_RESPONSES=false in .env*' : ''}`,
+      content: `Hello! I'm **GAP**, your AI academic advisor${isMockMode ? '' : ' powered by Groq AI'}. I can help you with GPA improvement tips, study strategies, module advice, career guidance, and IAA academic policies. How can I assist you today?${isMockMode ? '\n\n*Note: Running in mock mode. For AI-powered responses, set VITE_USE_MOCK_RESPONSES=false in .env*' : ''}`,
       timestamp: new Date(),
     },
   ]);
@@ -147,8 +146,8 @@ const AcademicChatbot = ({
                 <SmartToy sx={{ fontSize: { xs: 16, lg: 20 } }} />
               </Avatar>
               <Box>
-                <Typography variant="h6" fontWeight={700} sx={{ fontSize: { xs: '1rem', lg: '1.25rem' } }}>Manto AI</Typography>
-                <Typography variant="caption" sx={{ opacity: 0.9 }}>DTC Group AI-powered Academic Guidance</Typography>
+                <Typography variant="h6" fontWeight={700} sx={{ fontSize: { xs: '1rem', lg: '1.25rem' } }}>GAP</Typography>
+                <Typography variant="caption" sx={{ opacity: 0.9 }}>AI-Powered Academic Advisor</Typography>
               </Box>
             </Box>
             <IconButton onClick={() => setIsOpen(false)} sx={{ color: 'inherit', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}>
@@ -157,7 +156,7 @@ const AcademicChatbot = ({
           </Box>
         </Box>
 
-        <Box sx={{ flex: 1, overflowY: 'auto', p: 2 }}>
+        <Box sx={{ flex: 1, overflowY: 'auto', px: 2, py: 2.5 }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {messages.map((message, index) => (
               <Box
@@ -165,42 +164,99 @@ const AcademicChatbot = ({
                 sx={{
                   display: 'flex',
                   gap: 1.5,
+                  alignItems: 'flex-end',
                   justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
+                  animation: 'slide-up 0.3s ease-out',
+                  '@keyframes slide-up': {
+                    from: { opacity: 0, transform: 'translateY(12px)' },
+                    to: { opacity: 1, transform: 'translateY(0)' },
+                  },
                 }}
               >
                 {message.role === 'assistant' && (
-                  <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.light' }}>
-                    <SmartToy sx={{ fontSize: 16, color: 'primary.main' }} />
+                  <Avatar
+                    sx={{
+                      width: 36,
+                      height: 36,
+                      bgcolor: 'primary.light',
+                      boxShadow: 1,
+                      mb: 1,
+                    }}
+                  >
+                    <SmartToy sx={{ fontSize: 18, color: 'primary.main' }} />
                   </Avatar>
                 )}
                 <Box
                   sx={{
-                    maxWidth: { xs: '75%', lg: '80%' },
-                    borderRadius: 2,
-                    p: 1.5,
-                    bgcolor: message.role === 'user' ? 'primary.main' : 'grey.100',
-                    color: message.role === 'user' ? 'primary.contrastText' : 'text.primary',
+                    maxWidth: { xs: '78%', lg: '82%' },
+                    p: 2,
+                    ...(message.role === 'user'
+                      ? {
+                          bgcolor: 'primary.main',
+                          color: 'primary.contrastText',
+                          borderRadius: '16px 16px 4px 16px',
+                          boxShadow: (t) => `0 2px 8px ${t.palette.primary.main}33`,
+                        }
+                      : {
+                          bgcolor: 'grey.100',
+                          color: 'text.primary',
+                          borderRadius: '16px 16px 16px 4px',
+                        }),
                   }}
                 >
-                  <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>{message.content}</Typography>
-                  <Typography variant="caption" sx={{ opacity: 0.7, display: 'block', mt: 0.5 }}>
-                    {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
+                    {message.content}
                   </Typography>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      mt: 0.75,
+                    }}
+                  >
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        opacity: message.role === 'user' ? 0.8 : 0.5,
+                        fontSize: '0.65rem',
+                      }}
+                    >
+                      {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </Typography>
+                  </Box>
                 </Box>
                 {message.role === 'user' && (
-                  <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }}>
-                    <Person sx={{ fontSize: 16, color: 'primary.contrastText' }} />
+                  <Avatar
+                    sx={{
+                      width: 36,
+                      height: 36,
+                      bgcolor: 'primary.main',
+                      boxShadow: 1,
+                      mb: 1,
+                    }}
+                  >
+                    <Person sx={{ fontSize: 18, color: 'primary.contrastText' }} />
                   </Avatar>
                 )}
               </Box>
             ))}
             {isLoading && (
-              <Box sx={{ display: 'flex', gap: 1.5 }}>
-                <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.light' }}>
-                  <SmartToy sx={{ fontSize: 16, color: 'primary.main' }} />
+              <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-end' }}>
+                <Avatar sx={{ width: 36, height: 36, bgcolor: 'primary.light', boxShadow: 1, mb: 1 }}>
+                  <SmartToy sx={{ fontSize: 18, color: 'primary.main' }} />
                 </Avatar>
-                <Box sx={{ bgcolor: 'grey.100', borderRadius: 2, p: 2 }}>
-                  <CircularProgress size={16} />
+                <Box
+                  sx={{
+                    bgcolor: 'grey.100',
+                    borderRadius: '16px 16px 16px 4px',
+                    p: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
+                >
+                  <CircularProgress size={14} />
+                  <Typography variant="caption" color="text.secondary">Thinking...</Typography>
                 </Box>
               </Box>
             )}

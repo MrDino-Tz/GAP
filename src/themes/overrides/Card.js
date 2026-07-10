@@ -1,15 +1,4 @@
 const Card = {
-  MuiCard: {
-    styleOverrides: {
-      root: {
-        borderRadius: 8,
-        border: '1px solid',
-        borderColor: '#141414',
-        boxShadow: 'none',
-        position: 'relative',
-      },
-    },
-  },
   MuiCardContent: {
     styleOverrides: {
       root: {

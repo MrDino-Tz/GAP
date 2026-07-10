@@ -5,8 +5,8 @@ import Button from '../overrides/Button';
 import Card from '../overrides/Card';
 import Input from '../overrides/Input';
 
-const theme = (mode) => createTheme({
-  palette: palette(mode),
+const theme = createTheme({
+  palette,
   typography,
   components: {
     ...Button,
@@ -15,7 +15,6 @@ const theme = (mode) => createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: '#fafafb',
           minHeight: '100vh',
         },
       },
