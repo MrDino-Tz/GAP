@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box, Card, CardHeader, CardContent, Typography, Button, FormControl,
   InputLabel, Select, MenuItem, Chip, Divider, Snackbar, Alert,
@@ -119,6 +120,7 @@ function ModuleGradeRow({ moduleGrade, index, onGradeChange, isMobile }) {
 }
 
 const GPACalculator = () => {
+  const navigate = useNavigate();
   const [selectedUniversity, setSelectedUniversity] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedProgram, setSelectedProgram] = useState(null);
@@ -379,6 +381,7 @@ const GPACalculator = () => {
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
             <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>Home</Typography>
+            <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }} onClick={() => navigate('/tools')}>Tools</Typography>
             <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }} onClick={() => setShowAbout(true)}>About</Typography>
             <Box
               component="a"
