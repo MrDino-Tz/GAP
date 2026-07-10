@@ -24,18 +24,6 @@ const Index = () => {
       {/* Footer */}
       <footer className="bg-muted border-t border-border py-8">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p className="mb-2 text-sm flex items-center justify-center gap-1">
-            Other links:{" "}
-            <a
-              href="https://mrdino-tz.github.io/OpenSpace-KillerTool/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline inline-flex items-center gap-1"
-            >
-              <img src="/logo1.png" alt="" className="inline-block w-4 h-4" />
-              OpenSpace-KillerTool
-            </a>
-          </p>
           <p className="text-sm">
             © {new Date().getFullYear()} GAP - GPA Calculator . Developed with 💙 by DTC Group
           </p>
