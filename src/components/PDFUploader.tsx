@@ -1,147 +1,127 @@
-import React, { useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Upload } from 'lucide-react';
-import { toast } from '@/hooks/use-toast';
+import { useRef, useState } from 'react';
+import {
+  Box, Card, CardContent, CardHeader, Typography,
+  CircularProgress, Snackbar, Alert,
+} from '@mui/material';
+import { CloudUpload } from '@mui/icons-material';
 
 interface PDFUploaderProps {
   onTextExtracted: (text: string) => void;
 }
 
-const PDFUploader: React.FC<PDFUploaderProps> = ({ onTextExtracted }) => {
+const PDFUploader = ({ onTextExtracted }: PDFUploaderProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const MAX_FILE_SIZE_MB = 20; // 20MB max file size
+  const MAX_FILE_SIZE_MB = 20;
   const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
+  const showSnackbar = (message: string, severity: 'success' | 'error') => {
+    setSnackbar({ open: true, message, severity });
+  };
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) {
-      console.log('No file selected');
-      return;
-    }
+    if (!file) return;
 
-    console.log('File selected:', {
-      name: file.name,
-      type: file.type,
-      size: file.size,
-      lastModified: file.lastModified
-    });
-
-    // Check file type more flexibly
     if (!file.type.includes('pdf') && !file.name.toLowerCase().endsWith('.pdf')) {
-      console.error('Invalid file type:', file.type);
-      toast({
-        title: 'Invalid File Type',
-        description: 'Please upload a valid PDF file.',
-        variant: 'destructive',
-      });
+      showSnackbar('Please upload a valid PDF file.', 'error');
       return;
     }
 
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      console.error('File too large:', file.size, 'bytes');
-      toast({
-        title: 'File Too Large',
-        description: `File is too large (${(file.size / (1024 * 1024)).toFixed(2)}MB). Maximum size is ${MAX_FILE_SIZE_MB}MB.`,
-        variant: 'destructive',
-      });
+      showSnackbar(`File is too large (${(file.size / (1024 * 1024)).toFixed(2)}MB). Maximum size is ${MAX_FILE_SIZE_MB}MB.`, 'error');
       return;
     }
 
     setIsLoading(true);
 
     try {
-      console.log('Loading pdf-parse library...');
       const pdfjs = await import('pdf-parse');
-      console.log('Library loaded, processing PDF...');
-      
       const arrayBuffer = await file.arrayBuffer();
-      console.log('File loaded, parsing...');
-      
-      const data = await pdfjs.default(arrayBuffer, {
-        max: 10 * 1024 * 1024, // 10MB of text max
-        version: 'v2.0.0',
-      });
-      
-      console.log('PDF parsed successfully');
+      const data = await pdfjs.default(arrayBuffer, { max: 10 * 1024 * 1024, version: 'v2.0.0' });
       onTextExtracted(data.text);
-      
-      toast({
-        title: 'Success',
-        description: 'PDF processed successfully!',
-      });
+      showSnackbar('PDF processed successfully!', 'success');
     } catch (error) {
-      console.error('Error processing PDF:', error);
       let errorMessage = 'Failed to process the PDF. ';
-      
       if (error instanceof Error) {
-        if (error.message.includes('Invalid PDF')) {
-          errorMessage += 'The file is not a valid PDF or is corrupted.';
-        } else if (error.message.includes('password')) {
-          errorMessage += 'The PDF is password protected and cannot be processed.';
-        } else {
-          errorMessage += error.message;
-        }
+        if (error.message.includes('Invalid PDF')) errorMessage += 'The file is not a valid PDF or is corrupted.';
+        else if (error.message.includes('password')) errorMessage += 'The PDF is password protected and cannot be processed.';
+        else errorMessage += error.message;
       }
-      
-      toast({
-        title: 'Error',
-        description: errorMessage,
-        variant: 'destructive',
-      });
+      showSnackbar(errorMessage, 'error');
     } finally {
       setIsLoading(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Upload className="h-5 w-5 text-primary" />
-          Upload PDF
-        </CardTitle>
-        <CardDescription>
-          Upload your academic document to extract grading information
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div
-          className="flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-lg hover:bg-accent/50 transition-colors cursor-pointer"
-          onClick={() => fileInputRef.current?.click()}
+    <>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+          severity={snackbar.severity}
+          variant="filled"
         >
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".pdf"
-            className="hidden"
-            onChange={handleFileChange}
-            disabled={isLoading}
-          />
-          {isLoading ? (
-            <>
-              <Loader2 className="h-10 w-10 animate-spin text-primary mb-4" />
-              <p className="text-sm text-muted-foreground">Processing PDF...</p>
-            </>
-          ) : (
-            <>
-              <Upload className="h-10 w-10 text-muted-foreground mb-4" />
-              <p className="text-sm text-muted-foreground mb-1">
-                <span className="font-medium text-primary">Click to upload</span> or drag and drop
-              </p>
-              <p className="text-xs text-muted-foreground">
-                PDF (max. {MAX_FILE_SIZE_MB}MB)
-              </p>
-            </>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+      <Card sx={{ maxWidth: 600, mx: 'auto' }}>
+        <CardHeader
+          avatar={<CloudUpload color="primary" />}
+          title={<Typography variant="h6">Upload PDF</Typography>}
+          subheader="Upload your academic document to extract grading information"
+        />
+        <CardContent>
+          <Box
+            onClick={() => fileInputRef.current?.click()}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              p: 4,
+              border: 2,
+              borderStyle: 'dashed',
+              borderColor: 'divider',
+              borderRadius: 2,
+              cursor: 'pointer',
+              '&:hover': { bgcolor: 'action.hover' },
+            }}
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf"
+              style={{ display: 'none' }}
+              onChange={handleFileChange}
+              disabled={isLoading}
+            />
+            {isLoading ? (
+              <>
+                <CircularProgress size={40} sx={{ mb: 2 }} />
+                <Typography variant="body2" color="text.secondary">Processing PDF...</Typography>
+              </>
+            ) : (
+              <>
+                <CloudUpload sx={{ fontSize: 40, color: 'text.disabled', mb: 2 }} />
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                  <Box component="span" sx={{ color: 'primary.main', fontWeight: 500 }}>Click to upload</Box> or drag and drop
+                </Typography>
+                <Typography variant="caption" color="text.disabled">PDF (max. {MAX_FILE_SIZE_MB}MB)</Typography>
+              </>
+            )}
+          </Box>
+        </CardContent>
+      </Card>
+    </>
   );
 };
 

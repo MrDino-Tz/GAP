@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { MessageCircle, X, Send, Loader2, Bot, User } from 'lucide-react';
-import { toast } from '@/hooks/use-toast';
+import { useState, useRef, useEffect } from 'react';
+import {
+  Box, Card, CardContent, CardHeader, Typography, Button,
+  TextField, IconButton, CircularProgress, Avatar,
+} from '@mui/material';
+import {
+  Close, Send, SmartToy, Person,
+} from '@mui/icons-material';
 import { getChatbotResponse } from '@/lib/chatbotService';
 
 interface Message {
@@ -19,23 +20,22 @@ interface AcademicChatbotProps {
   semesterNumber?: number;
 }
 
-const AcademicChatbot: React.FC<AcademicChatbotProps> = ({ 
-  userGPA, 
-  programmeName, 
-  semesterNumber 
-}) => {
+const AcademicChatbot = ({
+  userGPA,
+  programmeName,
+  semesterNumber,
+}: AcademicChatbotProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMockMode = import.meta.env.VITE_USE_MOCK_RESPONSES === 'true';
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
       content: `Hello! I'm your academic advisor chatbot powered by ${isMockMode ? 'intelligent algorithms' : 'Google Gemini AI'}. I can help you with GPA improvement tips, study strategies, module advice, career guidance, and IAA academic policies. How can I assist you today?${isMockMode ? '\n\n*Note: Running in mock mode. For AI-powered responses, set VITE_USE_MOCK_RESPONSES=false in .env*' : ''}`,
-      timestamp: new Date()
-    }
+      timestamp: new Date(),
+    },
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -52,204 +52,195 @@ const AcademicChatbot: React.FC<AcademicChatbotProps> = ({
     const userMessage: Message = {
       role: 'user',
       content: input.trim(),
-      timestamp: new Date()
+      timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
     try {
-      const context = {
-        userGPA,
-        programmeName,
-        semesterNumber,
-        conversationHistory: messages
-      };
-
-      console.log('Calling chatbot service with message:', input.trim());
+      const context = { userGPA, programmeName, semesterNumber, conversationHistory: messages };
       const response = await getChatbotResponse(input.trim(), context);
-      console.log('Got response:', response);
 
       const assistantMessage: Message = {
         role: 'assistant',
         content: response,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+      setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      console.error('Chatbot error:', error);
-      
-      let errorMsg = 'I apologize, but I encountered an error. ';
-      
-      if (error instanceof Error) {
-        errorMsg += error.message;
-      } else {
-        errorMsg += 'Please check the browser console for more details.';
-      }
-      
-      const errorMessage: Message = {
-        role: 'assistant',
-        content: errorMsg,
-        timestamp: new Date()
-      };
-
-      setMessages(prev => [...prev, errorMessage]);
-      
-      toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to get response',
-        variant: 'destructive'
-      });
+      const errorMsg = error instanceof Error ? error.message : 'Failed to get response';
+      setMessages((prev) => [
+        ...prev,
+        { role: 'assistant', content: `I apologize, but I encountered an error. ${errorMsg}`, timestamp: new Date() },
+      ]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }
   };
 
-  const toggleChat = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <div className="fixed bottom-0 right-0 z-50">
-      {/* Chat Button */}
+    <Box sx={{ position: 'fixed', bottom: 0, right: 0, zIndex: 1300 }}>
       <Button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-8 right-4 lg:bottom-10 lg:right-6 h-12 w-12 lg:h-14 lg:w-14 rounded-full p-0 shadow-lg hover:shadow-xl transition-all duration-300 ${
-          isOpen ? 'scale-0 rotate-180' : 'scale-100 hover:scale-110'
-        }`}
-        variant="default"
-        size="icon"
+        sx={{
+          position: 'fixed',
+          bottom: { xs: 32, lg: 40 },
+          right: { xs: 16, lg: 24 },
+          minWidth: { xs: 48, lg: 56 },
+          width: { xs: 48, lg: 56 },
+          height: { xs: 48, lg: 56 },
+          borderRadius: '50%',
+          p: 0,
+          boxShadow: 3,
+          transition: 'all 0.3s',
+          transform: isOpen ? 'scale(0) rotate(180deg)' : 'scale(1)',
+          '&:hover': { transform: isOpen ? 'scale(0) rotate(180deg)' : 'scale(1.1)' },
+        }}
+        variant="contained"
       >
-        <MessageCircle className="h-5 w-5 lg:h-6 lg:w-6" />
-        <span className="sr-only">{isOpen ? 'Close chat' : 'Open chat'}</span>
+        <SmartToy sx={{ fontSize: { xs: 20, lg: 24 } }} />
       </Button>
 
-      {/* Chat Window */}
-      <div
-        className={`fixed bottom-0 right-0 lg:bottom-24 lg:right-6 w-full lg:w-[420px] h-[70vh] lg:h-[500px] max-h-[700px] flex flex-col rounded-t-2xl lg:rounded-2xl border bg-background shadow-2xl transition-all duration-300 ease-out ${
-          isOpen ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-4 opacity-0 pointer-events-none scale-95'
-        }`}
+      <Box
+        sx={{
+          position: 'fixed',
+          bottom: 0,
+          right: { xs: 0, lg: 24 },
+          width: { xs: '100%', lg: 420 },
+          height: { xs: '70vh', lg: 500 },
+          maxHeight: 700,
+          display: 'flex',
+          flexDirection: 'column',
+          borderRadius: { xs: '16px 16px 0 0', lg: '16px' },
+          border: 1,
+          borderColor: 'divider',
+          bgcolor: 'background.paper',
+          boxShadow: 8,
+          transition: 'all 0.3s ease-out',
+          transform: isOpen ? 'translateY(0)' : 'translateY(8px)',
+          opacity: isOpen ? 1 : 0,
+          pointerEvents: isOpen ? 'auto' : 'none',
+          scale: isOpen ? '1' : '0.95',
+        }}
       >
-        {/* Header */}
-        <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground rounded-t-2xl lg:rounded-2xl p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-8 lg:h-10 lg:w-10 rounded-full bg-white/20 flex items-center justify-center">
-                <Bot className="h-4 w-4 lg:h-5 lg:w-5" />
-              </div>
-              <div>
-                <h3 className="text-lg lg:text-xl font-bold">Manto AI</h3>
-                <p className="text-xs lg:text-sm opacity-90">
-                  DTC Group AI-powered Academic Guidance
-                </p>
-              </div>
-            </div>
-            <Button
-              onClick={() => setIsOpen(false)}
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 lg:h-10 lg:w-10 text-white hover:bg-white/20"
-            >
-              <X className="h-4 w-4 lg:h-5 lg:w-5" />
-              <span className="sr-only">Close chat</span>
-            </Button>
-          </div>
-        </div>
+        <Box
+          sx={{
+            background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+            color: 'primary.contrastText',
+            borderRadius: { xs: '16px 16px 0 0', lg: '16px 16px 0 0' },
+            p: 2,
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Avatar sx={{ width: { xs: 32, lg: 40 }, height: { xs: 32, lg: 40 }, bgcolor: 'rgba(255,255,255,0.2)' }}>
+                <SmartToy sx={{ fontSize: { xs: 16, lg: 20 } }} />
+              </Avatar>
+              <Box>
+                <Typography variant="h6" fontWeight={700} sx={{ fontSize: { xs: '1rem', lg: '1.25rem' } }}>Manto AI</Typography>
+                <Typography variant="caption" sx={{ opacity: 0.9 }}>DTC Group AI-powered Academic Guidance</Typography>
+              </Box>
+            </Box>
+            <IconButton onClick={() => setIsOpen(false)} sx={{ color: 'inherit', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}>
+              <Close />
+            </IconButton>
+          </Box>
+        </Box>
 
-        {/* Messages Area */}
-        <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
-          <div className="space-y-4">
+        <Box sx={{ flex: 1, overflowY: 'auto', p: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {messages.map((message, index) => (
-              <div
+              <Box
                 key={index}
-                className={`flex gap-3 ${
-                  message.role === 'user' ? 'justify-end' : 'justify-start'
-                }`}
+                sx={{
+                  display: 'flex',
+                  gap: 1.5,
+                  justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
+                }}
               >
                 {message.role === 'assistant' && (
-                  <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Bot className="h-4 w-4 text-primary" />
-                  </div>
+                  <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.light' }}>
+                    <SmartToy sx={{ fontSize: 16, color: 'primary.main' }} />
+                  </Avatar>
                 )}
-                
-                <div
-                  className={`max-w-[75%] lg:max-w-[80%] rounded-lg p-3 ${
-                    message.role === 'user'
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted text-foreground'
-                  }`}
+                <Box
+                  sx={{
+                    maxWidth: { xs: '75%', lg: '80%' },
+                    borderRadius: 2,
+                    p: 1.5,
+                    bgcolor: message.role === 'user' ? 'primary.main' : 'grey.100',
+                    color: message.role === 'user' ? 'primary.contrastText' : 'text.primary',
+                  }}
                 >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                  <span className="text-xs opacity-70 mt-1 block">
-                    {message.timestamp.toLocaleTimeString([], { 
-                      hour: '2-digit', 
-                      minute: '2-digit' 
-                    })}
-                  </span>
-                </div>
-
+                  <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap' }}>{message.content}</Typography>
+                  <Typography variant="caption" sx={{ opacity: 0.7, display: 'block', mt: 0.5 }}>
+                    {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </Typography>
+                </Box>
                 {message.role === 'user' && (
-                  <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary flex items-center justify-center">
-                    <User className="h-4 w-4 text-primary-foreground" />
-                  </div>
+                  <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }}>
+                    <Person sx={{ fontSize: 16, color: 'primary.contrastText' }} />
+                  </Avatar>
                 )}
-              </div>
+              </Box>
             ))}
-            
             {isLoading && (
-              <div className="flex gap-3 justify-start">
-                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Bot className="h-4 w-4 text-primary" />
-                </div>
-                <div className="bg-muted rounded-lg p-3">
-                  <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                </div>
-              </div>
+              <Box sx={{ display: 'flex', gap: 1.5 }}>
+                <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.light' }}>
+                  <SmartToy sx={{ fontSize: 16, color: 'primary.main' }} />
+                </Avatar>
+                <Box sx={{ bgcolor: 'grey.100', borderRadius: 2, p: 2 }}>
+                  <CircularProgress size={16} />
+                </Box>
+              </Box>
             )}
-            
             <div ref={messagesEndRef} />
-          </div>
-        </ScrollArea>
+          </Box>
+        </Box>
 
-        {/* Input Area */}
-        <div className="border-t p-3 lg:p-4">
-          <div className="flex items-center gap-2 lg:gap-3">
-            <Input
-              type="text"
+        <Box sx={{ borderTop: 1, borderColor: 'divider', p: { xs: 1.5, lg: 2 } }}>
+          <Box sx={{ display: 'flex', gap: { xs: 1, lg: 1.5 } }}>
+            <TextField
+              fullWidth
+              size="small"
               placeholder="Ask about GPA, study tips, or academic advice..."
-              className="flex-1 text-sm lg:text-base h-11 lg:h-12"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+              onKeyDown={handleKeyDown}
               disabled={isLoading}
+              sx={{
+                '& .MuiInputBase-root': {
+                  height: { xs: 44, lg: 48 },
+                  fontSize: { xs: '0.875rem', lg: '1rem' },
+                },
+              }}
             />
-            <Button
-              type="button"
-              size="icon"
-              className="h-11 w-11 lg:h-12 lg:w-12 flex-shrink-0"
+            <IconButton
+              color="primary"
               onClick={handleSendMessage}
               disabled={isLoading || !input.trim()}
+              sx={{
+                width: { xs: 44, lg: 48 },
+                height: { xs: 44, lg: 48 },
+                flexShrink: 0,
+              }}
             >
-              {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <Send className="h-4 w-4" />
-              )}
-              <span className="sr-only">Send message</span>
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
+              {isLoading ? <CircularProgress size={16} /> : <Send />}
+            </IconButton>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
