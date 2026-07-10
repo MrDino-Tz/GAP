@@ -26,7 +26,7 @@ const Index = () => {
       >
         <Box sx={{ position: 'relative', zIndex: 10, textAlign: 'center', color: 'primary.contrastText' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, mb: 1 }}>
-            <img src={`${import.meta.env.BASE_URL}7803722.png`} alt="GAP Logo" style={{ height: '80px', width: 'auto' }} />
+            <img src={`${import.meta.env.BASE_URL}LOGO.png`} alt="GAP Logo" style={{ height: '80px', width: 'auto' }} />
             <Typography variant="h1" sx={{ fontWeight: 700 }}>
               GAP
             </Typography>

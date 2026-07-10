@@ -6,7 +6,7 @@ import {
   DialogTitle, DialogContent, DialogActions, ListItemIcon,
 } from '@mui/material';
 import {
-  School, Calculate as CalculateIcon, EmojiEvents, MenuBook,
+  Calculate as CalculateIcon, EmojiEvents, MenuBook,
   Download, Delete, Close, Star, GitHub,
 } from '@mui/icons-material';
 import { 
@@ -374,7 +374,7 @@ const GPACalculator = () => {
       <Box sx={{ borderBottom: 1, borderColor: 'divider', bgcolor: 'background.paper' }}>
         <Box sx={{ maxWidth: 1200, mx: 'auto', px: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <School color="primary" />
+            <img src={`${import.meta.env.BASE_URL}LOGO.png`} alt="GAP Logo" style={{ height: 32, width: 'auto' }} />
             <Typography variant="h6" fontWeight={700}>GAP</Typography>
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
@@ -409,7 +409,7 @@ const GPACalculator = () => {
         <Box sx={{ width: 256, p: 2 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <School color="primary" />
+              <img src={`${import.meta.env.BASE_URL}LOGO.png`} alt="GAP Logo" style={{ height: 32, width: 'auto' }} />
               <Typography variant="h6" fontWeight={700}>GAP</Typography>
             </Box>
             <IconButton size="small" onClick={() => setMobileMenuOpen(false)}><Close /></IconButton>
@@ -516,12 +516,13 @@ const GPACalculator = () => {
         userGPA={showResults ? currentGPA : undefined}
         programmeName={selectedProgramme?.name}
         semesterNumber={selectedSemester}
+        savedSemesters={savedSemesters}
       />
 
       <Box sx={{ maxWidth: 1200, mx: 'auto', py: 4, px: 2 }}>
         <Box textAlign="center" mb={4}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, mb: 1 }}>
-            <School color="primary" sx={{ fontSize: 48 }} />
+            <img src={`${import.meta.env.BASE_URL}LOGO.png`} alt="GAP Logo" style={{ height: 48, width: 'auto' }} />
             <Typography variant="h3" fontWeight={700}>GAP a GPA Calculator</Typography>
           </Box>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>

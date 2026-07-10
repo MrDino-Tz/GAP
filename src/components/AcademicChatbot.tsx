@@ -3,7 +3,7 @@ import {
   Box, Typography, Button, TextField, IconButton, CircularProgress, Avatar,
 } from '@mui/material';
 import {
-  Close, Send, SmartToy, Person,
+  Close, Send, Person,
 } from '@mui/icons-material';
 import { getChatbotResponse } from '@/lib/chatbotService';
 
@@ -13,23 +13,34 @@ interface Message {
   timestamp: Date;
 }
 
+interface SavedSemester {
+  programmeName?: string;
+  semesterNumber: number;
+  semesterName?: string;
+  gpa: number;
+  totalCreditHours: number;
+  savedAt: string;
+}
+
 interface AcademicChatbotProps {
   userGPA?: number;
   programmeName?: string;
   semesterNumber?: number;
+  savedSemesters?: SavedSemester[];
 }
 
 const AcademicChatbot = ({
   userGPA,
   programmeName,
   semesterNumber,
+  savedSemesters,
 }: AcademicChatbotProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isMockMode = import.meta.env.VITE_USE_MOCK_RESPONSES === 'true';
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: `Hello! I'm **GAP**, your AI academic advisor${isMockMode ? '' : ' powered by Groq AI'}. I can help you with GPA improvement tips, study strategies, module advice, career guidance, and IAA academic policies. How can I assist you today?${isMockMode ? '\n\n*Note: Running in mock mode. For AI-powered responses, set VITE_USE_MOCK_RESPONSES=false in .env*' : ''}`,
+      content: `Hi! I'm GAP, academic advisor. How can I help you?`,
       timestamp: new Date(),
     },
   ]);
@@ -59,7 +70,7 @@ const AcademicChatbot = ({
     setIsLoading(true);
 
     try {
-      const context = { userGPA, programmeName, semesterNumber, conversationHistory: messages };
+      const context = { userGPA, programmeName, semesterNumber, savedSemesters, conversationHistory: messages };
       const response = await getChatbotResponse(input.trim(), context);
 
       const assistantMessage: Message = {
@@ -98,8 +109,8 @@ const AcademicChatbot = ({
           minWidth: { xs: 48, lg: 56 },
           width: { xs: 48, lg: 56 },
           height: { xs: 48, lg: 56 },
-          borderRadius: '50%',
-          p: 0,
+          borderRadius: 2,
+          p: 0.5,
           boxShadow: 3,
           transition: 'all 0.3s',
           transform: isOpen ? 'scale(0) rotate(180deg)' : 'scale(1)',
@@ -107,7 +118,7 @@ const AcademicChatbot = ({
         }}
         variant="contained"
       >
-        <SmartToy sx={{ fontSize: { xs: 20, lg: 24 } }} />
+        <img src={`${import.meta.env.BASE_URL}LOGO.png`} alt="GAP" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
       </Button>
 
       <Box
@@ -142,8 +153,8 @@ const AcademicChatbot = ({
         >
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              <Avatar sx={{ width: { xs: 32, lg: 40 }, height: { xs: 32, lg: 40 }, bgcolor: 'rgba(255,255,255,0.2)' }}>
-                <SmartToy sx={{ fontSize: { xs: 16, lg: 20 } }} />
+              <Avatar sx={{ width: { xs: 32, lg: 40 }, height: { xs: 32, lg: 40 }, bgcolor: 'rgba(255,255,255,0.2)', p: 0.5 }}>
+                <img src={`${import.meta.env.BASE_URL}LOGO.png`} alt="GAP" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </Avatar>
               <Box>
                 <Typography variant="h6" fontWeight={700} sx={{ fontSize: { xs: '1rem', lg: '1.25rem' } }}>GAP</Typography>
@@ -181,9 +192,10 @@ const AcademicChatbot = ({
                       bgcolor: 'primary.light',
                       boxShadow: 1,
                       mb: 1,
+                      p: 0.5,
                     }}
                   >
-                    <SmartToy sx={{ fontSize: 18, color: 'primary.main' }} />
+                    <img src={`${import.meta.env.BASE_URL}LOGO.png`} alt="GAP" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </Avatar>
                 )}
                 <Box
@@ -198,7 +210,6 @@ const AcademicChatbot = ({
                           boxShadow: (t) => `0 2px 8px ${t.palette.primary.main}33`,
                         }
                       : {
-                          bgcolor: 'grey.100',
                           color: 'text.primary',
                           borderRadius: '16px 16px 16px 4px',
                         }),
@@ -242,12 +253,11 @@ const AcademicChatbot = ({
             ))}
             {isLoading && (
               <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-end' }}>
-                <Avatar sx={{ width: 36, height: 36, bgcolor: 'primary.light', boxShadow: 1, mb: 1 }}>
-                  <SmartToy sx={{ fontSize: 18, color: 'primary.main' }} />
+                <Avatar sx={{ width: 36, height: 36, bgcolor: 'primary.light', boxShadow: 1, mb: 1, p: 0.5 }}>
+                  <img src={`${import.meta.env.BASE_URL}LOGO.png`} alt="GAP" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 </Avatar>
                 <Box
                   sx={{
-                    bgcolor: 'grey.100',
                     borderRadius: '16px 16px 16px 4px',
                     p: 2,
                     display: 'flex',

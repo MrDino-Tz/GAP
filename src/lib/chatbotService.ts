@@ -1,7 +1,17 @@
+interface SavedSemester {
+  programmeName?: string;
+  semesterNumber: number;
+  semesterName?: string;
+  gpa: number;
+  totalCreditHours: number;
+  savedAt: string;
+}
+
 interface ChatContext {
   userGPA?: number;
   programmeName?: string;
   semesterNumber?: number;
+  savedSemesters?: SavedSemester[];
   conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }>;
 }
 
@@ -64,6 +74,20 @@ GPA Calculation: GPA = Σ(Grade Point × Credit Hours) / Σ(Credit Hours)
 
   if (context.semesterNumber) {
     prompt += `\nThey are currently in Semester ${context.semesterNumber}.`;
+  }
+
+  if (context.savedSemesters && context.savedSemesters.length > 0) {
+    prompt += `\n\nAcademic History (saved semesters):`;
+    const sorted = [...context.savedSemesters].sort((a, b) => a.semesterNumber - b.semesterNumber);
+    for (const sem of sorted) {
+      prompt += `\n- ${sem.semesterName || `Semester ${sem.semesterNumber}`} (${sem.programmeName || ''}): GPA ${sem.gpa.toFixed(2)}, ${sem.totalCreditHours} credits`;
+    }
+    const avgGpa = sorted.reduce((sum, s) => sum + s.gpa, 0) / sorted.length;
+    prompt += `\n\nAverage GPA across ${sorted.length} saved semester(s): ${avgGpa.toFixed(2)}`;
+    if (context.userGPA !== undefined) {
+      prompt += `\nCurrent semester GPA: ${context.userGPA.toFixed(2)}`;
+    }
+    prompt += `\n\nUse this history to give personalized advice.`;
   }
 
   prompt += `
