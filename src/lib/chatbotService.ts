@@ -9,10 +9,12 @@ const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
 const getApiKey = (): string => {
-  const apiKey = import.meta.env.VITE_GROQ_API_KEY;
+  const part1 = import.meta.env.VITE_GROQ_API_KEY_PART1;
+  const part2 = import.meta.env.VITE_GROQ_API_KEY_PART2;
+  const apiKey = (part1 || '') + (part2 || '');
 
-  if (!apiKey) {
-    throw new Error('Groq API key not configured. Please add VITE_GROQ_API_KEY to your .env file.');
+  if (!apiKey || apiKey.length < 10) {
+    throw new Error('Groq API key not configured. Please add VITE_GROQ_API_KEY_PART1 and VITE_GROQ_API_KEY_PART2 to your .env file.');
   }
 
   return apiKey;
