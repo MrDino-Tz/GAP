@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import {
   Calculate as CalculateIcon, EmojiEvents, MenuBook,
-  Download, Delete, Close, Star, GitHub, Visibility,
+  Download, Delete, Close, Star, GitHub, Visibility, PictureAsPdf,
 } from '@mui/icons-material';
 import { 
   programmes, Programme, Module, getGradeInfo, 
@@ -16,7 +16,7 @@ import {
 } from '@/data/academicData';
 import { ACADEMIC_LEVELS } from '@/types/academic';
 import { UNIVERSITIES, University, getUniversityById } from '@/types/university';
-import { exportToPDF } from '@/lib/pdfExport';
+import { exportToPDF, exportFullReportPDF } from '@/lib/pdfExport';
 import AcademicChatbot from '@/components/AcademicChatbot';
 import { trackVisitor } from '@/lib/visitorCounter';
 
@@ -43,6 +43,7 @@ interface SavedSemesterData {
   totalCreditHours: number;
   savedAt: string;
   programmeName?: string;
+  universityName?: string;
 }
 
 function ModuleGradeRow({ moduleGrade, index, onGradeChange, isMobile }) {
@@ -253,15 +254,17 @@ const GPACalculator = () => {
     setModuleGrades(updatedGrades);
   };
 
-  const calculateGPA = () => {
+  const calculateAndSaveGPA = () => {
     if (moduleGrades.some((grade) => !grade.letterGrade)) {
       showToast('Incomplete Data', 'Please select a grade for all modules.', 'error');
       return;
     }
+    if (!selectedProgramme) return;
     const gpa = calculateSemesterGPA(moduleGrades.map((g) => ({ creditHours: g.module.creditHours, gradePoint: g.gradePoint })));
     setCurrentGPA(gpa);
     setShowResults(true);
-    showToast('GPA Calculated Successfully!', `Your Semester GPA is ${gpa.toFixed(2)}`, 'success');
+    saveToLocalStorage(gpa);
+    showToast('GPA Calculated & Saved!', `Your Semester GPA is ${gpa.toFixed(2)}. Results saved for CGPA tracking.`, 'success');
   };
 
   const calculateCumulativeGPA = () => {
@@ -274,16 +277,22 @@ const GPACalculator = () => {
     showToast('CGPA Calculated Successfully!', `Your Cumulative GPA is ${cgpaValue.toFixed(2)}`, 'success');
   };
 
-  const saveToLocalStorage = () => {
+  const saveToLocalStorage = (gpaOverride?: number) => {
     if (!selectedProgramme) return;
+    const gpa = gpaOverride ?? currentGPA;
+    if (gpa <= 0) {
+      showToast('No GPA to Save', 'Calculate your semester GPA before saving.', 'error');
+      return;
+    }
     const semesterData = {
       programmeId: selectedProgramme.id,
       semesterNumber: selectedSemester,
       semesterName: selectedProgramme.semesters.find((s) => s.semesterNumber === selectedSemester)?.semesterName,
       modules: moduleGrades,
-      gpa: currentGPA,
+      gpa,
       totalCreditHours: moduleGrades.reduce((sum, g) => sum + g.module.creditHours, 0),
       savedAt: new Date().toISOString(),
+      universityName: selectedUniversity?.name || '',
     };
     const saved = JSON.parse(localStorage.getItem('iaa-gpa-data') || '[]');
     const existingIndex = saved.findIndex((s) => s.programmeId === selectedProgramme.id && s.semesterNumber === selectedSemester);
@@ -342,35 +351,73 @@ const GPACalculator = () => {
     return 'error.main';
   };
 
-  const handleExportPDF = () => {
+  const handleExportPDF = async () => {
     if (!selectedProgramme) return;
     const semesterName = selectedProgramme.semesters.find((s) => s.semesterNumber === selectedSemester)?.semesterName || '';
-    exportToPDF({
-      programmeName: selectedProgramme.name,
-      semesterName,
-      moduleGrades,
-      gpa: currentGPA,
-      totalCreditHours: moduleGrades.reduce((sum, g) => sum + g.module.creditHours, 0),
-      passedModules: moduleGrades.filter((g) => g.gradePoint >= 2.0).length,
-      qualityPoints: moduleGrades.reduce((sum, g) => sum + g.gradePoint * g.module.creditHours, 0),
-      cgpa: cgpa > 0 ? cgpa : undefined,
-    });
-    showToast('PDF Exported', 'Your GPA results have been downloaded as PDF.', 'success');
+    try {
+      await exportToPDF({
+        programmeName: selectedProgramme.name,
+        semesterName,
+        moduleGrades,
+        gpa: currentGPA,
+        totalCreditHours: moduleGrades.reduce((sum, g) => sum + g.module.creditHours, 0),
+        passedModules: moduleGrades.filter((g) => g.gradePoint >= 2.0).length,
+        qualityPoints: moduleGrades.reduce((sum, g) => sum + g.gradePoint * g.module.creditHours, 0),
+        cgpa: cgpa > 0 ? cgpa : undefined,
+      });
+      showToast('PDF Exported', 'Your GPA results have been downloaded as PDF.', 'success');
+    } catch {
+      showToast('Export Failed', 'Could not generate the PDF. Please try again.', 'error');
+    }
   };
 
-  const handleExportSavedSemesterPDF = (semesterData) => {
+  const handleExportSavedSemesterPDF = async (semesterData) => {
     const programme = programmes.find((p) => p.id === semesterData.programmeId);
-    exportToPDF({
-      programmeName: semesterData.programmeName || (programme ? programme.name : 'Unknown Programme'),
-      semesterName: semesterData.semesterName || `Semester ${semesterData.semesterNumber}`,
-      moduleGrades: semesterData.modules,
-      gpa: semesterData.gpa,
-      totalCreditHours: semesterData.totalCreditHours,
-      passedModules: semesterData.modules.filter((m) => m.gradePoint >= 2.0).length,
-      qualityPoints: semesterData.modules.reduce((sum, m) => sum + m.gradePoint * m.module.creditHours, 0),
-    });
-    showToast('PDF Exported', `GPA results for ${semesterData.semesterName || `Semester ${semesterData.semesterNumber}`} have been downloaded as PDF.`, 'success');
+    const cgpaValue = calculateCGPA(savedSemesters.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })));
+    try {
+      await exportToPDF({
+        programmeName: semesterData.programmeName || (programme ? programme.name : 'Unknown Programme'),
+        semesterName: semesterData.semesterName || `Semester ${semesterData.semesterNumber}`,
+        moduleGrades: semesterData.modules,
+        gpa: semesterData.gpa,
+        totalCreditHours: semesterData.totalCreditHours,
+        passedModules: semesterData.modules.filter((m) => m.gradePoint >= 2.0).length,
+        qualityPoints: semesterData.modules.reduce((sum, m) => sum + m.gradePoint * m.module.creditHours, 0),
+        cgpa: cgpaValue > 0 ? cgpaValue : undefined,
+      });
+      showToast('PDF Exported', `GPA results for ${semesterData.semesterName || `Semester ${semesterData.semesterNumber}`} have been downloaded as PDF.`, 'success');
+    } catch {
+      showToast('Export Failed', 'Could not generate the PDF. Please try again.', 'error');
+    }
   };
+
+  const handleExportFullReport = async () => {
+    if (savedSemesters.length === 0) {
+      showToast('No Saved Data', 'Save at least one semester before exporting the full report.', 'error');
+      return;
+    }
+    const cgpaValue = calculateCGPA(savedSemesters.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })));
+    try {
+      await exportFullReportPDF({
+        cgpa: cgpaValue,
+        totalSemesters: savedSemesters.length,
+        totalCredits: savedSemesters.reduce((sum, s) => sum + s.totalCreditHours, 0),
+universityName: savedSemesters.find((s) => s.universityName)?.universityName || selectedUniversity?.name || '',
+        semesters: savedSemesters.map((s, index) => ({
+          programmeName: s.programmeName || 'Unknown Programme',
+          semesterName: s.semesterName || `Semester ${s.semesterNumber || index + 1}`,
+          gpa: s.gpa,
+          totalCreditHours: s.totalCreditHours,
+          modules: s.modules,
+        })),
+      });
+    } catch {
+      showToast('Export Failed', 'Could not generate the full report. Please try again.', 'error');
+    }
+    showToast('Full Report Exported', `Cumulative report for ${savedSemesters.length} ${savedSemesters.length === 1 ? 'semester' : 'semesters'} downloaded as PDF.`, 'success');
+  };
+
+  const reportUniversity = savedSemesters.find((s) => s.universityName)?.universityName || selectedUniversity?.name || '';
 
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 900;
 
@@ -393,6 +440,7 @@ const GPACalculator = () => {
             <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>Home</Typography>
             <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }} onClick={() => navigate('/tools')}>Tools</Typography>
             <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }} onClick={() => setShowAbout(true)}>About</Typography>
+            <Typography variant="body2" sx={{ cursor: 'pointer', '&:hover': { color: 'primary.main' } }} onClick={() => navigate('/privacy')}>Privacy</Typography>
             <Box
               component="a"
               href="https://github.com/mrdino-tz/GAP"
@@ -438,6 +486,9 @@ const GPACalculator = () => {
             <ListItem button onClick={() => { setShowAbout(true); setMobileMenuOpen(false); }}>
               <ListItemText primary="About" />
             </ListItem>
+            <ListItem button onClick={() => { navigate('/privacy'); setMobileMenuOpen(false); }}>
+              <ListItemText primary="Privacy Policy" />
+            </ListItem>
             <ListItem
               button
               component="a"
@@ -466,7 +517,7 @@ const GPACalculator = () => {
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Box>
             <Typography variant="h5" fontWeight={700}>About GAP Calculator</Typography>
-            <Typography variant="caption" color="text.secondary">Version 2.1 (November 24, 2025)</Typography>
+            <Typography variant="caption" color="text.secondary">Version 2.2 (September 16, 2026)</Typography>
           </Box>
           <IconButton size="small" onClick={() => setShowAbout(false)}><Close /></IconButton>
         </DialogTitle>
@@ -476,7 +527,7 @@ const GPACalculator = () => {
           </Typography>
           <Typography variant="subtitle2" gutterBottom>Key Features</Typography>
           <Box component="ul" sx={{ pl: 2, mb: 2 }}>
-            {['Calculate semester GPA for all IAA programmes', 'Track cumulative GPA (CGPA) across multiple semesters', 'Export results to PDF for record keeping', 'Save semester data locally for future reference', 'Dark mode support for comfortable viewing', 'Responsive design for desktop and mobile use'].map((f) => (
+            {['Calculate semester GPA for multiple universities and all programmes', 'Select your university, academic level, programme and semester', 'Track cumulative GPA (CGPA) across multiple semesters', 'Export results to PDF, including a full cumulative report with your CGPA', 'GPA Tools: What-If Simulator and Target GPA Calculator', 'Save semester data locally for future reference', 'AI-powered academic chatbot for academic assistance', 'Responsive design for desktop and mobile use'].map((f) => (
               <Typography key={f} component="li" variant="body2" color="text.secondary">{f}</Typography>
             ))}
           </Box>
@@ -486,7 +537,7 @@ const GPACalculator = () => {
           </Typography>
           <Typography variant="subtitle2" gutterBottom>Academic Chatbot</Typography>
           <Typography variant="body2" color="text.secondary" paragraph>
-            GAP also features an AI-powered academic chatbot that can answer your questions about GPA calculation, academic policies, and study tips. The chatbot is integrated directly into the calculator interface.
+            GAP also features <strong>GAP Bot</strong>, an AI-powered academic chatbot that can answer your questions about GPA calculation, academic policies, and study tips. The chatbot is integrated directly into the calculator interface.
           </Typography>
           <Typography variant="subtitle2" gutterBottom>About DTC Group</Typography>
           <Typography variant="body2" color="text.secondary" paragraph>
@@ -509,10 +560,10 @@ const GPACalculator = () => {
         </DialogTitle>
         <DialogContent dividers>
           {[
-            { title: '1. Select Your Programme', items: ['First, select your NTA Level from the dropdown', 'Then choose your specific academic programme', 'Finally, select the semester you want to calculate'] },
+            { title: '1. Select Your Programme', items: ['First, select your university from the dropdown', 'Then select your Academic Level (Certificate, Diploma, Bachelor, Masters)', 'Next, choose your specific academic programme', 'Finally, select the semester you want to calculate'] },
             { title: '2. Enter Your Grades', items: ['For each module, select your earned grade from the dropdown', 'Make sure to enter grades for all modules', 'You can change grades at any time before calculating'] },
-            { title: '3. Calculate Your GPA', items: ['Click "Calculate Semester GPA" to compute your semester result', 'Your GPA will be displayed with performance evaluation', 'Quality points and credit hours are shown for reference'] },
-            { title: '4. Save and Export', items: ['Click "Save Results" to store your semester for CGPA calculation', 'Use "Export PDF" to download a report of your results', 'View your CGPA in the summary section after saving semesters'] },
+            { title: '3. Calculate & Save Your GPA', items: ['Click "Calculate Semester GPA & Save Results" to compute and save your result in one step', 'Your GPA will be displayed with performance evaluation', 'Quality points and credit hours are shown for reference', 'Your results are saved automatically for CGPA tracking'] },
+            { title: '4. Export and Review', items: ['Use "Export PDF" to download a report of your semester results', 'Export the full cumulative report from the CGPA Summary with your overall CGPA', 'Recalculate any semester to update its saved results'] },
             { title: '5. Understanding Your Results', items: [
               'Semester GPA: Grade Point Average for the current semester',
               'CGPA: Cumulative Grade Point Average across all saved semesters',
@@ -569,14 +620,21 @@ const GPACalculator = () => {
               subheader="Cumulative Grade Point Average across all saved semesters"
             />
             <CardContent>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: { xs: 1, md: 3 }, mb: 3 }}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: { xs: 1, md: 3 }, mb: 3 }}>
                 {[
                   { value: cgpa.toFixed(2), label: 'CGPA', color: 'success.main' },
                   { value: savedSemesters.length, label: 'Semesters', color: 'primary.main' },
                   { value: savedSemesters.reduce((sum, sem) => sum + sem.totalCreditHours, 0), label: 'Credits', color: 'success.dark' },
+                  ...(reportUniversity ? [{ value: reportUniversity, label: 'University', color: 'primary.main' }] : []),
                 ].map((stat) => (
                   <Box key={stat.label} sx={{ textAlign: 'center', p: { xs: 2, md: 3 }, bgcolor: `${stat.color}10`, borderRadius: 2 }}>
-                    <Typography variant="h4" fontWeight={700} sx={{ color: stat.color }}>{stat.value}</Typography>
+                    <Typography
+                      variant={stat.label === 'University' ? 'body1' : 'h4'}
+                      fontWeight={700}
+                      sx={{ color: stat.color, overflowWrap: 'break-word' }}
+                    >
+                      {stat.value}
+                    </Typography>
                     <Typography variant="caption" color="text.secondary">{stat.label}</Typography>
                   </Box>
                 ))}
@@ -609,6 +667,9 @@ const GPACalculator = () => {
                 </Box>
               </Box>
               <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1, justifyContent: 'center' }}>
+                <Button variant="contained" color="info" onClick={handleExportFullReport} startIcon={<PictureAsPdf />} fullWidth={isMobile}>
+                  {isMobile ? 'Export Report' : 'Export Full Report'}
+                </Button>
                 <Button variant="contained" color="success" onClick={calculateCumulativeGPA} startIcon={<CalculateIcon />} fullWidth={isMobile}>
                   {isMobile ? 'Calculate' : 'Calculate CGPA'}
                 </Button>
@@ -732,15 +793,14 @@ const GPACalculator = () => {
                 <Button
                   variant="contained"
                   size="large"
-                  onClick={calculateGPA}
+                  onClick={calculateAndSaveGPA}
                   startIcon={<CalculateIcon />}
                   fullWidth
                 >
-                  Calculate Semester GPA
+                  {isMobile ? 'Calculate & Save' : 'Calculate Semester GPA & Save Results'}
                 </Button>
                 {showResults && (
-                  <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' }, gap: 1 }}>
-                    <Button variant="outlined" size="large" onClick={saveToLocalStorage} fullWidth>Save Results</Button>
+                  <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' }, gap: 1 }}>
                     <Button variant="contained" color="success" size="large" onClick={handleExportPDF} startIcon={<Download />} fullWidth>
                       {isMobile ? 'Export' : 'Export PDF'}
                     </Button>

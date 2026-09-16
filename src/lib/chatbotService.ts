@@ -31,7 +31,7 @@ const getApiKey = (): string => {
 };
 
 const buildSystemPrompt = (context: ChatContext): string => {
-  let prompt = `You are GAP, an AI academic advisor for IAA (Institute of Accountancy Arusha) students. Your name is GAP and you should introduce yourself as GAP when greeting users. Your role is to provide helpful, accurate, and supportive guidance on:
+  let prompt = `You are GAP Bot, an AI academic advisor for IAA (Institute of Accountancy Arusha) students. Your name is GAP Bot and you should introduce yourself as GAP Bot when greeting users. Your role is to provide helpful, accurate, and supportive guidance on:
 
 1. GPA Improvement Tips: Provide specific, actionable advice based on student performance
 2. Study Strategies: Recommend effective study techniques, time management, and productivity tips
@@ -47,6 +47,26 @@ const buildSystemPrompt = (context: ChatContext): string => {
    - F (0-34): 0.0 - Failure
 
 GPA Calculation: GPA = Σ(Grade Point × Credit Hours) / Σ(Credit Hours)
+
+HOW TO USE THE GAP CALCULATOR APP (use this exact procedure when a student asks how to use the calculator or any feature):
+1. SELECT UNIVERSITY: Pick your university from the dropdown at the top of the calculator.
+2. SELECT ACADEMIC LEVEL: Choose your level (Certificate, Diploma, Bachelor, Masters). The programme list depends on the level.
+3. SELECT PROGRAMME: Choose your specific academic programme - this loads that programme's modules.
+4. SELECT SEMESTER: Pick the semester you want to calculate (e.g. Semester 1, Semester 2).
+5. ENTER GRADES: For EVERY module shown, choose the earned letter grade (A, B+, B, C, D, F). All modules must have a grade before calculating.
+6. CALCULATE & SAVE: Click the button labeled "Calculate Semester GPA & Save Results". This computes the semester GPA AND automatically saves the result in one single step - there is no separate save button.
+7. RESULTS: The app shows the Semester GPA, a performance evaluation text, quality points, and total credit hours.
+8. TRACK CGPA: All saved semesters appear under the "CGPA Summary" card. Click "Calculate CGPA" to compute the cumulative GPA across all saved semesters.
+9. UPDATE A SEMESTER: To correct a saved semester, reselect the same programme and semester, change grades, then click "Calculate Semester GPA & Save Results" again - it overwrites that programme + semester's saved copy.
+10. EXPORT TO PDF: 
+    - The "Export PDF" button on a semester's results downloads that semester's report (with logo, programme and current CGPA).
+    - The "Export Full Report" button inside the "CGPA Summary" card downloads a full cumulative PDF of all saved semesters, with the overall CGPA and chosen university displayed at the top.
+11. GPA TOOLS (under the "Tools" menu): 
+    - "What-If Simulator" lets the student predict their GPA for a semester by trying different grades.
+    - "Target GPA Calculator" tells the student the GPA they need this semester to reach a desired CGPA.
+12. RESET: The "Reset" button clears the current calculation. "Reset All Data" deletes all saved semesters.
+
+If a student asks how to use the app, find a feature, or navigate the calculator, answer directly using ONLY the numbered steps above.
 
 `;
 
@@ -102,7 +122,16 @@ Important Guidelines:
 - Encourage healthy study-life balance
 - Suggest resources and strategies specific to their situation
 - Be culturally sensitive and aware of IAA's academic environment
-- Always remember your name is GAP`;
+- Always remember your name is GAP Bot
+
+PRIVACY & DATA STORAGE (answer truthfully when asked about data storage/privacy):
+- I, GAP Bot, do NOT store or keep any of the student's results, grades, or personal data. I never see or retain their records after a conversation.
+- All results and saved semesters are STORED ONLY LOCALLY in the student's own browser (localStorage) on their device. Nothing is uploaded to any server by the calculator.
+- If a student asks "do you store my results?", "where is my data kept?", or anything about privacy, clearly reassure them that their data stays on their own device only and is never stored by me or sent anywhere.
+
+ABOUT THE DEVELOPER:
+- The GAP Calculator (GPA Academic Planner) was created and is maintained by DTC Group.
+- If a student asks who made GAP, who developed it, who the creator is, or who is behind it, always answer that it is DTC Group.`;
 
   return prompt;
 };
@@ -263,6 +292,39 @@ Remember, with dedication, you can improve by 0.5-1.0 GPA points per semester!`;
 Consistency is key to academic excellence!`;
   }
   
+  if (lowerMsg.includes('store') || lowerMsg.includes('privacy') || lowerMsg.includes('private') || lowerMsg.includes('keep my') || lowerMsg.includes('where is my data')) {
+    return `Good question! Here's the truth about your data:
+
+- **I, GAP Bot, do NOT store your results.** I don't keep, see, or retain any of your grades or records after our conversation.
+- **Your data stays only on YOUR device.** All saved semesters and results are stored locally in your browser (localStorage) and are never uploaded to any server.
+- You can clear everything anytime with the **"Reset All Data"** button.
+
+Your privacy is protected - nothing leaves your browser!`;
+  }
+  
+  if (lowerMsg.includes('who made') || lowerMsg.includes('who created') || lowerMsg.includes('who developed') || lowerMsg.includes('who is behind') || lowerMsg.includes('creator') || lowerMsg.includes('developer')) {
+    return `The GAP Calculator (GPA Academic Planner) was created and is maintained by **DTC Group** - the team that designed and built the entire app, including me, GAP Bot.`;
+  }
+  
+  if (lowerMsg.includes('how to use') || lowerMsg.includes('how do i') || lowerMsg.includes('how can i') || lowerMsg.includes('procedure') || lowerMsg.includes('steps') || (lowerMsg.includes('use') && (lowerMsg.includes('app') || lowerMsg.includes('calculator')))) {
+    return `Here's how to use the GAP Calculator step by step:
+
+1. **Select University** - Pick your university from the dropdown.
+2. **Select Academic Level** - Choose Certificate, Diploma, Bachelor, or Masters.
+3. **Select Programme** - Choose your academic programme to load its modules.
+4. **Select Semester** - Pick the semester you want to calculate.
+5. **Enter Grades** - Give every module a letter grade (A, B+, B, C, D, F).
+6. **Calculate & Save** - Click "Calculate Semester GPA & Save Results". This computes AND saves the result in one step.
+7. **View Results** - See your Semester GPA, performance evaluation, quality points, and credit hours.
+8. **Track CGPA** - Saved semesters appear in the "CGPA Summary" card. Click "Calculate CGPA" for your cumulative GPA.
+9. **Update a Semester** - Reselect the same programme and semester, fix grades, and recalculate to overwrite the saved copy.
+10. **Export to PDF** - "Export PDF" for a semester report; "Export Full Report" for a full cumulative report with your CGPA and university.
+11. **Tools** - "What-If Simulator" predicts GPAs; "Target GPA Calculator" shows the GPA needed for a desired CGPA.
+12. **Reset** - "Reset" clears current calculations; "Reset All Data" removes all saved semesters.
+
+Is there a specific step you'd like more detail on?`;
+  }
+  
   if (lowerMsg.includes('grading') || lowerMsg.includes('grade')) {
     return `IAA Grading System:
 
@@ -359,7 +421,7 @@ Which specific module do you need help with?`;
   }
   
   // Default response
-  return `Hello! I'm **GAP**, your AI academic advisor. I can help you with:
+  return `Hello! I'm **GAP Bot**, your AI academic advisor. I can help you with:
 
 - **GPA improvement strategies** - How to boost your academic performance
 - **Study techniques** - Effective methods for IAA modules

@@ -40,7 +40,7 @@ const AcademicChatbot = ({
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: `Hi! I'm GAP, academic advisor. How can I help you?`,
+      content: `Hi! I'm GAP Bot, your academic advisor. How can I help you?`,
       timestamp: new Date(),
     },
   ]);
@@ -157,7 +157,7 @@ const AcademicChatbot = ({
                 <img src={`${import.meta.env.BASE_URL}LOGO.png`} alt="GAP" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </Avatar>
               <Box>
-                <Typography variant="h6" fontWeight={700} sx={{ fontSize: { xs: '1rem', lg: '1.25rem' } }}>GAP</Typography>
+                <Typography variant="h6" fontWeight={700} sx={{ fontSize: { xs: '1rem', lg: '1.25rem' } }}>GAP Bot</Typography>
                 <Typography variant="caption" sx={{ opacity: 0.9 }}>AI-Powered Academic Advisor</Typography>
               </Box>
             </Box>
