@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import {
   Calculate as CalculateIcon, EmojiEvents, MenuBook,
-  Download, Delete, Close, Star, GitHub,
+  Download, Delete, Close, Star, GitHub, Visibility,
 } from '@mui/icons-material';
 import { 
   programmes, Programme, Module, getGradeInfo, 
@@ -136,6 +136,7 @@ const GPACalculator = () => {
   const [showAbout, setShowAbout] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [githubStars, setGithubStars] = useState(null);
+  const [visitCount, setVisitCount] = useState(null);
   const [toast, setToast] = useState({ open: false, title: '', description: '', severity: 'success' });
 
   const closeToast = () => setToast((prev) => ({ ...prev, open: false }));
@@ -156,6 +157,14 @@ const GPACalculator = () => {
       }
     };
     fetchGithubStars();
+  }, []);
+
+  useEffect(() => {
+    const key = 'gap-visit-count';
+    const stored = parseInt(localStorage.getItem(key) || '0');
+    const newCount = stored + 1;
+    localStorage.setItem(key, newCount.toString());
+    setVisitCount(newCount);
   }, []);
 
   const programmesForLevel = selectedLevel
@@ -394,6 +403,10 @@ const GPACalculator = () => {
               <Star sx={{ fontSize: 12 }} color="warning" />
               <Typography variant="body2">{githubStars !== null ? githubStars : '...'}</Typography>
             </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.primary' }}>
+              <Visibility sx={{ fontSize: 14, color: 'primary.main' }} />
+              <Typography variant="body2">{visitCount !== null ? visitCount : '...'}</Typography>
+            </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Button variant="outlined" size="small" sx={{ display: { xs: 'none', sm: 'inline-flex' } }} onClick={() => setShowHelp(true)}>Help</Button>
@@ -437,6 +450,12 @@ const GPACalculator = () => {
                 <Star sx={{ fontSize: 14, color: 'warning.main' }} />
               </ListItemIcon>
               <ListItemText primary={githubStars !== null ? `${githubStars} stars` : '...'} />
+            </ListItem>
+            <ListItem button onClick={() => setMobileMenuOpen(false)}>
+              <ListItemIcon sx={{ minWidth: 36 }}>
+                <Visibility sx={{ fontSize: 18, color: 'primary.main' }} />
+              </ListItemIcon>
+              <ListItemText primary={visitCount !== null ? `${visitCount} visits` : '...'} />
             </ListItem>
           </List>
         </Box>
