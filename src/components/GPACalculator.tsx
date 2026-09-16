@@ -18,6 +18,7 @@ import { ACADEMIC_LEVELS } from '@/types/academic';
 import { UNIVERSITIES, University, getUniversityById } from '@/types/university';
 import { exportToPDF } from '@/lib/pdfExport';
 import AcademicChatbot from '@/components/AcademicChatbot';
+import { trackVisitor } from '@/lib/visitorCounter';
 
 interface ModuleGrade {
   module: Module;
@@ -160,11 +161,11 @@ const GPACalculator = () => {
   }, []);
 
   useEffect(() => {
-    const key = 'gap-visit-count';
-    const stored = parseInt(localStorage.getItem(key) || '0');
-    const newCount = stored + 1;
-    localStorage.setItem(key, newCount.toString());
-    setVisitCount(newCount);
+    const incrementAndFetch = async () => {
+      const count = await trackVisitor();
+      setVisitCount(count);
+    };
+    incrementAndFetch();
   }, []);
 
   const programmesForLevel = selectedLevel
