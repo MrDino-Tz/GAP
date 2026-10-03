@@ -11,17 +11,25 @@ import {
   Download, Delete, Close, Star, GitHub, Visibility, PictureAsPdf,
 } from '@mui/icons-material';
 import { 
-  programmes, Programme, Module, getGradeInfo, 
-  calculateSemesterGPA, calculateCGPA, gradingScale
+  programmes, Programme, Module, gradingScale
 } from '@/data/academicData';
 import { ACADEMIC_LEVELS } from '@/types/academic';
-import { UNIVERSITIES, University, getUniversityById } from '@/types/university';
+import {
+  UNIVERSITIES, University, getUniversityById,
+  getUniversityGradeScale, getUniversityFailGrade, getGradingPrecision,
+} from '@/types/university';
 import { exportToPDF, exportFullReportPDF } from '@/lib/pdfExport';
+import { calcSemesterGPA, calcCGPA, GradingConfig } from '@/lib/gpaApi';
 import AcademicChatbot from '@/components/AcademicChatbot';
 import { trackVisitor } from '@/lib/visitorCounter';
 
 interface ModuleGrade {
   module: Module;
+  letterGrade: string;
+  gradePoint: number;
+}
+
+interface GradeOption {
   letterGrade: string;
   gradePoint: number;
 }
@@ -44,9 +52,13 @@ interface SavedSemesterData {
   savedAt: string;
   programmeName?: string;
   universityName?: string;
+  universityId?: number;
 }
 
-function ModuleGradeRow({ moduleGrade, index, onGradeChange, isMobile }) {
+const GPA_DATA_KEY = 'gap-gpa-data';
+const LEGACY_GPA_DATA_KEY = 'iaa-gpa-data';
+
+function ModuleGradeRow({ moduleGrade, index, onGradeChange, isMobile, options }: { moduleGrade: ModuleGrade; index: number; onGradeChange: (index: number, letterGrade: string) => void; isMobile: boolean; options: GradeOption[] }) {
   const gradePointBadgeColor = moduleGrade.gradePoint >= 4.0 ? 'primary'
     : moduleGrade.gradePoint >= 3.0 ? 'secondary'
     : moduleGrade.gradePoint >= 2.0 ? 'warning'
@@ -79,7 +91,7 @@ function ModuleGradeRow({ moduleGrade, index, onGradeChange, isMobile }) {
                 label="Grade"
                 onChange={(e) => onGradeChange(index, e.target.value)}
               >
-                {gradingScale.map((g) => (
+                {options.map((g) => (
                   <MenuItem key={g.letterGrade} value={g.letterGrade}>
                     {g.letterGrade} ({g.gradePoint.toFixed(1)})
                   </MenuItem>
@@ -105,7 +117,7 @@ function ModuleGradeRow({ moduleGrade, index, onGradeChange, isMobile }) {
               value={moduleGrade.letterGrade}
               onChange={(e) => onGradeChange(index, e.target.value)}
             >
-              {gradingScale.map((g) => (
+              {options.map((g) => (
                 <MenuItem key={g.letterGrade} value={g.letterGrade}>
                   {g.letterGrade} ({g.gradePoint.toFixed(1)})
                 </MenuItem>
@@ -131,6 +143,7 @@ const GPACalculator = () => {
   const [moduleGrades, setModuleGrades] = useState([]);
   const [semesterResults] = useState([]);
   const [currentGPA, setCurrentGPA] = useState(0);
+  const [calculating, setCalculating] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [savedSemesters, setSavedSemesters] = useState([]);
   const [cgpa, setCgpa] = useState(0);
@@ -172,9 +185,20 @@ const GPACalculator = () => {
   const programmesForLevel = selectedLevel
     ? programmes.filter(p => {
         const level = ACADEMIC_LEVELS.find(l => l.id === selectedLevel);
-        return level ? level.ntaLevels.includes(p.ntaLevel) : false;
+        const universityOk = selectedUniversity ? p.universityId === selectedUniversity.id : true;
+        return universityOk && level ? level.ntaLevels.includes(p.ntaLevel) : false;
       })
     : [];
+
+  const gradeOptions = selectedUniversity
+    ? getUniversityGradeScale(selectedUniversity).map((l) => ({ letterGrade: l.grade, gradePoint: l.points }))
+    : gradingScale;
+
+  const failGrade = selectedUniversity ? getUniversityFailGrade(selectedUniversity) : 'F';
+
+  const grading: GradingConfig = selectedUniversity ? getGradingPrecision(selectedUniversity) : { precision: 'round', decimals: 2 };
+
+  const formatGpa = (value: number) => value.toFixed(grading.decimals);
 
   useEffect(() => {
     if (selectedProgramme) {
@@ -182,25 +206,40 @@ const GPACalculator = () => {
       if (semester) {
         const initialGrades = semester.modules.map((mod) => ({
           module: mod,
-          letterGrade: 'F',
+          letterGrade: failGrade,
           gradePoint: 0.0,
         }));
         setModuleGrades(initialGrades);
       }
     }
-  }, [selectedProgramme, selectedSemester]);
+  }, [selectedProgramme, selectedSemester, failGrade]);
 
-  const loadSavedSemesters = useCallback(() => {
+  const loadSavedSemesters = useCallback(async () => {
     try {
-      const saved = JSON.parse(localStorage.getItem('iaa-gpa-data') || '[]');
+      const legacyRaw = localStorage.getItem(LEGACY_GPA_DATA_KEY);
+      const raw = localStorage.getItem(GPA_DATA_KEY);
+      if (!raw && legacyRaw) {
+        localStorage.setItem(GPA_DATA_KEY, legacyRaw);
+      }
+      const saved = JSON.parse(localStorage.getItem(GPA_DATA_KEY) || '[]');
       const savedWithNames = saved.map((semester) => {
         const prog = programmes.find((p) => p.id === semester.programmeId);
-        return { ...semester, programmeName: prog ? prog.name : 'Unknown Programme' };
+        const university = prog ? getUniversityById(prog.universityId) : null;
+        return {
+          ...semester,
+          programmeName: prog ? prog.name : 'Unknown Programme',
+          universityId: semester.universityId ?? prog?.universityId,
+          universityName: semester.universityName ?? (university ? university.name : ''),
+        };
       });
       setSavedSemesters(savedWithNames);
       if (savedWithNames.length > 0) {
-        const cgpaValue = calculateCGPA(savedWithNames.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })));
-        setCgpa(cgpaValue);
+        const dominant = savedWithNames[0].universityId;
+        const allSame = savedWithNames.every((s) => s.universityId === dominant);
+        const univ = allSame ? getUniversityById(dominant) : null;
+        const gradCfg = univ ? getGradingPrecision(univ) : { precision: 'round' as const, decimals: 2 };
+        const result = await calcCGPA(savedWithNames.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })), false, gradCfg);
+        setCgpa(result.cgpa);
       }
     } catch (error) {
       console.error('Error loading saved semesters:', error);
@@ -244,7 +283,7 @@ const GPACalculator = () => {
   };
 
   const handleGradeChange = (index, letterGrade) => {
-    const gradeInfo = gradingScale.find((g) => g.letterGrade === letterGrade);
+    const gradeInfo = gradeOptions.find((g) => g.letterGrade === letterGrade);
     const updatedGrades = [...moduleGrades];
     updatedGrades[index] = {
       ...updatedGrades[index],
@@ -254,27 +293,37 @@ const GPACalculator = () => {
     setModuleGrades(updatedGrades);
   };
 
-  const calculateAndSaveGPA = () => {
+  const calculateAndSaveGPA = async () => {
     if (moduleGrades.some((grade) => !grade.letterGrade)) {
       showToast('Incomplete Data', 'Please select a grade for all modules.', 'error');
       return;
     }
     if (!selectedProgramme) return;
-    const gpa = calculateSemesterGPA(moduleGrades.map((g) => ({ creditHours: g.module.creditHours, gradePoint: g.gradePoint })));
-    setCurrentGPA(gpa);
-    setShowResults(true);
-    saveToLocalStorage(gpa);
-    showToast('GPA Calculated & Saved!', `Your Semester GPA is ${gpa.toFixed(2)}. Results saved for CGPA tracking.`, 'success');
+    setCalculating(true);
+    try {
+      const result = await calcSemesterGPA(moduleGrades.map((g) => ({ module: g.module, gradePoint: g.gradePoint })), true, grading);
+      setCurrentGPA(result.gpa);
+      setShowResults(true);
+      saveToLocalStorage(result.gpa);
+      showToast('GPA Calculated & Saved!', `Your Semester GPA is ${formatGpa(result.gpa)}. Results saved for CGPA tracking.`, 'success');
+    } finally {
+      setCalculating(false);
+    }
   };
 
-  const calculateCumulativeGPA = () => {
+  const calculateCumulativeGPA = async () => {
     if (savedSemesters.length === 0) {
       showToast('No Saved Data', 'Please save at least one semester\'s results to calculate CGPA.', 'error');
       return;
     }
-    const cgpaValue = calculateCGPA(savedSemesters.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })));
-    setCgpa(cgpaValue);
-    showToast('CGPA Calculated Successfully!', `Your Cumulative GPA is ${cgpaValue.toFixed(2)}`, 'success');
+    setCalculating(true);
+    try {
+      const result = await calcCGPA(savedSemesters.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })), true, grading);
+      setCgpa(result.cgpa);
+      showToast('CGPA Calculated Successfully!', `Your Cumulative GPA is ${formatGpa(result.cgpa)}`, 'success');
+    } finally {
+      setCalculating(false);
+    }
   };
 
   const saveToLocalStorage = (gpaOverride?: number) => {
@@ -292,16 +341,17 @@ const GPACalculator = () => {
       gpa,
       totalCreditHours: moduleGrades.reduce((sum, g) => sum + g.module.creditHours, 0),
       savedAt: new Date().toISOString(),
+      universityId: selectedProgramme.universityId,
       universityName: selectedUniversity?.name || '',
     };
-    const saved = JSON.parse(localStorage.getItem('iaa-gpa-data') || '[]');
+    const saved = JSON.parse(localStorage.getItem(GPA_DATA_KEY) || '[]');
     const existingIndex = saved.findIndex((s) => s.programmeId === selectedProgramme.id && s.semesterNumber === selectedSemester);
     if (existingIndex >= 0) {
       saved[existingIndex] = semesterData;
     } else {
       saved.push(semesterData);
     }
-    localStorage.setItem('iaa-gpa-data', JSON.stringify(saved));
+    localStorage.setItem(GPA_DATA_KEY, JSON.stringify(saved));
     loadSavedSemesters();
     showToast('Data Saved', 'Your semester data has been saved locally.', 'success');
   };
@@ -312,7 +362,7 @@ const GPACalculator = () => {
     if (selectedProgramme) {
       const semester = selectedProgramme.semesters.find((s) => s.semesterNumber === selectedSemester);
       if (semester) {
-        const initialGrades = semester.modules.map((mod) => ({ module: mod, letterGrade: 'F', gradePoint: 0.0 }));
+        const initialGrades = semester.modules.map((mod) => ({ module: mod, letterGrade: failGrade, gradePoint: 0.0 }));
         setModuleGrades(initialGrades);
       }
     }
@@ -324,11 +374,12 @@ const GPACalculator = () => {
     setShowResults(false);
     setSavedSemesters([]);
     setCgpa(0);
-    localStorage.removeItem('iaa-gpa-data');
+    localStorage.removeItem(GPA_DATA_KEY);
+    localStorage.removeItem(LEGACY_GPA_DATA_KEY);
     if (selectedProgramme) {
       const semester = selectedProgramme.semesters.find((s) => s.semesterNumber === selectedSemester);
       if (semester) {
-        const initialGrades = semester.modules.map((mod) => ({ module: mod, letterGrade: 'F', gradePoint: 0.0 }));
+        const initialGrades = semester.modules.map((mod) => ({ module: mod, letterGrade: failGrade, gradePoint: 0.0 }));
         setModuleGrades(initialGrades);
       }
     }
@@ -336,6 +387,13 @@ const GPACalculator = () => {
   };
 
   const getGPADescription = (gpa) => {
+    const university = selectedUniversity;
+    if (university && university.gradingSystem?.classification) {
+      const band = university.gradingSystem.classification.find((c) =>
+        gpa >= c.minGpa && gpa <= c.maxGpa,
+      );
+      if (band) return band.label;
+    }
     if (gpa >= 4.5) return 'Excellent Performance!';
     if (gpa >= 4.0) return 'Very Good Performance!';
     if (gpa >= 3.5) return 'Good Performance!';
@@ -355,14 +413,15 @@ const GPACalculator = () => {
     if (!selectedProgramme) return;
     const semesterName = selectedProgramme.semesters.find((s) => s.semesterNumber === selectedSemester)?.semesterName || '';
     try {
+      const result = await calcSemesterGPA(moduleGrades.map((g) => ({ module: g.module, gradePoint: g.gradePoint })), false, grading);
       await exportToPDF({
         programmeName: selectedProgramme.name,
         semesterName,
         moduleGrades,
-        gpa: currentGPA,
-        totalCreditHours: moduleGrades.reduce((sum, g) => sum + g.module.creditHours, 0),
-        passedModules: moduleGrades.filter((g) => g.gradePoint >= 2.0).length,
-        qualityPoints: moduleGrades.reduce((sum, g) => sum + g.gradePoint * g.module.creditHours, 0),
+        gpa: result.gpa,
+        totalCreditHours: result.totalCreditHours,
+        passedModules: result.passedModules,
+        qualityPoints: result.totalQualityPoints,
         cgpa: cgpa > 0 ? cgpa : undefined,
       });
       showToast('PDF Exported', 'Your GPA results have been downloaded as PDF.', 'success');
@@ -373,16 +432,20 @@ const GPACalculator = () => {
 
   const handleExportSavedSemesterPDF = async (semesterData) => {
     const programme = programmes.find((p) => p.id === semesterData.programmeId);
-    const cgpaValue = calculateCGPA(savedSemesters.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })));
     try {
+      const [semesterResult, cgpaResult] = await Promise.all([
+        calcSemesterGPA(semesterData.modules.map((m) => ({ module: m.module, gradePoint: m.gradePoint })), false, grading),
+        calcCGPA(savedSemesters.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })), false, grading),
+      ]);
+      const cgpaValue = cgpaResult.cgpa;
       await exportToPDF({
         programmeName: semesterData.programmeName || (programme ? programme.name : 'Unknown Programme'),
         semesterName: semesterData.semesterName || `Semester ${semesterData.semesterNumber}`,
         moduleGrades: semesterData.modules,
         gpa: semesterData.gpa,
-        totalCreditHours: semesterData.totalCreditHours,
-        passedModules: semesterData.modules.filter((m) => m.gradePoint >= 2.0).length,
-        qualityPoints: semesterData.modules.reduce((sum, m) => sum + m.gradePoint * m.module.creditHours, 0),
+        totalCreditHours: semesterResult.totalCreditHours,
+        passedModules: semesterResult.passedModules,
+        qualityPoints: semesterResult.totalQualityPoints,
         cgpa: cgpaValue > 0 ? cgpaValue : undefined,
       });
       showToast('PDF Exported', `GPA results for ${semesterData.semesterName || `Semester ${semesterData.semesterNumber}`} have been downloaded as PDF.`, 'success');
@@ -396,12 +459,17 @@ const GPACalculator = () => {
       showToast('No Saved Data', 'Save at least one semester before exporting the full report.', 'error');
       return;
     }
-    const cgpaValue = calculateCGPA(savedSemesters.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })));
     try {
+      const [cgpaResult, perSemester] = await Promise.all([
+        calcCGPA(savedSemesters.map((s) => ({ gpa: s.gpa, totalCreditHours: s.totalCreditHours })), false, grading),
+        Promise.all(savedSemesters.map((s) =>
+          calcSemesterGPA(s.modules.map((m) => ({ module: m.module, gradePoint: m.gradePoint })), false, grading)
+        )),
+      ]);
       await exportFullReportPDF({
-        cgpa: cgpaValue,
+        cgpa: cgpaResult.cgpa,
         totalSemesters: savedSemesters.length,
-        totalCredits: savedSemesters.reduce((sum, s) => sum + s.totalCreditHours, 0),
+        totalCredits: cgpaResult.totalCreditHours,
 universityName: savedSemesters.find((s) => s.universityName)?.universityName || selectedUniversity?.name || '',
         semesters: savedSemesters.map((s, index) => ({
           programmeName: s.programmeName || 'Unknown Programme',
@@ -409,6 +477,8 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
           gpa: s.gpa,
           totalCreditHours: s.totalCreditHours,
           modules: s.modules,
+          qualityPoints: perSemester[index].totalQualityPoints,
+          passedModules: perSemester[index].passedModules,
         })),
       });
     } catch {
@@ -622,7 +692,7 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
             <CardContent>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: { xs: 1, md: 3 }, mb: 3 }}>
                 {[
-                  { value: cgpa.toFixed(2), label: 'CGPA', color: 'success.main' },
+                  { value: formatGpa(cgpa), label: 'CGPA', color: 'success.main' },
                   { value: savedSemesters.length, label: 'Semesters', color: 'primary.main' },
                   { value: savedSemesters.reduce((sum, sem) => sum + sem.totalCreditHours, 0), label: 'Credits', color: 'success.dark' },
                   ...(reportUniversity ? [{ value: reportUniversity, label: 'University', color: 'primary.main' }] : []),
@@ -657,7 +727,7 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
                         </Typography>
                       </Box>
                       <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center', flexShrink: 0, ml: 1 }}>
-                        <Chip label={semester.gpa.toFixed(2)} size="small" color="primary" variant="outlined" />
+                        <Chip label={formatGpa(semester.gpa)} size="small" color="primary" variant="outlined" />
                         <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleExportSavedSemesterPDF(semester); }} title="Export PDF">
                           <Download fontSize="small" />
                         </IconButton>
@@ -670,7 +740,7 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
                 <Button variant="contained" color="info" onClick={handleExportFullReport} startIcon={<PictureAsPdf />} fullWidth={isMobile}>
                   {isMobile ? 'Export Report' : 'Export Full Report'}
                 </Button>
-                <Button variant="contained" color="success" onClick={calculateCumulativeGPA} startIcon={<CalculateIcon />} fullWidth={isMobile}>
+                <Button variant="contained" color="success" onClick={calculateCumulativeGPA} startIcon={<CalculateIcon />} fullWidth={isMobile} disabled={calculating}>
                   {isMobile ? 'Calculate' : 'Calculate CGPA'}
                 </Button>
                 <Button variant="contained" color="error" onClick={resetAllData} startIcon={<Delete />} fullWidth={isMobile}>
@@ -785,6 +855,7 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
                     index={index}
                     onGradeChange={handleGradeChange}
                     isMobile={isMobile}
+                    options={gradeOptions}
                   />
                 ))}
               </Box>
@@ -796,6 +867,7 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
                   onClick={calculateAndSaveGPA}
                   startIcon={<CalculateIcon />}
                   fullWidth
+                  disabled={calculating}
                 >
                   {isMobile ? 'Calculate & Save' : 'Calculate Semester GPA & Save Results'}
                 </Button>
@@ -824,7 +896,7 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
             <CardContent sx={{ textAlign: 'center' }}>
               <Box sx={{ mb: 2 }}>
                 <Typography variant="h2" fontWeight={700} sx={{ color: getGPAColor(currentGPA) }}>
-                  {currentGPA.toFixed(2)}
+                  {formatGpa(currentGPA)}
                 </Typography>
                 <Typography variant="h6" sx={{ color: getGPAColor(currentGPA), fontWeight: 600 }}>
                   {getGPADescription(currentGPA)}
@@ -853,7 +925,7 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
               {cgpa > 0 && (
                 <Box sx={{ mt: 2, p: 2, bgcolor: 'success.light', borderRadius: 1 }}>
                   <Typography variant="subtitle1" fontWeight={600} color="success.dark">Cumulative GPA</Typography>
-                  <Typography variant="h4" fontWeight={700} color="success.dark">{cgpa.toFixed(2)}</Typography>
+                  <Typography variant="h4" fontWeight={700} color="success.dark">{formatGpa(cgpa)}</Typography>
                 </Box>
               )}
               <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>

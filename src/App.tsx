@@ -6,6 +6,7 @@ import GpaTools from "./pages/GpaTools";
 import WhatIfSimulator from "./pages/WhatIfSimulator";
 import TargetGpaCalculator from "./pages/TargetGpaCalculator";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const App = () => (
   <Router>
@@ -16,6 +17,7 @@ const App = () => (
       <Route path="/tools/what-if" element={<WhatIfSimulator />} />
       <Route path="/tools/target-gpa" element={<TargetGpaCalculator />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/admin" element={<AdminDashboard />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </Router>

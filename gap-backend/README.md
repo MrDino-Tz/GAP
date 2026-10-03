@@ -17,6 +17,7 @@ A FastAPI backend for the GAP (GPA Academic Planner) app. It provides the GPA ca
 | GET    | `/api/gpa/grade-for-score` | public | Letter grade + grade point for a score (0-100)       |
 | POST   | `/api/gpa/semester`        | public | Compute semester GPA from module grades              |
 | POST   | `/api/gpa/cgpa`            | public | Compute cumulative GPA across semesters              |
+| POST   | `/api/gpa/target`          | public | Required GPA to reach a target CGPA                  |
 | POST   | `/api/visit`               | public | Record a page view (`{"path": "/"}`)                 |
 | GET    | `/api/count`               | public | Total `{views, unique, calculations}`                |
 | GET    | `/api/stats`               | admin  | Detailed stats (daily series, top paths, recent)     |
@@ -50,6 +51,20 @@ POST /api/gpa/cgpa
   ]
 }
 ```
+
+Target GPA (what you need this semester to reach a desired CGPA):
+
+```json
+POST /api/gpa/target
+{
+  "currentCgpa": 3.2,
+  "completedCreditHours": 84,
+  "semesterCreditHours": 18,
+  "targetCgpa": 3.5
+}
+```
+
+All GPA endpoints support `"record": false` to skip writing an entry to the calculations log (use it for live slider/one-shot recomputes).
 
 ## Run locally
 

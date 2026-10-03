@@ -13,6 +13,7 @@ export interface Semester {
 
 export interface Programme {
   id: number;
+  universityId: number;
   name: string;
   ntaLevel: number;
   semesters: Semester[];
@@ -75,6 +76,7 @@ export const programmes: Programme[] = [
   {
     id: 10,
     name: "Bachelor of Information Technology (BIT)",
+    universityId: 1,
     ntaLevel: 7,
     semesters: [
       // Semester I
@@ -346,6 +348,7 @@ export const programmes: Programme[] = [
   {
     id: 9,
     name: "Bachelor of Economics and Project Management (BEPM)",
+    universityId: 1,
     ntaLevel: 7,
     semesters: [
       // Semester I
@@ -605,6 +608,7 @@ export const programmes: Programme[] = [
   {
     id: 8,
     name: "Bachelor of Computer Science (BCS)",
+    universityId: 1,
     ntaLevel: 7,
     semesters: [
       // Semester I
@@ -870,6 +874,7 @@ export const programmes: Programme[] = [
   {
     id: 7,
     name: "Bachelor of Finance and Banking (BFB)",
+    universityId: 1,
     ntaLevel: 7,
     semesters: [
       // Semester I
@@ -1147,6 +1152,7 @@ export const programmes: Programme[] = [
   {
     id: 6,
     name: "Bachelor of Auditing and Assurance (BAA)",
+    universityId: 1,
     ntaLevel: 7,
     semesters: [
       // Semester I
@@ -1424,6 +1430,7 @@ export const programmes: Programme[] = [
   {
     id: 5,
     name: "Bachelor of Accountancy with Information Technology (BA-IT)",
+    universityId: 1,
     ntaLevel: 7,
     semesters: [
       // Semester I
@@ -1646,6 +1653,7 @@ export const programmes: Programme[] = [
   {
     id: 4,
     name: "Bachelor of Accounting and Finance (BAF)",
+    universityId: 1,
     ntaLevel: 7,
     semesters: [
       // Semester I
@@ -1923,6 +1931,7 @@ export const programmes: Programme[] = [
   {
     id: 1,
     name: "Bachelor of Accountancy (BA)",
+    universityId: 1,
     ntaLevel: 7,
     semesters: [
       // Semester I
@@ -8802,6 +8811,511 @@ export const programmes: Programme[] = [
             creditHours: 60,
             class: "Core"
           }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1001,
+    universityId: 2,
+    name: "BSc Computer Science (UDSM)",
+    ntaLevel: 7,
+    semesters: [
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          { code: "CL 111", name: "Communication Skills for Engineers", creditHours: 12, class: "Core" },
+          { code: "DS 112", name: "Development Perspectives I", creditHours: 12, class: "Core" },
+          { code: "MT 100", name: "Foundations of Analysis", creditHours: 12, class: "Core" },
+          { code: "CS 151", name: "Computer Organization and Architecture I", creditHours: 12, class: "Core" },
+          { code: "CS 174", name: "Programming in C", creditHours: 12, class: "Core" },
+          { code: "IS 162", name: "Introduction to Information Systems", creditHours: 8, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          { code: "IS 158", name: "Computer Hardware and System Maintenance", creditHours: 8, class: "Core" },
+          { code: "CS 173", name: "Business Computer Communication", creditHours: 8, class: "Core" },
+          { code: "IS 143", name: "Discrete Structures", creditHours: 12, class: "Core" },
+          { code: "IS 171", name: "Introduction to Computer Networks", creditHours: 8, class: "Core" },
+          { code: "CS 175", name: "Programming in Java", creditHours: 12, class: "Core" },
+          { code: "IS 181", name: "Web Programming", creditHours: 12, class: "Core" },
+          { code: "DS 113", name: "Development Perspectives II", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          { code: "CS 243", name: "Computer Network Design and Administration", creditHours: 12, class: "Core" },
+          { code: "IS 243", name: "Practical Training I", creditHours: 8, class: "Core" },
+          { code: "IS 238", name: "Mobile Application Development", creditHours: 12, class: "Core" },
+          { code: "IS 274", name: "Object Oriented Analysis and Design", creditHours: 8, class: "Core" },
+          { code: "IS 237", name: "Data Abstraction and Algorithms", creditHours: 12, class: "Core" },
+          { code: "IS 264", name: "Principles of Database Systems", creditHours: 12, class: "Core" },
+          { code: "IS 246", name: "Principles of Computer Graphics", creditHours: 8, class: "Core" },
+          { code: "IS 236", name: "Structured Systems Analysis and Design", creditHours: 8, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          { code: "CS 252", name: "Computer Organization and Architecture II", creditHours: 12, class: "Core" },
+          { code: "MT 249", name: "Mathematical Logic and Formal Semantics", creditHours: 12, class: "Core" },
+          { code: "CS 234", name: "Object Oriented Programming in Java", creditHours: 12, class: "Core" },
+          { code: "IS 239", name: "Algorithms and Complexity", creditHours: 8, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          { code: "IS 344", name: "Human Computer Interaction", creditHours: 12, class: "Core" },
+          { code: "IS 343", name: "Practical Training II", creditHours: 8, class: "Core" },
+          { code: "IS 367", name: "Management of Information Systems", creditHours: 8, class: "Core" },
+          { code: "IS 371", name: "Systems Administration in Linux", creditHours: 12, class: "Core" },
+          { code: "CS 334", name: "Principles of Operating Systems", creditHours: 12, class: "Core" },
+          { code: "CS 335", name: "Software Engineering", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          { code: "IE 445", name: "Entrepreneurship for Engineers", creditHours: 12, class: "Core" },
+          { code: "IS 335", name: "Final Year Project", creditHours: 16, class: "Core" },
+          { code: "IS 336", name: "Principles of Systems Security", creditHours: 8, class: "Core" },
+          { code: "IS 337", name: "Mobile Computing", creditHours: 8, class: "Core" },
+          { code: "IS 365", name: "Artificial Intelligence", creditHours: 8, class: "Core" }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1002,
+    universityId: 2,
+    name: "BSc Business Information Technology (UDSM)",
+    ntaLevel: 7,
+    semesters: [
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          { code: "CS 174", name: "Programming in C", creditHours: 12, class: "Core" },
+          { code: "DS 112", name: "Development Perspectives I", creditHours: 12, class: "Core" },
+          { code: "ST 113", name: "Basic Statistics", creditHours: 12, class: "Core" },
+          { code: "AC 100", name: "Principles of Accounting I", creditHours: 12, class: "Core" },
+          { code: "FN 100", name: "Principles of Microeconomic Analysis", creditHours: 12, class: "Core" },
+          { code: "MK 100", name: "Introduction to Business", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          { code: "CS 173", name: "Business Computer Communication", creditHours: 8, class: "Core" },
+          { code: "ST 114", name: "Probability Theory I", creditHours: 12, class: "Core" },
+          { code: "IS 171", name: "Introduction to Computer Networks", creditHours: 8, class: "Core" },
+          { code: "IS 181", name: "Web Programming", creditHours: 12, class: "Core" },
+          { code: "FN 101", name: "Principles of Macroeconomic Analysis", creditHours: 12, class: "Core" },
+          { code: "GM 100", name: "Principles and Practice of Management", creditHours: 12, class: "Core" },
+          { code: "DS 113", name: "Development Perspectives II", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          { code: "IS 237", name: "Data Abstraction and Algorithms", creditHours: 12, class: "Core" },
+          { code: "IS 264", name: "Principles of Database Systems", creditHours: 12, class: "Core" },
+          { code: "IS 274", name: "Object-oriented Analysis and Design", creditHours: 8, class: "Core" },
+          { code: "IS 243", name: "Practical Training I", creditHours: 8, class: "Core" },
+          { code: "IS 238", name: "Mobile Application Development", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          { code: "ST 119", name: "Operations Research I", creditHours: 12, class: "Core" },
+          { code: "CS 234", name: "Object-Oriented Programming in Java", creditHours: 12, class: "Core" },
+          { code: "IS 284", name: "Business Process Management", creditHours: 8, class: "Core" },
+          { code: "IS 285", name: "Programming in R", creditHours: 12, class: "Core" },
+          { code: "GM 200", name: "Business Law and Ethics", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          { code: "CS 334", name: "Principles of Operating Systems", creditHours: 12, class: "Core" },
+          { code: "CS 335", name: "Software Engineering", creditHours: 12, class: "Core" },
+          { code: "IS 384", name: "Software Project Management", creditHours: 8, class: "Core" },
+          { code: "IS 386", name: "Enterprise Systems", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          { code: "IS 369", name: "IT Audit and Controls", creditHours: 8, class: "Core" },
+          { code: "MK 301", name: "Entrepreneurship", creditHours: 12, class: "Core" },
+          { code: "IS 385", name: "Business Intelligence", creditHours: 12, class: "Core" },
+          { code: "IS 336", name: "Principles of Systems Security", creditHours: 8, class: "Core" },
+          { code: "IS 335", name: "Final Year Project", creditHours: 16, class: "Core" }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1003,
+    universityId: 2,
+    name: "Bachelor of Commerce in Accounting (UDSM)",
+    ntaLevel: 7,
+    semesters: [
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          { code: "AC 100", name: "Principles of Accounting I", creditHours: 12, class: "Core" },
+          { code: "FN 100", name: "Principles of Micro-economics", creditHours: 12, class: "Core" },
+          { code: "AC 103", name: "Public Finance and Taxation", creditHours: 12, class: "Core" },
+          { code: "FN 103", name: "Principles of Finance", creditHours: 12, class: "Core" },
+          { code: "DS 114", name: "Development Perspectives I", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          { code: "AC 101", name: "Principles of Accounting II", creditHours: 12, class: "Core" },
+          { code: "FN 106", name: "Financial Management", creditHours: 12, class: "Core" },
+          { code: "AC 104", name: "Cost Accounting", creditHours: 12, class: "Core" },
+          { code: "FN 101", name: "Principles of Macro-economics", creditHours: 12, class: "Core" },
+          { code: "DS 115", name: "Development Perspectives II", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          { code: "AC 200", name: "Managerial Accounting", creditHours: 12, class: "Core" },
+          { code: "AC 201", name: "Intermediate Accounting", creditHours: 12, class: "Core" },
+          { code: "AC 203", name: "Accounting Systems and Data Analytics", creditHours: 12, class: "Core" },
+          { code: "EC 219", name: "Econometrics I", creditHours: 12, class: "Core" },
+          { code: "HR 200", name: "Organization Behaviour", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          { code: "AC 205", name: "Auditing and Assurance", creditHours: 12, class: "Core" },
+          { code: "AC 206", name: "Financial Reporting", creditHours: 12, class: "Core" },
+          { code: "AC 207", name: "Income Taxation", creditHours: 12, class: "Core" },
+          { code: "EC 229", name: "Econometrics II", creditHours: 12, class: "Core" },
+          { code: "GM 200", name: "Business Law and Ethics", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          { code: "GM 300", name: "Strategic Management", creditHours: 12, class: "Core" },
+          { code: "AC 301", name: "Indirect Taxes", creditHours: 12, class: "Core" },
+          { code: "AC 302", name: "Corporate Governance and Ethics", creditHours: 12, class: "Core" },
+          { code: "AC 333", name: "Accounting Industrial Placement", creditHours: 24, class: "Core" },
+          { code: "FN 250", name: "Financial Literacy (Self-study)", creditHours: 0, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          { code: "AC 304", name: "Advanced Financial Accounting", creditHours: 12, class: "Core" },
+          { code: "AC 305", name: "Advanced Auditing and Assurance Services", creditHours: 12, class: "Core" },
+          { code: "AC 306", name: "Advanced Management and Cost Accounting", creditHours: 12, class: "Core" },
+          { code: "MK 360", name: "Entrepreneurship and Innovation", creditHours: 12, class: "Core" },
+          { code: "MK 324", name: "Management Consulting", creditHours: 12, class: "Core" }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1004,
+    universityId: 2,
+    name: "BSc Mathematics and Statistics (UDSM)",
+    ntaLevel: 7,
+    semesters: [
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          { code: "MT 100", name: "Foundations of Analysis", creditHours: 12, class: "Core" },
+          { code: "MT 127", name: "Linear Algebra 1", creditHours: 12, class: "Core" },
+          { code: "ST 113", name: "Basic Statistics", creditHours: 12, class: "Core" },
+          { code: "FN 100", name: "Principles of Microeconomics", creditHours: 12, class: "Core" },
+          { code: "DS 112", name: "Development Perspectives I", creditHours: 12, class: "Core" },
+          { code: "MT 114", name: "Computer Programming", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          { code: "MT 135", name: "Ordinary Differential Equation I", creditHours: 12, class: "Core" },
+          { code: "FN 101", name: "Principles of Macroeconomics", creditHours: 12, class: "Core" },
+          { code: "DS 113", name: "Development Perspectives II", creditHours: 12, class: "Core" },
+          { code: "MT 120", name: "Analysis I: Functions of Single Variable", creditHours: 12, class: "Core" },
+          { code: "ST 114", name: "Probability Theory I", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          { code: "MT 200", name: "Analysis 2: Functions of Several Variables", creditHours: 12, class: "Core" },
+          { code: "ST 210", name: "Probability Distributions I", creditHours: 12, class: "Core" },
+          { code: "ST 218", name: "Applied Statistics I", creditHours: 12, class: "Core" },
+          { code: "MT 225", name: "Partial Differential Equations", creditHours: 12, class: "Core" },
+          { code: "ST 212", name: "Statistical Inference I", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          { code: "MT 278", name: "Linear Programming", creditHours: 12, class: "Core" },
+          { code: "MT 274", name: "Numerical Analysis 1", creditHours: 12, class: "Core" },
+          { code: "ST 211", name: "Probability Distributions II", creditHours: 12, class: "Core" },
+          { code: "ST 219", name: "Applied Statistics II", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          { code: "MT 357", name: "Abstract Algebra", creditHours: 12, class: "Core" },
+          { code: "ST 310", name: "Statistical Inference II", creditHours: 12, class: "Core" },
+          { code: "MT 340", name: "Analysis 4: Real Analysis", creditHours: 12, class: "Core" },
+          { code: "MT 310", name: "Complex Analysis", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          { code: "ST 318", name: "Sampling Theory and Methodology", creditHours: 12, class: "Core" },
+          { code: "ST 316", name: "Statistical Quality Control", creditHours: 12, class: "Core" },
+          { code: "ST 321", name: "Regression Analysis", creditHours: 12, class: "Core" },
+          { code: "MT 398", name: "Practical Training", creditHours: 8, class: "Core" },
+          { code: "MT 389", name: "Project", creditHours: 8, class: "Core" },
+          { code: "MT 360", name: "Functional Analysis", creditHours: 12, class: "Core" }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1005,
+    universityId: 2,
+    name: "BSc Civil Engineering (UDSM)",
+    ntaLevel: 8,
+    semesters: [
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          { code: "CL 111", name: "Communication Skills for Engineers", creditHours: 12, class: "Core" },
+          { code: "EE 171", name: "Computers Programming for Engineers", creditHours: 8, class: "Core" },
+          { code: "DS 114", name: "Development Perspectives I", creditHours: 12, class: "Core" },
+          { code: "SC 101", name: "Civil Engineering Drawing I", creditHours: 10, class: "Core" },
+          { code: "SC 121", name: "Statics", creditHours: 12, class: "Core" },
+          { code: "TR 111", name: "Engineering Surveying I", creditHours: 8, class: "Core" },
+          { code: "MT 161", name: "Matrices and Basic Calculus for Non-Majors", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          { code: "SC 102", name: "Civil Engineering Drawing II", creditHours: 10, class: "Core" },
+          { code: "SC 112", name: "Construction Materials I", creditHours: 12, class: "Core" },
+          { code: "SC 122", name: "Dynamics of Solids", creditHours: 8, class: "Core" },
+          { code: "DS 115", name: "Development Perspectives II", creditHours: 8, class: "Core" },
+          { code: "TR 112", name: "Engineering Surveying II", creditHours: 8, class: "Core" },
+          { code: "MT 171", name: "One Variable Calculus and Differential Equation for Non-Majors", creditHours: 12, class: "Core" },
+          { code: "SC 104", name: "Fundamentals of Building Design", creditHours: 8, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          { code: "SC 211", name: "Civil Engineering Materials II", creditHours: 12, class: "Core" },
+          { code: "SC 201", name: "Mechanics of Materials", creditHours: 8, class: "Core" },
+          { code: "MT 261", name: "Several Variable Calculus for Non-Majors", creditHours: 12, class: "Core" },
+          { code: "TR 231", name: "Geology for Civil Engineers", creditHours: 8, class: "Core" },
+          { code: "WR 211", name: "Fluid Mechanics for Civil Engineers", creditHours: 12, class: "Core" },
+          { code: "SC 221", name: "Analysis of Statically Determinate Structures", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          { code: "MT 271", name: "Statistics for Non-Majors", creditHours: 12, class: "Core" },
+          { code: "TR 221", name: "Transportation System and Planning", creditHours: 12, class: "Core" },
+          { code: "TR 232", name: "Soil Mechanics", creditHours: 12, class: "Core" },
+          { code: "WR 212", name: "Open Channel Hydraulics", creditHours: 8, class: "Core" },
+          { code: "WR 213", name: "Hydraulic Practicals", creditHours: 4, class: "Core" },
+          { code: "WR 231", name: "Water Supply and Treatment", creditHours: 12, class: "Core" },
+          { code: "SC 222", name: "Analysis of Statically Indeterminate Structures", creditHours: 12, class: "Core" },
+          { code: "CE 100", name: "Practical Training I", creditHours: 8, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          { code: "SC 341", name: "Design of Reinforced Concrete Structures I", creditHours: 8, class: "Core" },
+          { code: "TR 334", name: "Foundation Engineering I", creditHours: 8, class: "Core" },
+          { code: "TR 331", name: "Highway Materials", creditHours: 12, class: "Core" },
+          { code: "WR 321", name: "Engineering Hydrology", creditHours: 12, class: "Core" },
+          { code: "TR 321", name: "Highway Route and Geometric Design", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          { code: "TR 335", name: "Foundation Engineering II", creditHours: 8, class: "Core" },
+          { code: "SC 342", name: "Design of Reinforced Concrete Structures II", creditHours: 8, class: "Core" },
+          { code: "SC 312", name: "Research Methodology for Civil Engineers", creditHours: 8, class: "Core" },
+          { code: "TR 323", name: "Traffic Engineering and Management", creditHours: 12, class: "Core" },
+          { code: "TR 324", name: "Pavement Design and Maintenance", creditHours: 12, class: "Core" },
+          { code: "SC 411", name: "Design of Steel Structures", creditHours: 8, class: "Core" },
+          { code: "SC 441", name: "Design of Masonry and Timber Structures", creditHours: 8, class: "Core" },
+          { code: "CE 200", name: "Practical Training II", creditHours: 8, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 7,
+        semesterName: "Semester VII",
+        modules: [
+          { code: "SC 401", name: "Construction Techniques and Site Organization", creditHours: 8, class: "Core" },
+          { code: "WR 410", name: "Design of Hydraulic Structures and Machinery", creditHours: 8, class: "Core" },
+          { code: "SC 431", name: "Engineering Economics and Planning Techniques", creditHours: 12, class: "Core" },
+          { code: "CE 498", name: "Final Project I", creditHours: 8, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 8,
+        semesterName: "Semester VIII",
+        modules: [
+          { code: "SC 432", name: "Civil Engineering Procedures & Ethics", creditHours: 8, class: "Core" },
+          { code: "WR 452", name: "Wastewater Treatment", creditHours: 12, class: "Core" },
+          { code: "IE 445", name: "Entrepreneurship for Engineers", creditHours: 12, class: "Core" },
+          { code: "CE 499", name: "Final Project II", creditHours: 12, class: "Core" },
+          { code: "CE 300", name: "Practical Training III", creditHours: 8, class: "Core" }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1006,
+    universityId: 2,
+    name: "Bachelor of Laws (LLB) (UDSM)",
+    ntaLevel: 8,
+    semesters: [
+      {
+        semesterNumber: 1,
+        semesterName: "Semester I",
+        modules: [
+          { code: "LW 100", name: "Constitutional Law I", creditHours: 12, class: "Core" },
+          { code: "LW 101", name: "Law of Contract", creditHours: 12, class: "Core" },
+          { code: "LW 102", name: "Criminal Law and Procedure I", creditHours: 12, class: "Core" },
+          { code: "LW 103", name: "Legal Method I", creditHours: 12, class: "Core" },
+          { code: "LW 108", name: "Communication Skills for Lawyers I", creditHours: 12, class: "Core" },
+          { code: "IS 131", name: "Computer Skills", creditHours: 12, class: "Core" },
+          { code: "DS 112", name: "Development Perspectives I", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 2,
+        semesterName: "Semester II",
+        modules: [
+          { code: "LW 104", name: "Constitutional Law II", creditHours: 12, class: "Core" },
+          { code: "LW 105", name: "Law of Contract II", creditHours: 12, class: "Core" },
+          { code: "LW 106", name: "Criminal Law and Procedure II", creditHours: 12, class: "Core" },
+          { code: "LW 107", name: "Legal Method II", creditHours: 12, class: "Core" },
+          { code: "LW 109", name: "Communication Skills for Lawyers II", creditHours: 12, class: "Core" },
+          { code: "DS 113", name: "Development Perspectives II", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 3,
+        semesterName: "Semester III",
+        modules: [
+          { code: "LW 200", name: "Administrative Law I", creditHours: 12, class: "Core" },
+          { code: "LW 201", name: "Public International Law", creditHours: 12, class: "Core" },
+          { code: "LW 202", name: "Land Law I", creditHours: 12, class: "Core" },
+          { code: "LW 203", name: "Law of Torts I", creditHours: 12, class: "Core" },
+          { code: "LW 205", name: "Legal History", creditHours: 12, class: "Core" },
+          { code: "LW 204", name: "Evidence I", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 4,
+        semesterName: "Semester IV",
+        modules: [
+          { code: "LW 206", name: "Administrative Law II", creditHours: 12, class: "Core" },
+          { code: "LW 207", name: "Land Law II", creditHours: 12, class: "Core" },
+          { code: "LW 208", name: "Law of Torts II", creditHours: 12, class: "Core" },
+          { code: "LW 209", name: "Evidence II", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 5,
+        semesterName: "Semester V",
+        modules: [
+          { code: "LW 300", name: "Jurisprudence 1", creditHours: 12, class: "Core" },
+          { code: "LW 302", name: "Law of Business Associations", creditHours: 12, class: "Core" },
+          { code: "LW 303", name: "Labour Law", creditHours: 12, class: "Core" },
+          { code: "LW 307", name: "Law of Succession and Trusts", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 6,
+        semesterName: "Semester VI",
+        modules: [
+          { code: "LW 301", name: "Family Law", creditHours: 12, class: "Core" },
+          { code: "LW 304", name: "Legal Writing and Drafting", creditHours: 12, class: "Core" },
+          { code: "LW 305", name: "Legal Research", creditHours: 12, class: "Core" },
+          { code: "LW 306", name: "Jurisprudence II", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 7,
+        semesterName: "Semester VII",
+        modules: [
+          { code: "LW 400", name: "LL.B. Dissertation", creditHours: 24, class: "Core" },
+          { code: "LW 401", name: "Civil Procedure I", creditHours: 12, class: "Core" },
+          { code: "LW 403", name: "Private International Law", creditHours: 12, class: "Core" },
+          { code: "LW 404", name: "Legal Ethics", creditHours: 12, class: "Core" }
+        ]
+      },
+      {
+        semesterNumber: 8,
+        semesterName: "Semester VIII",
+        modules: [
+          { code: "LW 405", name: "Civil Procedure II", creditHours: 12, class: "Core" },
+          { code: "LW 402", name: "Arbitration and Alternative Dispute Resolution", creditHours: 12, class: "Core" },
+          { code: "LW 406", name: "Environmental Law", creditHours: 12, class: "Core" },
+          { code: "LW 407", name: "East African Community Law", creditHours: 12, class: "Core" }
         ]
       }
     ]

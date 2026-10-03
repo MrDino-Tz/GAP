@@ -422,6 +422,8 @@ interface FullReportSemester {
   gpa: number;
   totalCreditHours: number;
   modules: ModuleGrade[];
+  qualityPoints?: number;
+  passedModules?: number;
 }
 
 interface FullReportData {
@@ -499,8 +501,8 @@ export const exportFullReportPDF = async (data: FullReportData) => {
 
   for (let i = 0; i < data.semesters.length; i++) {
     const sem = data.semesters[i];
-    const passedModules = sem.modules.filter((m) => m.gradePoint >= 2.0).length;
-    const qualityPoints = sem.modules.reduce((sum, m) => sum + m.gradePoint * m.module.creditHours, 0);
+    const passedModules = sem.passedModules ?? sem.modules.filter((m) => m.gradePoint >= 2.0).length;
+    const qualityPoints = sem.qualityPoints ?? sem.modules.reduce((sum, m) => sum + m.gradePoint * m.module.creditHours, 0);
 
     if (cursorY + 30 > pageHeight - 30) {
       doc.addPage();

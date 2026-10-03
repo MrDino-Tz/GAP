@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box, Container, Typography, TextField, Card, CardContent, IconButton,
@@ -7,20 +7,33 @@ import {
 import { ArrowBack } from '@mui/icons-material';
 import { programmes } from '@/data/academicData';
 import { ACADEMIC_LEVELS } from '@/types/academic';
+import {
+  UNIVERSITIES, getUniversityById, getGradingPrecision,
+} from '@/types/university';
+import { calcTargetGPA, GradingConfig } from '@/lib/gpaApi';
 
 const TargetGpaCalculator = () => {
   const navigate = useNavigate();
+  const [selectedUniversity, setSelectedUniversity] = useState(getUniversityById(1));
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedProgramme, setSelectedProgramme] = useState(null);
   const [selectedSemester, setSelectedSemester] = useState(1);
   const [currentCgpa, setCurrentCgpa] = useState('');
   const [completedCredits, setCompletedCredits] = useState('');
   const [targetCgpa, setTargetCgpa] = useState('');
+  const [requiredGpa, setRequiredGpa] = useState(0);
+  const [isAchievable, setIsAchievable] = useState(true);
+  const [needsAtLeast, setNeedsAtLeast] = useState(0);
+  const [currentQualityPoints, setCurrentQualityPoints] = useState(0);
+  const [totalQualityPoints, setTotalQualityPoints] = useState(0);
+
+  const grading: GradingConfig = getGradingPrecision(selectedUniversity);
 
   const programmesForLevel = selectedLevel
     ? programmes.filter(p => {
         const level = ACADEMIC_LEVELS.find(l => l.id === selectedLevel);
-        return level ? level.ntaLevels.includes(p.ntaLevel) : false;
+        const universityOk = selectedUniversity ? p.universityId === selectedUniversity.id : true;
+        return universityOk && level ? level.ntaLevels.includes(p.ntaLevel) : false;
       })
     : [];
 
@@ -31,14 +44,31 @@ const TargetGpaCalculator = () => {
   const completedCreditsNum = parseFloat(completedCredits) || 0;
   const targetCgpaNum = parseFloat(targetCgpa) || 0;
 
-  const currentQualityPoints = currentCgpaNum * completedCreditsNum;
+  const inputKey = `${currentCgpaNum}|${completedCreditsNum}|${semesterCredits}|${targetCgpaNum}`;
 
-  const requiredGpa = targetCgpaNum > 0 && semesterCredits > 0
-    ? (targetCgpaNum * (completedCreditsNum + semesterCredits) - currentQualityPoints) / semesterCredits
-    : 0;
-
-  const isAchievable = requiredGpa <= 5 && requiredGpa >= 0;
-  const needsAtLeast = Math.max(0, requiredGpa);
+  useEffect(() => {
+    if (!currentCgpa || !completedCredits || !targetCgpa || !selectedProgramme || semesterCredits <= 0) return;
+    const timer = setTimeout(async () => {
+      try {
+        const result = await calcTargetGPA({
+          currentCgpa: currentCgpaNum,
+          completedCreditHours: completedCreditsNum,
+          semesterCreditHours: semesterCredits,
+          targetCgpa: targetCgpaNum,
+        }, false, grading);
+        setRequiredGpa(result.requiredGpa);
+        setIsAchievable(result.achievable);
+        setNeedsAtLeast(result.needsAtLeast);
+        setCurrentQualityPoints(result.currentQualityPoints);
+        setTotalQualityPoints(result.totalQualityPoints);
+      } catch {
+        // backend + local fallback both failed; keep previous result
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+    // recalc when any input changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputKey]);
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'grey.50' }}>
@@ -53,6 +83,14 @@ const TargetGpaCalculator = () => {
 
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Box sx={{ display: 'flex', gap: 2, mb: 4, flexWrap: 'wrap' }}>
+          <FormControl size="small" sx={{ minWidth: 200 }}>
+            <InputLabel>University</InputLabel>
+            <Select value={selectedUniversity?.id?.toString() || '1'} label="University" onChange={e => { setSelectedUniversity(getUniversityById(parseInt(e.target.value))); setSelectedLevel(null); setSelectedProgramme(null); }}>
+              {UNIVERSITIES.map(u => (
+                <MenuItem key={u.id} value={u.id.toString()}>{u.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <FormControl size="small" sx={{ minWidth: 200 }}>
             <InputLabel>Academic Level</InputLabel>
             <Select value={selectedLevel?.toString() || ''} label="Academic Level" onChange={e => { setSelectedLevel(parseInt(e.target.value)); setSelectedProgramme(null); }}>
@@ -149,12 +187,12 @@ const TargetGpaCalculator = () => {
                 Required GPA This Semester
               </Typography>
               <Typography variant="h2" fontWeight={700} sx={{ color: isAchievable ? 'success.main' : 'error.main' }}>
-                {isAchievable ? needsAtLeast.toFixed(2) : '—'}
+                {isAchievable ? needsAtLeast.toFixed(grading.decimals) : '—'}
               </Typography>
               {isAchievable ? (
                 <>
                   <Typography variant="body1" color="text.secondary" mt={1}>
-                    You need a GPA of at least <strong>{needsAtLeast.toFixed(2)}</strong> this semester
+                    You need a GPA of at least <strong>{needsAtLeast.toFixed(grading.decimals)}</strong> this semester
                     to reach a CGPA of <strong>{targetCgpaNum.toFixed(2)}</strong>.
                   </Typography>
                   <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
@@ -169,7 +207,7 @@ const TargetGpaCalculator = () => {
                       <Typography variant="caption" color="text.secondary">Credits this semester</Typography>
                     </Box>
                     <Box>
-                      <Typography variant="h5" fontWeight={600}>{(currentQualityPoints + needsAtLeast * semesterCredits).toFixed(1)}</Typography>
+                      <Typography variant="h5" fontWeight={600}>{totalQualityPoints.toFixed(1)}</Typography>
                       <Typography variant="caption" color="text.secondary">Total quality points</Typography>
                     </Box>
                   </Box>

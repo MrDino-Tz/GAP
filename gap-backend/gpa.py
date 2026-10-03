@@ -1,5 +1,6 @@
 """GPA calculation logic mirroring the GAP frontend (src/data/academicData.ts)."""
 
+import math
 from typing import Any, Dict, List, Optional
 
 # Official IAA grading scale
@@ -16,6 +17,18 @@ GRADE_POINTS: Dict[str, float] = {g["letterGrade"]: g["gradePoint"] for g in GRA
 PASS_GRADE_POINT = 2.0  # grade points >= this count as passed
 
 
+def apply_precision(value: float, precision: str = "round", decimals: int = 2) -> float:
+    """Round or truncate a value to the given number of decimals.
+
+    UDSM truncates its GPA down to one decimal point (no rounding); IAA uses
+    standard rounding to two decimal points.
+    """
+    factor = math.pow(10, decimals)
+    if precision == "truncate":
+        return math.trunc(value * factor) / factor
+    return round(value, decimals)
+
+
 def letter_grade_for_score(score: float) -> str:
     """Return the letter grade for a numeric score (0-100)."""
     for g in GRADING_SCALE:
@@ -29,7 +42,11 @@ def grade_point_for_grade(letter_grade: str) -> float:
     return GRADE_POINTS.get(letter_grade.upper().strip(), 0.0)
 
 
-def calculate_semester_gpa(modules: List[Dict[str, Any]]) -> Dict[str, Any]:
+def calculate_semester_gpa(
+    modules: List[Dict[str, Any]],
+    precision: str = "round",
+    decimals: int = 2,
+) -> Dict[str, Any]:
     """Compute semester GPA from a list of modules.
 
     Each module: {code?, name?, creditHours, gradePoint} or
@@ -78,7 +95,7 @@ def calculate_semester_gpa(modules: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     gpa = total_quality_points / total_credit_hours if total_credit_hours > 0 else 0.0
     return {
-        "gpa": round(gpa, 2),
+        "gpa": apply_precision(gpa, precision, decimals),
         "totalCreditHours": total_credit_hours,
         "totalQualityPoints": round(total_quality_points, 1),
         "passedModules": passed,
@@ -87,7 +104,51 @@ def calculate_semester_gpa(modules: List[Dict[str, Any]]) -> Dict[str, Any]:
     }
 
 
-def calculate_cgpa(semesters: List[Dict[str, Any]]) -> Dict[str, Any]:
+def calculate_target_gpa(
+    current_cgpa: float,
+    completed_credit_hours: float,
+    semester_credit_hours: float,
+    target_cgpa: float,
+    precision: str = "round",
+    decimals: int = 2,
+) -> Dict[str, Any]:
+    """Compute the semester GPA needed to reach a target CGPA.
+
+    Mirrors src/pages/TargetGpaCalculator.tsx:
+      requiredGpa     = (target * (completed + semester) - current * completed) / semester
+      isAchievable    = 0 <= requiredGpa <= 5 (max possible GPA)
+      needsAtLeast    = max(0, requiredGpa)
+      currentQualityPoints = current * completed
+      totalQualityPoints   = currentQualityPoints + needsAtLeast * semester
+    """
+    current_quality_points = current_cgpa * completed_credit_hours
+
+    if target_cgpa > 0 and semester_credit_hours > 0:
+        required_gpa = (
+            target_cgpa * (completed_credit_hours + semester_credit_hours)
+            - current_quality_points
+        ) / semester_credit_hours
+    else:
+        required_gpa = 0.0
+
+    is_achievable = 0.0 <= required_gpa <= 5.0
+    needs_at_least = max(0.0, required_gpa)
+    total_quality_points = current_quality_points + needs_at_least * semester_credit_hours
+
+    return {
+        "requiredGpa": apply_precision(required_gpa, precision, decimals),
+        "achievable": bool(is_achievable),
+        "needsAtLeast": apply_precision(needs_at_least, precision, decimals),
+        "currentQualityPoints": round(current_quality_points, 1),
+        "totalQualityPoints": round(total_quality_points, 1),
+    }
+
+
+def calculate_cgpa(
+    semesters: List[Dict[str, Any]],
+    precision: str = "round",
+    decimals: int = 2,
+) -> Dict[str, Any]:
     """Compute cumulative GPA from a list of semesters.
 
     Each semester: {semesterNumber?, semesterName?, gpa, totalCreditHours}.
@@ -128,7 +189,7 @@ def calculate_cgpa(semesters: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     cgpa = total_quality_points / total_credit_hours if total_credit_hours > 0 else 0.0
     return {
-        "cgpa": round(cgpa, 2),
+        "cgpa": apply_precision(cgpa, precision, decimals),
         "totalSemesters": len(semesters),
         "totalCreditHours": total_credit_hours,
         "totalQualityPoints": round(total_quality_points, 1),

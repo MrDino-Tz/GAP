@@ -41,6 +41,7 @@
     <h1>GAP Admin Dashboard</h1>
     <div>
       <button class="refresh" onclick="load()">Refresh</button>
+      <button class="refresh" style="background:#cf1322; margin-left:8px" onclick="clearData()">Clear data</button>
     </div>
   </header>
 
@@ -60,6 +61,17 @@
     <div class="panel">
       <h2>Top pages</h2>
       <table id="paths"><thead><tr><th>Path</th><th>Views</th></tr></thead><tbody></tbody></table>
+    </div>
+  </section>
+
+  <section class="panels" style="margin-top:16px">
+    <div class="panel">
+      <h2>Calculator usage</h2>
+      <table id="calcs"><thead><tr><th>Tool</th><th>Uses</th><th>Avg result</th><th>Last used</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="panel">
+      <h2>Recent calculations</h2>
+      <table id="recentCalcs"><thead><tr><th>Time</th><th>Tool</th><th>Result</th><th>Detail</th></tr></thead><tbody></tbody></table>
     </div>
   </section>
 
@@ -126,8 +138,39 @@
              <td>${r.label}</td>
            </tr>`
         ).join('');
+
+        document.querySelector('#calcs tbody').innerHTML = (data.calcBreakdown.length
+          ? data.calcBreakdown
+          : [{ label: '—', count: 0, avgResult: null, lastAt: null }]
+        ).map((c) => `<tr>
+          <td>${c.label}</td>
+          <td>${c.count}</td>
+          <td>${c.avgResult != null ? c.avgResult.toFixed(2) : '—'}</td>
+          <td>${c.lastAt ? new Date(c.lastAt).toLocaleString() : '—'}</td>
+        </tr>`).join('');
+
+        document.querySelector('#recentCalcs tbody').innerHTML = (data.recentCalculations.length
+          ? data.recentCalculations
+          : [{ at: '—', label: '—', result: '—', detail: 'No calculations yet' }]
+        ).map((c) => `<tr>
+          <td>${new Date(c.at).toLocaleString()}</td>
+          <td>${c.label}</td>
+          <td>${typeof c.result === 'number' ? c.result.toFixed(2) : c.result}</td>
+          <td>${c.detail}</td>
+        </tr>`).join('');
       } catch (err) {
         showError(err.message);
+      }
+    }
+
+    async function clearData() {
+      if (!confirm('Delete ALL visitor and calculation data? This cannot be undone.')) return;
+      try {
+        const res = await fetch(`/admin/clear?token=${encodeURIComponent(token)}`);
+        if (!res.ok) throw new Error('Unauthorized');
+        load();
+      } catch (err) {
+        showError('Could not clear data: ' + err.message);
       }
     }
 

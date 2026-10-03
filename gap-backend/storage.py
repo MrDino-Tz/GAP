@@ -140,6 +140,63 @@ def top_paths(limit: int = 10) -> list:
     return [{"path": r["path"], "views": r["views"]} for r in rows]
 
 
+CALC_LABELS = {
+    "semester_gpa": "Semester GPA",
+    "cgpa": "CGPA",
+    "target_gpa": "Target GPA",
+}
+
+
+def calc_breakdown(limit: int = 10) -> list:
+    with get_conn() as conn:
+        rows = conn.execute(
+            """
+            SELECT calc_type,
+                   COUNT(*) AS count,
+                   ROUND(AVG(result), 2) AS avg_result,
+                   MAX(created_at) AS last_at
+            FROM calculations
+            GROUP BY calc_type
+            ORDER BY count DESC
+            LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+    return [
+        {
+            "type": r["calc_type"],
+            "label": CALC_LABELS.get(r["calc_type"], r["calc_type"]),
+            "count": r["count"],
+            "avgResult": r["avg_result"],
+            "lastAt": r["last_at"],
+        }
+        for r in rows
+    ]
+
+
+def recent_calculations(limit: int = 20) -> list:
+    with get_conn() as conn:
+        rows = conn.execute(
+            """
+            SELECT created_at AS at, calc_type AS type,
+                   result, COALESCE(detail, '') AS detail
+            FROM calculations
+            ORDER BY id DESC LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+    return [
+        {
+            "at": r["at"],
+            "type": r["type"],
+            "label": CALC_LABELS.get(r["type"], r["type"]),
+            "result": r["result"],
+            "detail": r["detail"],
+        }
+        for r in rows
+    ]
+
+
 def recent_activity(limit: int = 20) -> list:
     with get_conn() as conn:
         views = conn.execute(

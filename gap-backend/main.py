@@ -15,16 +15,22 @@ import time
 from collections import defaultdict, deque
 from pathlib import Path
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 import gpa as gpa_logic
 import storage
+import httpx
 
 BASE_DIR = Path(__file__).resolve().parent
+
+# Load ADMIN_TOKEN and other settings from gap-backend/.env if present.
+# Values already in the environment (e.g. set by the host) take precedence.
+load_dotenv(BASE_DIR / ".env")
 
 app = FastAPI(
     title="GAP Backend",
@@ -41,7 +47,16 @@ app.add_middleware(
 )
 
 ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "change-me")
-RATE_LIMIT_PER_MINUTE = int(os.environ.get("RATE_LIMIT_PER_MINUTE", "25"))
+
+# Per-IP rate limits (requests per minute)
+VISIT_LIMIT_PER_MINUTE = int(os.environ.get("RATE_LIMIT_PER_MINUTE", "25"))
+GPA_LIMIT_PER_MINUTE = int(os.environ.get("GPA_RATE_LIMIT_PER_MINUTE", "120"))
+CHAT_LIMIT_PER_MINUTE = int(os.environ.get("CHAT_RATE_LIMIT_PER_MINUTE", "20"))
+
+# GAP Bot AI (server-side API key - never ship the key in the frontend)
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+GROQ_API_URL = os.environ.get("GROQ_API_URL", "https://api.groq.com/openai/v1/chat/completions")
+GROQ_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 
 _hits: "dict[str, deque[float]]" = defaultdict(deque)
 
@@ -59,12 +74,25 @@ def _visitor_id(request: Request) -> str:
 
 
 def _rate_limited(request: Request) -> bool:
+    return _rate_limited_bucket(request, "default", VISIT_LIMIT_PER_MINUTE)
+
+
+def _gpa_rate_limited(request: Request) -> bool:
+    return _rate_limited_bucket(request, "gpa", GPA_LIMIT_PER_MINUTE)
+
+
+def _chat_rate_limited(request: Request) -> bool:
+    return _rate_limited_bucket(request, "chat", CHAT_LIMIT_PER_MINUTE)
+
+
+def _rate_limited_bucket(request: Request, bucket_name: str, limit: int) -> bool:
     ip = _client_ip(request)
     now = time.time()
-    bucket = _hits[ip]
+    key = f"{bucket_name}|{ip}"
+    bucket = _hits[key]
     while bucket and bucket[0] < now - 60:
         bucket.popleft()
-    if len(bucket) >= RATE_LIMIT_PER_MINUTE:
+    if len(bucket) >= limit:
         return True
     bucket.append(now)
     return False
@@ -105,15 +133,41 @@ class Semester(BaseModel):
 class SemesterGPARequest(BaseModel):
     modules: List[CreditModule]
     record: bool = True
+    precision: Literal["round", "truncate"] = "round"
+    decimals: int = 2
 
 
 class CGPARequest(BaseModel):
     semesters: List[Semester]
     record: bool = True
+    precision: Literal["round", "truncate"] = "round"
+    decimals: int = 2
+
+
+class TargetGPARequest(BaseModel):
+    currentCgpa: float = 0
+    completedCreditHours: float = 0
+    semesterCreditHours: float = 0
+    targetCgpa: float = 0
+    record: bool = True
+    precision: Literal["round", "truncate"] = "round"
+    decimals: int = 2
 
 
 class VisitPayload(BaseModel):
     path: Optional[str] = None
+
+
+class ChatMessage(BaseModel):
+    role: Literal["system", "user", "assistant"]
+    content: str
+
+
+class ChatRequest(BaseModel):
+    messages: List[ChatMessage] = []
+    maxTokens: int = 600
+    temperature: float = 0.7
+    topP: float = 0.9
 
 
 # ---------------------------------------------------------------------------
@@ -129,7 +183,9 @@ def root():
             "/api/gpa/grading-scale",
             "/api/gpa/semester",
             "/api/gpa/cgpa",
+            "/api/gpa/target",
             "/api/gpa/grade-for-score",
+            "/api/chat",
             "/api/visit",
             "/api/count",
             "/api/stats (admin)",
@@ -165,13 +221,13 @@ def grade_for_score(score: float):
 
 @app.post("/api/gpa/semester")
 def semester_gpa(req: SemesterGPARequest, request: Request):
-    if _rate_limited(request):
+    if _gpa_rate_limited(request):
         raise HTTPException(status_code=429, detail="Too many requests. Slow down.")
     if not req.modules:
         raise HTTPException(status_code=400, detail="modules must not be empty")
 
     modules = [m.model_dump() for m in req.modules]
-    result = gpa_logic.calculate_semester_gpa(modules)
+    result = gpa_logic.calculate_semester_gpa(modules, precision=req.precision, decimals=req.decimals)
 
     if req.record:
         visitor = _visitor_id(request)
@@ -189,13 +245,13 @@ def semester_gpa(req: SemesterGPARequest, request: Request):
 
 @app.post("/api/gpa/cgpa")
 def cgpa(req: CGPARequest, request: Request):
-    if _rate_limited(request):
+    if _gpa_rate_limited(request):
         raise HTTPException(status_code=429, detail="Too many requests. Slow down.")
     if not req.semesters:
         raise HTTPException(status_code=400, detail="semesters must not be empty")
 
     semesters = [s.model_dump() for s in req.semesters]
-    result = gpa_logic.calculate_cgpa(semesters)
+    result = gpa_logic.calculate_cgpa(semesters, precision=req.precision, decimals=req.decimals)
 
     if req.record:
         visitor = _visitor_id(request)
@@ -209,6 +265,90 @@ def cgpa(req: CGPARequest, request: Request):
         except Exception:
             pass
     return result
+
+
+@app.post("/api/gpa/target")
+def target_gpa(req: TargetGPARequest, request: Request):
+    if _gpa_rate_limited(request):
+        raise HTTPException(status_code=429, detail="Too many requests. Slow down.")
+    if req.completedCreditHours < 0 or req.semesterCreditHours < 0:
+        raise HTTPException(status_code=400, detail="credit hours must not be negative")
+    if req.currentCgpa < 0 or req.targetCgpa < 0:
+        raise HTTPException(status_code=400, detail="CGPA values must not be negative")
+
+    result = gpa_logic.calculate_target_gpa(
+        current_cgpa=req.currentCgpa,
+        completed_credit_hours=req.completedCreditHours,
+        semester_credit_hours=req.semesterCreditHours,
+        target_cgpa=req.targetCgpa,
+        precision=req.precision,
+        decimals=req.decimals,
+    )
+
+    if req.record:
+        visitor = _visitor_id(request)
+        try:
+            storage.record_calculation(
+                visitor,
+                "target_gpa",
+                result["requiredGpa"],
+                detail=f"target CGPA {req.targetCgpa} -> required {result['requiredGpa']}",
+            )
+        except Exception:
+            pass
+    return result
+
+
+# ---------------------------------------------------------------------------
+# GAP Bot (AI chat) - proxies to Groq so the API key stays server-side
+# ---------------------------------------------------------------------------
+@app.post("/api/chat")
+async def chat(req: ChatRequest, request: Request):
+    if _chat_rate_limited(request):
+        raise HTTPException(status_code=429, detail="Please slow down and try again in a minute.")
+    if not req.messages or not any(m.role == "user" for m in req.messages):
+        raise HTTPException(status_code=400, detail="messages must include a user message")
+    if not GROQ_API_KEY:
+        raise HTTPException(
+            status_code=503,
+            detail="GAP AI is not configured yet. Ask your administrator to set GROQ_API_KEY.",
+        )
+
+    payload = {
+        "model": GROQ_MODEL,
+        "messages": [m.model_dump() for m in req.messages],
+        "max_tokens": max(1, min(int(req.maxTokens), 2000)),
+        "temperature": max(0.0, min(float(req.temperature), 2.0)),
+        "top_p": max(0.0, min(float(req.topP), 1.0)),
+    }
+    headers = {
+        "Authorization": f"Bearer {GROQ_API_KEY}",
+        "Content-Type": "application/json",
+    }
+
+    try:
+        async with httpx.AsyncClient(timeout=60) as client:
+            res = await client.post(GROQ_API_URL, json=payload, headers=headers)
+        if res.status_code != 200:
+            detail = res.text[:300]
+            try:
+                detail = (res.json().get("error") or {}).get("message", detail)
+            except Exception:
+                pass
+            if res.status_code == 429:
+                raise HTTPException(status_code=429, detail="Rate limit exceeded. Please try again shortly.")
+            if res.status_code in (401, 403):
+                raise HTTPException(status_code=502, detail="Invalid GROQ_API_KEY on the server.")
+            raise HTTPException(status_code=502, detail=f"AI provider error ({res.status_code}): {detail}")
+        data = res.json()
+        content = (data.get("choices") or [{}])[0].get("message", {}).get("content")
+        if not content:
+            raise HTTPException(status_code=502, detail="AI provider returned an empty response")
+        return {"content": content, "model": data.get("model", GROQ_MODEL)}
+    except HTTPException:
+        raise
+    except Exception as exc:  # network timeouts etc.
+        raise HTTPException(status_code=502, detail=f"AI provider request failed: {exc}")
 
 
 # ---------------------------------------------------------------------------
@@ -245,6 +385,8 @@ def get_stats(request: Request, days: int = 30):
         "daily": storage.daily_series(days),
         "topPaths": storage.top_paths(),
         "recent": storage.recent_activity(),
+        "calcBreakdown": storage.calc_breakdown(),
+        "recentCalculations": storage.recent_calculations(),
     }
 
 
