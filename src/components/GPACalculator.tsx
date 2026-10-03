@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import {
   Calculate as CalculateIcon, EmojiEvents, MenuBook,
-  Download, Delete, Close, Star, GitHub, Visibility, PictureAsPdf,
+  Download, Delete, Close, Star, GitHub, PictureAsPdf,
 } from '@mui/icons-material';
 import { 
   programmes, Programme, Module, gradingScale
@@ -151,7 +151,6 @@ const GPACalculator = () => {
   const [showAbout, setShowAbout] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [githubStars, setGithubStars] = useState(null);
-  const [visitCount, setVisitCount] = useState(null);
   const [toast, setToast] = useState({ open: false, title: '', description: '', severity: 'success' });
 
   const closeToast = () => setToast((prev) => ({ ...prev, open: false }));
@@ -175,11 +174,9 @@ const GPACalculator = () => {
   }, []);
 
   useEffect(() => {
-    const incrementAndFetch = async () => {
-      const count = await trackVisitor();
-      setVisitCount(count);
-    };
-    incrementAndFetch();
+    // Counting still runs so the admin dashboard keeps its stats; the number is
+    // intentionally not displayed anywhere in the UI.
+    trackVisitor();
   }, []);
 
   const programmesForLevel = selectedLevel
@@ -522,10 +519,6 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
               <Star sx={{ fontSize: 12 }} color="warning" />
               <Typography variant="body2">{githubStars !== null ? githubStars : '...'}</Typography>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.primary' }}>
-              <Visibility sx={{ fontSize: 14, color: 'primary.main' }} />
-              <Typography variant="body2">{visitCount !== null ? visitCount : '...'}</Typography>
-            </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Button variant="outlined" size="small" sx={{ display: { xs: 'none', sm: 'inline-flex' } }} onClick={() => setShowHelp(true)}>Help</Button>
@@ -572,12 +565,6 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
                 <Star sx={{ fontSize: 14, color: 'warning.main' }} />
               </ListItemIcon>
               <ListItemText primary={githubStars !== null ? `${githubStars} stars` : '...'} />
-            </ListItem>
-            <ListItem button onClick={() => setMobileMenuOpen(false)}>
-              <ListItemIcon sx={{ minWidth: 36 }}>
-                <Visibility sx={{ fontSize: 18, color: 'primary.main' }} />
-              </ListItemIcon>
-              <ListItemText primary={visitCount !== null ? `${visitCount} visits` : '...'} />
             </ListItem>
           </List>
         </Box>
