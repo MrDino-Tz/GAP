@@ -87,6 +87,14 @@ export const apiBase = (): string | null => {
 
 let cachedGradingScale: GradingScaleEntry[] | null = null;
 
+const localScaleAsEntries: GradingScaleEntry[] = localGradingScale.map((g) => ({
+  letterGrade: g.letterGrade,
+  gradePoint: g.gradePoint,
+  minScore: g.minMark,
+  maxScore: g.maxMark,
+  remark: g.description,
+}));
+
 const postJson = async <T>(path: string, body: unknown): Promise<T> => {
   const res = await fetch(`${apiBase()}${path}`, {
     method: 'POST',
@@ -100,7 +108,7 @@ const postJson = async <T>(path: string, body: unknown): Promise<T> => {
 export const getGradingScale = async (): Promise<GradingScaleEntry[]> => {
   if (cachedGradingScale) return cachedGradingScale;
   const api = apiBase();
-  if (!api) return localGradingScale;
+  if (!api) return localScaleAsEntries;
   try {
     const res = await fetch(`${api}/api/gpa/grading-scale`);
     if (!res.ok) throw new Error('bad response');
@@ -108,7 +116,7 @@ export const getGradingScale = async (): Promise<GradingScaleEntry[]> => {
     cachedGradingScale = data.gradingScale as GradingScaleEntry[];
     return cachedGradingScale;
   } catch {
-    return localGradingScale;
+    return localScaleAsEntries;
   }
 };
 
