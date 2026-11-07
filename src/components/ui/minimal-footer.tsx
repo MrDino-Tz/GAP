@@ -32,7 +32,7 @@ export function MinimalFooter({
           <a href="https://www.heslb.go.tz/" style={{ margin: '0 8px', color: 'currentColor' }}>
             HESLB
           </a>
-          <a href="https://mwandishi.dtcwonders.online/-CV Writing" style={{ margin: '0 8px', color: 'currentColor' }}>
+          <a href="https://mwandishi.dtcwonders.online/" style={{ margin: '0 8px', color: 'currentColor' }}>
             CV Writing
           </a>
         </div>
