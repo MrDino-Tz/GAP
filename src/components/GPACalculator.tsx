@@ -596,13 +596,13 @@ universityName: savedSemesters.find((s) => s.universityName)?.universityName || 
           <Typography variant="body2" color="text.secondary" paragraph>
             GAP also features <strong>GAP Bot</strong>, an AI-powered academic chatbot that can answer your questions about GPA calculation, academic policies, and study tips. The chatbot is integrated directly into the calculator interface.
           </Typography>
-          <Typography variant="subtitle2" gutterBottom>About DTC Group</Typography>
+          <Typography variant="subtitle2" gutterBottom>About MrDino-Tz</Typography>
           <Typography variant="body2" color="text.secondary" paragraph>
-            GAP Calculator is developed and maintained by <strong>DTC Group</strong>, a team dedicated to creating innovative digital solutions for educational institutions. We specialize in developing tools that enhance the academic experience for students and educators alike.
+            GAP Calculator is developed and maintained by <strong>MrDino-Tz</strong>, dedicated to creating innovative digital solutions for educational institutions. We specialize in developing tools that enhance the academic experience for students and educators alike.
           </Typography>
           <Typography variant="subtitle2" gutterBottom>Disclaimer</Typography>
           <Typography variant="body2" color="text.secondary">
-            This tool is designed to assist students in calculating their GPAs and is not an official IAA application. Always verify your results with official IAA records. The developers (DTC Group) are not responsible for any discrepancies or academic decisions based on this calculator.
+            This tool is designed to assist students in calculating their GPAs and is not an official IAA application. Always verify your results with official IAA records. The developer (MrDino-Tz) not responsible for any discrepancies or academic decisions based on this calculator.
           </Typography>
         </DialogContent>
         <DialogActions>

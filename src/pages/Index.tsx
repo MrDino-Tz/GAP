@@ -1,10 +1,11 @@
 import GPACalculator from '@/components/GPACalculator';
 import heroImage from '@/assets/hero-academic.jpg';
 import { Box, Typography, Container } from '@mui/material';
+import { MinimalFooter } from '@/components/ui/minimal-footer';
 
 const Index = () => {
   return (
-    <Box sx={{ minHeight: '100vh' }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Box
         sx={{
           position: 'relative',
@@ -42,21 +43,11 @@ const Index = () => {
 
       <GPACalculator />
 
-      <Box
-        component="footer"
-        sx={{
-          py: 4,
-          borderTop: 1,
-          borderColor: 'divider',
-          bgcolor: 'grey.100',
-        }}
-      >
-        <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
-          <Typography variant="body2" color="text.secondary">
-            &copy; {new Date().getFullYear()} GAP - GPA Calculator . Developed with 💙 by DTC Team
-          </Typography>
-        </Container>
-      </Box>
+      <Box sx={{ flexGrow: 1 }} />
+
+      <MinimalFooter
+        year={new Date().getFullYear()}
+      />
     </Box>
   );
 };
