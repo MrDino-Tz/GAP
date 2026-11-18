@@ -1,18 +1,16 @@
 /**
  * Deployment-target detection.
  *
- * GAP now lives at https://gap.dtcwonders.online. The GitHub Pages deployment
- * (mrdino-tz.github.io/GAP) is retired and must not serve the app any more, so
- * it is replaced with a notice that links to the new site.
- *
- * Kept free of JSX so the host checks can be unit-tested directly.
+ * Notice is disabled by default so GitHub Pages (and all other hosts) serve
+ * the full app normally. Set VITE_FORCE_MIGRATION_NOTICE=1 if the notice needs
+ * to be previewed or re-enabled.
  */
 
 /** Where the app lives now. */
 export const NEW_SITE_URL = "https://gap.dtcwonders.online";
 
-/** Hostname suffixes served by the retired GitHub Pages deployment. */
-const RETIRED_HOST_SUFFIXES = ["github.io", "githubusercontent.com"];
+/** Hostname suffixes served by the retired deployment (if any). */
+const RETIRED_HOST_SUFFIXES: string[] = [];
 
 /**
  * True when the given hostname belongs to the retired GitHub Pages deployment.
